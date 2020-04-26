@@ -6,15 +6,16 @@ const Profile = () => {
         <div className='content'> 
             <img className='poster' src='https://www.elsetge.cat/myimg/f/55-558384_mountains-wallpapers-high-resolution-yosemite-desktop-background.jpg' />
 
-            <div class='profil-info'>
-                <img class='avatar' src='https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' />
-                <div class='description'>
+            <div className='profil-info'>
+                <img className='avatar' src='https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' />
+                <div className='description'>
+                    <h3 className='myname'>Olexander Ivashenko</h3>
                 </div>
             </div>
 
-            <div class='posts'>
+            <div className='posts'>
                 <div>
-                    new post
+                    New post
                 </div>
                 <div>
                     post 1
