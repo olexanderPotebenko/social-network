@@ -6,7 +6,7 @@ import MyPosts from './MyPosts/MyPosts.jsx';
 const Profile = () => {
 
     return (
-        <div className={cls.content}> 
+        <div> 
             <img className={cls.poster} src='https://www.elsetge.cat/myimg/f/55-558384_mountains-wallpapers-high-resolution-yosemite-desktop-background.jpg' />
 
             <div className={cls.profil_info}>
