@@ -1,5 +1,7 @@
 import React from 'react';
 import cls from './Profile.module.css';
+import CreatePost from './CreatePost/CreatePost.jsx';
+import MyPosts from './MyPosts/MyPosts.jsx';
 
 const Profile = () => {
 
@@ -13,20 +15,8 @@ const Profile = () => {
                     <h3 className={cls.myname}>Olexander Ivashenko</h3>
                 </div>
             </div>
-
-            <div className={cls.posts}>
-                <div>
-                    New post
-                </div>
-                <div>
-                    post 1
-                </div>
-                <div>
-                    post 2
-                </div>
-            </div>
-
-
+            <CreatePost />
+            <MyPosts />
 
         </div>
     );
