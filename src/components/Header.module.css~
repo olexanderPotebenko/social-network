@@ -1,0 +1,10 @@
+.header {
+    grid-area: hdr;
+
+    background-color: #5599ff;
+}
+
+.header-logo {
+    width: 30px;
+}
+
