@@ -4,7 +4,7 @@ import cls from './CreatePost.module.css';
 const CreatePost = () => {
 
     return (
-        <div>
+        <div className={cls.wraper}>
             <input placeholder='Enter new post'></input>
             <button>Enter</button>
         </div>

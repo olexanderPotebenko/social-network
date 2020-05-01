@@ -1,15 +1,18 @@
 import React from 'react';
 import cls from './Sidebar.module.css';
+import Item from './Item/Item.jsx';
 
 const Sidebar = () => {
     return (
-        <nav className={cls.sidebar}>
-            <div><a href=''>Profiles</a></div>
-            <div><a href=''>Messages</a></div>
-            <div><a href=''>News</a></div>
-            <div><a href=''>Music</a></div>
-            <div><a href=''>Settings</a></div>
-        </nav>
+        <div className={cls.sidebar}>
+            <nav className={cls.container}>
+                <Item link='/profile' text='Profiles' />
+                <Item link='/messages' text='Messages' />
+                <Item link='/news' text='News' />
+                <Item link='/music' text='Music' />
+                <Item link='/settings' text='Settings' />
+            </nav>
+        </div>
     )
 };
 

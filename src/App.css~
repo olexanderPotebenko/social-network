@@ -1,5 +1,5 @@
 .wrapper {
-    width: 1200px;
+    min-width: 600px;
     margin: 0 auto;
     min-height: 800px;
 
@@ -12,6 +12,13 @@
     grid-template-areas: 
     "hdr hdr"
     "sdb cnt";
+}
+
+
+.content {
+    grid-area: cnt;
+
+    background-color: #ffeeff;
 }
 
 

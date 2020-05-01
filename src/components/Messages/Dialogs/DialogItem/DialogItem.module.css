@@ -1,0 +1,12 @@
+.dialog__item {
+}
+
+.dialog__item a {
+    color: #4455ff;
+    text-decoration: none;
+}
+
+.dialog__item a.active {
+    color: #2233aa;
+    text-decoration: none;
+}

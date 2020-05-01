@@ -1,0 +1,13 @@
+.profil_info {
+    display: inline-block;
+}
+
+.avatar {
+    width: 70px;
+    float: left;
+}
+
+.description {
+    float: left;
+}
+
