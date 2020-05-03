@@ -5,14 +5,18 @@ import MyPosts from './MyPosts/MyPosts.jsx';
 import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 import Poster from './Poster/Poster.jsx';
 
-const Profile = () => {
+const Profile = (props) => {
 
     return (
         <div> 
             <Poster />
             <ProfileInfo />
-            <MyPosts />
-            <CreatePost />
+            <CreatePost 
+            profilePage={props.profilePage}
+            addPost={props.addPost}
+            addNewText={props.addNewText}
+            />
+            <MyPosts posts={props.profilePage.posts}/>
 
         </div>
     );

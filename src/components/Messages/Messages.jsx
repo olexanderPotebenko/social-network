@@ -8,8 +8,8 @@ const Messages = (props) => {
 
     return (
         <div className={cls.message__wraper}>
-            <Dialogs />
-            <DialogsContent />
+            <Dialogs dialogs={props.dialogs} />
+            <DialogsContent messages={props.messages} />
         </div>
     );
 };

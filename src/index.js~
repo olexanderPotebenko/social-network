@@ -17,4 +17,3 @@ export let AppRender = (state) => {
 };
 
 subscribe(AppRender);
-AppRender(state);

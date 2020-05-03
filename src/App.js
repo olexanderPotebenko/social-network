@@ -9,7 +9,17 @@ import News from './components/News/News.jsx';
 import Music from './components/Music/Music.jsx';
 import Settings from './components/Settings/Settings.jsx';
 
-function App() {
+function App(props) {
+
+    let ProfileData = () => ( 
+        <Profile profilePage={props.state.profilePage}
+        addNewText={props.addNewText}
+        addPost={props.addPost} 
+        />); 
+    let MessagesData = () => (
+        <Messages messagesPage={props.messagesPage}
+        />);
+
     return (
         <BrowserRouter>
             <div className='wrapper'>
@@ -18,8 +28,8 @@ function App() {
                 <Sidebar /> 
 
                 <div className='content'>
-                    <Route component={Profile} path='/profile'/>
-                    <Route component={Messages} path='/messages' />
+                    <Route render={ProfileData} path='/profile'/>
+                    <Route render={MessagesData} path='/messages' />
                     <Route component={News} path='/news' />
                     <Route component={Music} path='/music' />
                     <Route component={Settings} path='/settings' />
