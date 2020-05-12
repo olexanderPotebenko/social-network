@@ -12,12 +12,12 @@ import Settings from './components/Settings/Settings.jsx';
 function App(props) {
 
     let ProfileData = () => ( 
-        <Profile profilePage={props.state.profilePage}
-        addNewText={props.addNewText}
-        addPost={props.addPost} 
+        <Profile profilePage={props.store.state.profilePage}
+        addNewText={props.store.addNewText.bind(props.store)}
+        addPost={props.store.addPost.bind(props.store)} 
         />); 
     let MessagesData = () => (
-        <Messages messagesPage={props.messagesPage}
+        <Messages messagesPage={props.store.messagesPage}
         />);
 
     return (

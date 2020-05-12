@@ -1,20 +1,19 @@
 import React from 'react';
-import state from './State/State.js';
+import store from './Store/Store.js';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {subscribe, addPost, addNewText} from './State/State.js';
 
-window.state = state;
+window.store = store;
 
-export let AppRender = (state) => {
+let AppRender = (store) => {
     ReactDOM.render(
-        <App state={state} 
-        addNewText={addNewText}
-        addPost={addPost} />,
+        <App store={store} 
+        />,
         document.getElementById('root')
     );
 };
 
-subscribe(AppRender);
-AppRender(state);
+store.subscribe(AppRender);
+AppRender(store);
+
