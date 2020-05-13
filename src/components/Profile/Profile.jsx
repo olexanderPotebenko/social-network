@@ -12,9 +12,8 @@ const Profile = (props) => {
             <Poster />
             <ProfileInfo />
             <CreatePost 
+            dispatch={props.dispatch}
             profilePage={props.profilePage}
-            addPost={props.addPost}
-            addNewText={props.addNewText}
             />
             <MyPosts posts={props.profilePage.posts}/>
 

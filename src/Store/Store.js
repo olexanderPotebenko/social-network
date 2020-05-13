@@ -23,7 +23,24 @@ let store = {
     get state(){
         return this._state;
     },
-    addPost (message) {
+    subscribe (observer) {
+        this._AppRender = observer;
+    },
+    _AppRender (state) {
+        console.log('state changed');
+    },
+    dispatch(action) {
+        switch (action.type) {
+            case('ADD-POST'):
+                this._addPost(action.message);
+                break;
+            case('ADD-NEW-TEXT'):
+                this._addNewText(action.text);
+                break;
+        };
+    },
+    // method of components
+    _addPost (message) {
         let obj = {
             id: 6,
             message: message,
@@ -33,15 +50,9 @@ let store = {
         this._state.profilePage.posts.unshift(obj);
         this._AppRender(this);
     },
-    addNewText (text) {
+    _addNewText (text) {
         this._state.profilePage.textNewPost = text;
         this._AppRender(this);
-    },
-    subscribe (observer) {
-        this._AppRender = observer;
-    },
-    _AppRender (state) {
-        console.log('state changed');
     }
 
 };

@@ -5,13 +5,13 @@ const CreatePost = (props) => {
 
     let addPost =() => {
         let text = input.current.value;
-        props.addPost(text);
-        props.addNewText('');
+        props.dispatch({type: 'ADD-POST', message: text});
+        props.dispatch({type: 'ADD-NEW-TEXT', text: ''});
     };
 
     let addNewText = () => {
         let text = input.current.value;
-        props.addNewText(text);
+        props.dispatch({type: 'ADD-NEW-TEXT', text: text});
     };
 
     let input = React.createRef();

@@ -11,30 +11,15 @@ import Settings from './components/Settings/Settings.jsx';
 
 function App(props) {
 
-    let wrapper = function(func, context, message){
-        return function () {
-            console.log(message);
-            func.apply(context, arguments);
-        };
-    };
-
     let ProfileData = () => ( 
-        <Profile profilePage={props.store.state.profilePage}
-        addNewText={
-            wrapper(
-                props.store.addNewText,
-                props.store, 
-                'You added new symb in text area!'
-            )}
-        addPost={
-            wrapper(
-                props.store.addPost,
-                props.store,
-                'You added new post!'
-            )} 
+        <Profile 
+            profilePage={props.store.state.profilePage}
+            dispatch={props.store.dispatch.bind(props.store)}
         />); 
     let MessagesData = () => (
-        <Messages messagesPage={props.store.messagesPage}
+        <Messages 
+            messagesPage={props.store.messagesPage}
+            dispatch={props.store.dispatch.bind(props.store)}
         />);
 
     return (
