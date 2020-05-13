@@ -1,7 +1,0 @@
-.posts {
-    display: grid;
-    margin-top: 20px;
-    padding: 10px 0px 0px 30px;
-    background-color: #aabbff;
-    grid-gap: 20px;
-}
