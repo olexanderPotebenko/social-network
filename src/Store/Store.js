@@ -1,3 +1,7 @@
+import profileReducer from '../reducers/profileReducer.js';
+import messagesReducer from '../reducers/messagesReducer.js';
+import sidebarReducer from '../reducers/sidebarReducer.js';
+
 let store = {
     _state: {
         messagesPage: {
@@ -12,6 +16,8 @@ let store = {
                 {id: 4, message: 'great mood :)', likes: 10}
             ],
             textNewPost: ''
+        },
+        sidebar: {
         },
         users: [
             {name: 'Olexander', id: '1'},
@@ -30,31 +36,12 @@ let store = {
         console.log('state changed');
     },
     dispatch(action) {
-        switch (action.type) {
-            case('ADD-POST'):
-                this._addPost(action.message);
-                break;
-            case('ADD-NEW-TEXT'):
-                this._addNewText(action.text);
-                break;
-        };
-    },
-    // method of components
-    _addPost (message) {
-        let obj = {
-            id: 6,
-            message: message,
-            likes: 0
-        };
+        this.state.profilePage = profileReducer(this._state.profilePage, action);
+        this.state.messagesPage = messagesReducer(this._state.profilePage, action);
+        this.state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-        this._state.profilePage.posts.unshift(obj);
-        this._AppRender(this);
-    },
-    _addNewText (text) {
-        this._state.profilePage.textNewPost = text;
         this._AppRender(this);
     }
-
 };
 
 export default store;
