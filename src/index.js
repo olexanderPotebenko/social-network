@@ -1,19 +1,23 @@
 import React from 'react';
-import store from './Store/Store.js';
+import store from './Store/redux-store.js';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-window.store = store;
+//window.store = store;
 
-let AppRender = (store) => {
+let AppRender = (state) => {
     ReactDOM.render(
-        <App store={store} 
+        <App
+            store={store}
         />,
         document.getElementById('root')
     );
 };
 
-store.subscribe(AppRender);
-AppRender(store);
+AppRender(store.getState());
 
+store.subscribe(() => {
+    let state = store.getState();
+    AppRender(state)
+});

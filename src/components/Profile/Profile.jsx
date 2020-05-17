@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from './Profile.module.css';
-import CreatePost from './CreatePost/CreatePost.jsx';
-import MyPosts from './MyPosts/MyPosts.jsx';
+import CreatePostContainer from './CreatePostContainer/CreatePostContainer.jsx';
+import MyPostsContainer from './MyPostsContainer/MyPostsContainer.jsx';
 import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 import Poster from './Poster/Poster.jsx';
 
@@ -11,12 +11,8 @@ const Profile = (props) => {
         <div> 
             <Poster />
             <ProfileInfo />
-            <CreatePost 
-            dispatch={props.dispatch}
-            profilePage={props.profilePage}
-            />
-            <MyPosts posts={props.profilePage.posts}/>
-
+            <CreatePostContainer store={props.store} />
+            <MyPostsContainer store={props.store} /> 
         </div>
     );
 };

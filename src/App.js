@@ -13,13 +13,11 @@ function App(props) {
 
     let ProfileData = () => ( 
         <Profile 
-            profilePage={props.store.state.profilePage}
-            dispatch={props.store.dispatch.bind(props.store)}
+        store={props.store}
         />); 
     let MessagesData = () => (
         <Messages 
-            messagesPage={props.store.messagesPage}
-            dispatch={props.store.dispatch.bind(props.store)}
+        store={props.store}
         />);
 
     return (
@@ -40,5 +38,6 @@ function App(props) {
         </BrowserRouter>
     );
 }
+
 
 export default App;

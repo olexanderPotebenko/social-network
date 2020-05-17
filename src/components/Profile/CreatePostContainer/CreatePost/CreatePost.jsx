@@ -19,7 +19,7 @@ const CreatePost = (props) => {
         <div className={cls.wraper}>
             <textarea 
                 ref={input} 
-                value={props.profilePage.textNewPost}
+                value={props.textNewPost}
                 placeholder='Enter new post' 
                 onChange={addNewText}
             ></textarea>
