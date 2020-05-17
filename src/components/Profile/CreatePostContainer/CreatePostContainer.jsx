@@ -5,10 +5,12 @@ import StoreContext from './../../../StoreContext/StoreContext.jsx';
 const CreatePostContainer = (props) => {
     return (
         <StoreContext.Consumer>
-            {(store) => <CreatePost  
-                dispatch={store.dispatch}
-            textNewPost={store.getState().profilePage.textNewPost}/>}
-        </StoreContext.Consumer>
+            {
+                (store) => <CreatePost  
+                    dispatch={store.dispatch}
+                    textNewPost={store.getState().profilePage.textNewPost}/>
+            }
+                </StoreContext.Consumer>
     );
 };
 
