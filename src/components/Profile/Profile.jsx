@@ -11,8 +11,8 @@ const Profile = (props) => {
         <div> 
             <Poster />
             <ProfileInfo />
-            <CreatePostContainer store={props.store} />
-            <MyPostsContainer store={props.store} /> 
+            <CreatePostContainer />
+            <MyPostsContainer /> 
         </div>
     );
 };

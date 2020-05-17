@@ -1,11 +1,14 @@
 import React from 'react'
 import CreatePost from './CreatePost/CreatePost.jsx';
+import StoreContext from './../../../StoreContext/StoreContext.jsx';
 
 const CreatePostContainer = (props) => {
     return (
-        <CreatePost dispatch={props.store.dispatch}
-           textNewPost={props.store.getState().profilePage.textNewPost} 
-        />
+        <StoreContext.Consumer>
+            {(store) => <CreatePost  
+                dispatch={store.dispatch}
+            textNewPost={store.getState().profilePage.textNewPost}/>}
+        </StoreContext.Consumer>
     );
 };
 

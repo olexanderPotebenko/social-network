@@ -12,13 +12,9 @@ import Settings from './components/Settings/Settings.jsx';
 function App(props) {
 
     let ProfileData = () => ( 
-        <Profile 
-        store={props.store}
-        />); 
+        <Profile />); 
     let MessagesData = () => (
-        <Messages 
-        store={props.store}
-        />);
+        <Messages />);
 
     return (
         <BrowserRouter>
