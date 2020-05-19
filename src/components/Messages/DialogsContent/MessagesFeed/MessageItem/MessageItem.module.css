@@ -1,0 +1,22 @@
+.message__item__wrapper {
+    width: 100%;
+    vertical-align: bottom;
+    padding: 20px 0px 0px 0px;
+    float: right;
+}
+
+.text {
+    width: 60%;
+    vertical-align: bottom;
+    background-color: #ffffff;
+    padding: 20px 0px 0px 0px;
+    float: right;
+}
+
+.my__message {
+    float: right;
+}
+
+.no__my__message {
+    float: left;
+}

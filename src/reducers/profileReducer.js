@@ -12,31 +12,34 @@ let initial_state = {
 };
 
 let profileReducer = (state = initial_state, action) => {
+
     switch (action.type) {
         case(ADD_POST):
-            addPost.apply(state);
-            break;
+            return addPost(state);
         case(ADD_NEW_TEXT):
-            addNewText.apply(state, [action.text]);
-            break;
-
+            return addNewText(state, action.text);
     };
     return state;
 };
 
-    // method of components
-function addPost () {
-        let obj = {
-            id: 6,
-            message: this.textNewPost,
-            likes: 0
-        };
+// method of components
+function addPost (state) {
+    let state_copy = {...state};
+    state_copy.posts = [...state.posts];
+    let obj = {
+        id: 6,
+        message: state_copy.textNewPost,
+        likes: 0
+    };
 
-        this.posts.unshift(obj);
-    };
-function addNewText (text) {
-        this.textNewPost = text;
-    };
+    state_copy.posts.unshift(obj);
+    return state_copy;
+};
+function addNewText (state, text) {
+    let state_copy = {...state};
+    state_copy.textNewPost = text;
+    return state_copy;
+};
 
 export default profileReducer;
 

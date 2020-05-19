@@ -3,22 +3,13 @@ import store from './Store/redux-store.js';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {Provider} from './StoreContext/StoreContext.jsx';
+import {Provider} from 'react-redux';
 
 //window.store = store;
 
-let AppRender = (state) => {
-    ReactDOM.render(
-        <Provider store={store}>
+ReactDOM.render(
+    <Provider store={store}>
         <App />
-        </Provider>,
-        document.getElementById('root')
-    );
-};
+    </Provider>,
+    document.getElementById('root'));
 
-AppRender(store.getState());
-
-store.subscribe(() => {
-    let state = store.getState();
-    AppRender(state)
-});

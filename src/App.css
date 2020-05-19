@@ -1,13 +1,14 @@
 .wrapper {
-    min-width: 600px;
+    min-width: 900px;
+    max-width: 1800px;
     margin: 0 auto;
-    min-height: 800px;
+    height: 100vh; /*на всю высоту*/
 
     display: grid;
 
     grid-template-rows: 50px 1fr;
     grid-template-columns: 200px 1fr;
-    grid-gap: 8px;
+    grid-gap: 0px;
 
     grid-template-areas: 
     "hdr hdr"
@@ -15,10 +16,10 @@
 }
 
 
+
 .content {
     grid-area: cnt;
 
-    background-color: #ffeeff;
 }
 
 

@@ -1,17 +1,16 @@
 import React from 'react'
 import CreatePost from './CreatePost/CreatePost.jsx';
-import StoreContext from './../../../StoreContext/StoreContext.jsx';
+import {connect} from 'react-redux';
 
-const CreatePostContainer = (props) => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => <CreatePost  
-                    dispatch={store.dispatch}
-                    textNewPost={store.getState().profilePage.textNewPost}/>
-            }
-                </StoreContext.Consumer>
-    );
-};
+    let mapsStateToProps = (state) => ({
+        textNewPost: state.profilePage.textNewPost
+    });
+
+    let mapsDispatchToProps = (dispatch) => ({
+        dispatch: dispatch
+    });
+
+const CreatePostContainer = connect(mapsStateToProps, mapsDispatchToProps)(CreatePost); 
+
 
 export default CreatePostContainer;
