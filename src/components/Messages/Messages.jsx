@@ -1,15 +1,15 @@
 import React from 'react';
 import cls from './Messages.module.css';
 
-import Dialogs from './Dialogs/Dialogs.jsx';
-import DialogsContent from './DialogsContent/DialogsContent.jsx';
+import MessagesSidebar from './MessagesSidebar/MessagesSidebar.jsx';
+import MessagesContent from './MessagesContent/MessagesContent.jsx';
 
 const Messages = (props) => {
 
     return (
         <div className={cls.message__wraper}>
-            <Dialogs dialogs={props.dialogs} />
-            <DialogsContent messages={props.messages} />
+            <MessagesSidebar dialogs={props.dialogs} />
+            <MessagesContent messages={props.messages} />
         </div>
     );
 };

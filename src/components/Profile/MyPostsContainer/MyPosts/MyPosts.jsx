@@ -5,7 +5,6 @@ import Post from './Post/Post.jsx';
 
 const MyPosts = (props) => {
 
-    debugger;
     let posts = [];
     if(props.posts){
         posts = props.posts.map( (item) =>  

@@ -1,12 +1,12 @@
 import React from 'react';
-import cls from './Dialogs.module.css';
+import cls from './MessagesSidebar.module.css';
 import DialogItem from './DialogItem/DialogItem.jsx';
 
-const Dialogs = (props) => {
+const MessagesSidebar = (props) => {
 
     return (
         <div className={cls.dialogs}>
-            Dialogs
+            MessagesSidebar
             <DialogItem name='Sasha' id='1' />
             <DialogItem name='Sveta' id='2' />
             <DialogItem name='Serega' id='3'/>
@@ -16,4 +16,4 @@ const Dialogs = (props) => {
     );
 };
 
-export default Dialogs;
+export default MessagesSidebar;
