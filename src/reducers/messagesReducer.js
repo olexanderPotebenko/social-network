@@ -1,4 +1,4 @@
-export const ADD_NEW_TEXT = 'ADD-NEW-TEXT';
+export const ADD_NEW_TEXT_MESSAGE = 'ADD-NEW-TEXT-MESSAGE';
 export const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
 
 let initial_state = {
@@ -63,8 +63,10 @@ let initial_state = {
 
 let messagesReducer = (state = initial_state, action) => {
     switch (action.type) {
-        case ADD_NEW_TEXT: 
+        case ADD_NEW_TEXT_MESSAGE: 
             return addNewText(state, action.text, action.id);
+        case ADD_NEW_MESSAGE:
+            return addNewMessage(state, action.id);
         default: return state;
     };
 };
@@ -73,6 +75,16 @@ let addNewText = (state, text, id) => {
     let state_copy = {...state};
     state_copy.dialogs = [...state.dialogs];
     state_copy.dialogs[state.dialogs.findIndex(item => item.dialog_id == id)].textNewMessage = text;
+
+    return state_copy;
+};
+
+let addNewMessage = (state, id) => {
+    let state_copy = {...state};
+    state_copy.dialogs = [...state.dialogs];
+    state_copy.dialogs[0].messages = [...state.dialogs[0].messages];
+    state_copy.dialogs[0].messages.push({user_id: id, message_body: state_copy.dialogs[0].textNewMessage});
+    state_copy.dialogs[0].textNewMessage = '';
 
     return state_copy;
 };

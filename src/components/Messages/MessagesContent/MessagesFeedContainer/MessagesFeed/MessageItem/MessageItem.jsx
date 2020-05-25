@@ -6,7 +6,7 @@ const MessageItem = (props) => {
     return (
         <div className={cls.message__item__wrapper}>
             <div className={`${cls.text} ${cls.my__message}`}>
-                text
+                {props.message_body}  
             </div>
         </div>
     );

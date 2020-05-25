@@ -8,7 +8,7 @@ const Post = (props) => {
     
     return (
         <div>
-            <Avatar />
+            <Avatar avatar={props.avatar} />
            <Content message={props.message} />
             <Likes likes={props.likes} />
         </div>

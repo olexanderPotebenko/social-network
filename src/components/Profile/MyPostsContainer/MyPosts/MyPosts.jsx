@@ -8,7 +8,7 @@ const MyPosts = (props) => {
     let posts = [];
     if(props.posts){
         posts = props.posts.map( (item) =>  
-            (<Post message={item.message} likes={item.likes} ></Post>) 
+            (<Post avatar={props.avatar} message={item.message} likes={item.likes} ></Post>) 
         );
     }
 

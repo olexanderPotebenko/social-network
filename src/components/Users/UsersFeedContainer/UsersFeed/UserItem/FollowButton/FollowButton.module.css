@@ -1,0 +1,17 @@
+.follow_button_wrapper {
+    width: 200px;
+    height: 80px;
+    float: right;
+}
+
+.follow_button {
+    width: 100px;
+    margin: auto;
+}
+
+.follow_button > button {
+    display: block;
+    width: 100px;
+    height: 20px;
+    margin-top: 30px;
+}

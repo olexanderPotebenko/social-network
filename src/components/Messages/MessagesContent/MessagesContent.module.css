@@ -1,4 +1,5 @@
 .dialogs_content_wrapper {
+    display: block;
     height: 100%;
     background-color: #ffeeff;
 }

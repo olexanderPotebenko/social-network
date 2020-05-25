@@ -8,6 +8,7 @@ import Messages from './components/Messages/Messages.jsx';
 import News from './components/News/News.jsx';
 import Music from './components/Music/Music.jsx';
 import Settings from './components/Settings/Settings.jsx';
+import Users from './components/Users/Users.jsx';
 
 function App(props) {
 
@@ -26,6 +27,7 @@ function App(props) {
                 <div className='content'>
                     <Route render={ProfileData} path='/profile'/>
                     <Route render={MessagesData} path='/messages' />
+                    <Route component={Users} path='/users' />
                     <Route component={News} path='/news' />
                     <Route component={Music} path='/music' />
                     <Route component={Settings} path='/settings' />

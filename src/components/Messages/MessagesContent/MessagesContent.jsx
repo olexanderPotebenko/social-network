@@ -1,13 +1,13 @@
 import React from 'react';
 import cls from './MessagesContent.module.css';
-import MessagesFeed from './MessagesFeed/MessagesFeed.jsx';
+import MessagesFeedContainer from './MessagesFeedContainer/MessagesFeedContainer.jsx';
 import SendMessageContainer from './SendMessageContainer/SendMessageContainer.jsx';
 
 const MessagesContent = (props) => {
 
     return (
         <div className={cls.dialogs_content_wrapper}>
-            <MessagesFeed />
+            <MessagesFeedContainer />
             <SendMessageContainer /> 
         </div>
     );

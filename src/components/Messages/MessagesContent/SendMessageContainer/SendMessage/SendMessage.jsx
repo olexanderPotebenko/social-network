@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from './SendMessage.module.css';
 
-import {ADD_NEW_TEXT, ADD_NEW_MESSAGE} from '../../../../../reducers/messagesReducer.js';
+import {ADD_NEW_TEXT_MESSAGE, ADD_NEW_MESSAGE} from '../../../../../reducers/messagesReducer.js';
 
 const SendMessage = (props) => {
 
@@ -9,13 +9,13 @@ const SendMessage = (props) => {
 
     let addNewText = () => {
         let text = input.current.value;
-        props.dispatch({type: ADD_NEW_TEXT, text, id: 1});
+        props.dispatch({type: ADD_NEW_TEXT_MESSAGE, text, id: 1});
     };
 
     let addMessage = () => {
         let text = input.current.value;
         props.dispatch({type: ADD_NEW_MESSAGE, id: 1});
-        props.dispatch({type: ADD_NEW_TEXT, text, id: 1});
+        props.dispatch({type: ADD_NEW_TEXT_MESSAGE, text: '', id: 1});
     };
 
     return (

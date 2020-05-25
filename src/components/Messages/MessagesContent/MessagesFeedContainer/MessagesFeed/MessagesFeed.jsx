@@ -4,11 +4,8 @@ import MessageItem from './MessageItem/MessageItem.jsx';
 
 const MessagesFeed = (props) => {
 
-    let messages = [<MessageItem />];
-    messages.push(<MessageItem />);
-    messages.push(<MessageItem />);
-    messages.push(<MessageItem />);
-    messages.push(<MessageItem />);
+    let messages = props.messages.map(item => 
+        <MessageItem name={item.user_id} message_body={item.message_body} />);
 
     return (
         <div className={cls.messages__feed__wrapper}>

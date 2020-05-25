@@ -1,8 +1,12 @@
 .dialog__item {
+    background-color: #ff88ff;
+    width: 80%;
+    height: 30px;
+    margin: 10px auto;
+    text-align: center;
 }
 
 .dialog__item a {
-    color: #4455ff;
     text-decoration: none;
 }
 
