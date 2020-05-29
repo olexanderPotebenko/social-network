@@ -11,8 +11,8 @@ const UserInfo = (props) => {
         <div className={cls.user_info}>
             <UserAvatar avatar={props.avatar} />
             <UserName name={props.name} />
-            <UserAge birth_date={props.birth_date} />
-            <UserLocation location={props.location} />
+            {/*<UserAge birth_date={props.birth_date} />*/}
+            {/*<UserLocation location={props.location} /> */}
         </div>
     );
 };

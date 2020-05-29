@@ -9,12 +9,11 @@ const UserItem = (props) => {
         <div className={cls.user_item_wrapper}>
             <div className={cls.user_item}>
                 <UserInfo
-                    avatar={props.user.avatar}
+                    avatar={props.user.photos.large}
                     name={props.user.name}
-                    birth_date={props.user.birth_date}
-                    location={props.user.location} />
+                />
                     <FollowButton 
-                        user_id={props.user.user_id}
+                        user_id={props.user.id}
                         followed={props.user.followed}
                         follow={props.follow}
                         unfollow={props.unfollow}

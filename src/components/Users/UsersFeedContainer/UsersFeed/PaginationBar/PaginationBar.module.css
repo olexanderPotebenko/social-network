@@ -1,0 +1,17 @@
+.pagination_bar {
+    height: 20px;
+    display: inline-block;
+}
+
+.page_number {
+    background-color: #aa33ff;
+    text-align: center;
+    min-width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.selected_page {
+    background-color: #cc77ff;
+    font-weight: bold;
+}

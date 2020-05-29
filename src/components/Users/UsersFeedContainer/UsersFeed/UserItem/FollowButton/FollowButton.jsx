@@ -16,7 +16,6 @@ const FollowButton = (props) => {
             </button>)
     ;
 
-
     return (
         <div className={cls.follow_button_wrapper}>
             <div className={cls.follow_button}>

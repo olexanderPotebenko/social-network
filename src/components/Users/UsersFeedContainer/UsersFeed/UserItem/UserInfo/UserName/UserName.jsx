@@ -2,9 +2,14 @@ import React from 'react';
 
 const UserName = (props) => {
 
+    let name = {
+        first_name: props.name.split(' ')[0],
+        last_name: props.name.split(' ')[1] || ''
+    };
+
     return (
         <div>
-            {props.name.first_name + ' ' + props.name.last_name}
+            {name.first_name + ' ' + name.last_name}
         </div>
     );
 };
