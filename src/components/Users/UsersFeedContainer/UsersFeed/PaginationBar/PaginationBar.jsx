@@ -23,11 +23,13 @@ const PaginationBar = (props) => {
     };
 
     let onPageChanged = (page_current) => {
+        props.setIsFetching(true);
         props.setPageCurrent(page_current);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${page_current}&count=${props.page_size}`)
             .then((res) => {
                 props.setUsers(res.data.items);
                 props.setUsersCount(res.data.totalCount);
+                props.setIsFetching(false);
             });
     };
 

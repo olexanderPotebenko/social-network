@@ -1,0 +1,8 @@
+.users {
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    grid-template-areas: 
+    'filter'
+    'users_feed';
+    height: 100%;
+}

@@ -1,14 +1,55 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import * as axios from 'axios';
 import UsersFeed from './UsersFeed/UsersFeed.jsx';
-import {followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator} from '../../../reducers/usersReducer.js';
+import {followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../../reducers/usersReducer.js';
+
+class UsersFeedApiContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+    };
+
+    componentDidMount() {
+        this.props.setIsFetching(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.page_current}&count=${this.props.page_size}`)
+            .then((res) => {
+                this.props.setUsers(res.data.items);
+                this.props.setUsersCount(res.data.totalCount);
+                this.props.setIsFetching(false);
+            });
+    };
+
+    render () {
+
+        return (
+            <UsersFeed
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                users={this.props.users}
+                page_count={this.props.total_users_count/this.props.page_size}
+                page_current={this.props.page_current}
+                setUsers={this.props.setUsers}
+                setUsersCount={this.props.setUsersCount}
+                setPageCurrent={this.props.setPageCurrent}
+                page_size={this.props.page_size}
+                total_users_count={this.props.total_users_count}
+                is_fetching={this.props.is_fetching}
+                setIsFetching={this.props.setIsFetching}
+            />
+        );
+    };
+};
+
+
 
 let mapsStateToProps = (state) => {
     return {
         users: state.usersPage.users,
         page_size: state.usersPage.options.page_size,
         page_current: state.usersPage.options.page_current,
-        total_users_count: state.usersPage.options.total_users_count
+        total_users_count: state.usersPage.options.total_users_count,
+        is_fetching: state.usersPage.options.is_fetching,
     };
 };
 
@@ -20,10 +61,11 @@ let mapsDispatchToProps = (dispatch) => {
         unfollow: (user_id) => dispatch(unfollowedActionCreator(user_id)),
         setUsers: (users) => dispatch(setUsersActionCreator(users)),
         setUsersCount: (total_users_count) => dispatch(setUsersCountActionCreator(total_users_count)),
-        setPageCurrent: (page_current) => dispatch(setPageCurrentActionCreator(page_current))
+        setPageCurrent: (page_current) => dispatch(setPageCurrentActionCreator(page_current)),
+        setIsFetching: (is_fetching) => dispatch(setIsFetchingActionCreator(is_fetching)),
     };
 };
 
-const UsersFeedContainer = connect(mapsStateToProps, mapsDispatchToProps)(UsersFeed);
+const UsersFeedContainer = connect(mapsStateToProps, mapsDispatchToProps)(UsersFeedApiContainer);
 
 export default UsersFeedContainer;

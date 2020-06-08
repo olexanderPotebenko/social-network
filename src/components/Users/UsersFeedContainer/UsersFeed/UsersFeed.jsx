@@ -1,55 +1,43 @@
 import React from 'react';
 import UserItem from './UserItem/UserItem.jsx';
-import * as axios from 'axios';
 import PaginationBar from './PaginationBar/PaginationBar.jsx';
+import Preloader from '../../../commons/Preloader/Preloader.jsx';
+import cls from './UsersFeed.module.css';
 
-//const UsersFeed = (props) => {
-//
-//
-//    return (
-//        <div>
-//            {users}
-//        </div>
-//    );
-//};
+const UsersFeed = (props) => {
 
-class UsersFeed extends React.Component {
-    constructor(props) {
-        super(props);
-        
-    };
+    let users = props.users.map(item => {
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.page_current}&count=${this.props.page_size}`)
-            .then((res) => {
-                this.props.setUsers(res.data.items);
-                this.props.setUsersCount(res.data.totalCount);
-            });
-    };
+        return <UserItem 
+            follow={props.follow}
+            unfollow={props.unfollow}
+            user={item} />
+    });
 
-    render () {
-        let users = this.props.users.map(item => {
-            
-            return <UserItem 
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-                user={item} />
-        });
+    return (
+        <div className={cls.users_feed}>
 
-        return (
-            <div>
-                <PaginationBar
-                    page_count={this.props.total_users_count/this.props.page_size}
-                    page_current={this.props.page_current}
-                    setUsers={this.props.setUsers}
-                    setUsersCount={this.props.setUsersCount}
-                    setPageCurrent={this.props.setPageCurrent}
-                    page_size={this.props.page_size}
-                />
-                {users}
-            </div>
-        );
-    };
+
+            <PaginationBar
+                className={cls.users_feed_block_1}
+                classNam
+                page_count={props.total_users_count/props.page_size}
+                page_current={props.page_current}
+                setUsers={props.setUsers}
+                setUsersCount={props.setUsersCount}
+                setPageCurrent={props.setPageCurrent}
+                setIsFetching={props.setIsFetching}
+                page_size={props.page_size}
+            />
+                    <div className={cls.users_feed_block_2}>
+                    {
+                        !props.is_fetching? 
+                            users:
+                            <Preloader />
+                    }
+                        </div>
+                    </div>
+    );
 };
 
 

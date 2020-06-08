@@ -3,12 +3,14 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 const SET_PAGE_CURRENT = 'SET-PAGE-CURRENT';
+const SET_IS_FETCHING = 'SET-IS-FETCHING';
 
 const initial_state = {
     options: {
         page_size: 5,
         page_current: 1,
-        total_users_count: 0
+        total_users_count: 0,
+        is_fetching: false,
     },
         users: [
     //        {
@@ -62,6 +64,8 @@ let usersReducer = (state = initial_state, action) => {
             return setTotalUsersCount(state, action.total_users_count);
         case SET_PAGE_CURRENT:
             return setPageCurrent(state, action.page_current);
+        case SET_IS_FETCHING: 
+            return setIsFetching(state, action.is_fetching);
         default:
             return state;
     };
@@ -109,6 +113,13 @@ let setPageCurrent = (state, page_current) => {
     return state_copy;
 };
 
+let setIsFetching = (state, is_fetching) => {
+    let state_copy = {...state};
+    state_copy.options = {...state.options};
+    state_copy.options.is_fetching = is_fetching;
+    return state_copy;
+}
+
 export let followedActionCreator = user_id => {
     return {type: FOLLOW, user_id: user_id};
 };
@@ -126,6 +137,10 @@ export let setUsersCountActionCreator = total_users_count => {
 
 export let setPageCurrentActionCreator = page_current => {
     return {type: SET_PAGE_CURRENT, page_current};
+};
+
+export let setIsFetchingActionCreator = is_fetching => {
+    return {type: SET_IS_FETCHING, is_fetching};
 };
 
 export default usersReducer;

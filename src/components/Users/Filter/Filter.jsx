@@ -1,9 +1,10 @@
 import React from 'react';
+import cls from './Filter.module.css';
 
 const Filter = (props) => {
 
     return (
-        <div>
+        <div className={cls.filter}>
             filter
         </div>
     );

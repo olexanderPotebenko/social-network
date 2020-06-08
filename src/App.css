@@ -19,6 +19,8 @@
 
 .content {
     grid-area: cnt;
+    display: grid;
+    grid-template-rows: 1fr;
 
 }
 
