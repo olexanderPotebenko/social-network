@@ -11,15 +11,16 @@ const UserItem = (props) => {
                 <UserInfo
                     avatar={props.user.photos.large}
                     name={props.user.name}
+                    user_id={props.user.id}
                 />
-                    <FollowButton 
-                        user_id={props.user.id}
-                        followed={props.user.followed}
-                        follow={props.follow}
-                        unfollow={props.unfollow}
-                    />
+                        <FollowButton 
+                            user_id={props.user.id}
+                            followed={props.user.followed}
+                            follow={props.follow}
+                            unfollow={props.unfollow}
+                        />
+                            </div>
                         </div>
-                    </div>
     );
 };
 

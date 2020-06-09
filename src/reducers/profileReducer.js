@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_TEXT = 'ADD-NEW-TEXT';
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
 
 let initial_state = {
     posts: [
@@ -8,7 +9,8 @@ let initial_state = {
         {id: 3, message: 'This is my firs project on React!!!', likes: 3},
         {id: 4, message: 'great mood :)', likes: 10}
     ],
-    textNewPost: ''
+    textNewPost: '',
+    profile: null,
 };
 
 let profileReducer = (state = initial_state, action) => {
@@ -18,11 +20,12 @@ let profileReducer = (state = initial_state, action) => {
             return addPost(state);
         case(ADD_NEW_TEXT):
             return addNewText(state, action.text);
+        case(SET_USER_PROFILE):
+            return setUserProfile(state, action.profile);
     };
     return state;
 };
 
-// method of components
 function addPost (state) {
     let state_copy = {...state};
     state_copy.posts = [...state.posts];
@@ -40,6 +43,14 @@ function addNewText (state, text) {
     state_copy.textNewPost = text;
     return state_copy;
 };
+
+function setUserProfile (state, profile) {
+    let state_copy = {...state};
+    state_copy.profile = profile;
+    return state_copy;
+};
+
+export const setUserProfileActionCreator = profile => ({type: SET_USER_PROFILE, profile});
 
 export default profileReducer;
 

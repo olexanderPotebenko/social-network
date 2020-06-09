@@ -4,13 +4,23 @@ import CreatePostContainer from './CreatePostContainer/CreatePostContainer.jsx';
 import MyPostsContainer from './MyPostsContainer/MyPostsContainer.jsx';
 import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 import Poster from './Poster/Poster.jsx';
+import Preloader from '../commons/Preloader/Preloader.jsx';
 
 const Profile = (props) => {
 
+    if(!props.profile) {
+        return <Preloader />;
+    };
+
+    let {aboutMe, fullName, photos, contacts} = props.profile;
     return (
         <div> 
             <Poster />
-            <ProfileInfo />
+            <ProfileInfo 
+                aboutMe={aboutMe}
+                fullName={fullName}
+                photos={photos}
+                contacts={contacts} />
             <CreatePostContainer />
             <MyPostsContainer /> 
         </div>
