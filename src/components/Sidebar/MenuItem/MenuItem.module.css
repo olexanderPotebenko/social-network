@@ -1,0 +1,29 @@
+.link__container {
+    display: block;
+    height: 40px;
+    background-color: #555555;
+    display: block;
+    text-decoration: none;
+}
+
+.link__container :focus{
+    text-decoration: none;
+    background-color: #555555;
+}
+.link__container :active{
+    text-decoration: none;
+    background-color: #555555;
+}
+
+.text {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin: 5px;
+}
+
+.text:active {
+    text-decoration: none;
+}
+
+

@@ -1,10 +1,15 @@
 .header {
     grid-area: hdr;
+    background-color: #111020;
+}
 
-    background-color: #5599ff;
+.logo_wrapper {
+    margin: 10px;
+    margin-left: 15px;
 }
 
 .header_logo {
-    width: 30px;
+    width: 50px;
+    height: 35px;
 }
 

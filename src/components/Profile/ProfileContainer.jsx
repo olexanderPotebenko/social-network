@@ -11,7 +11,10 @@ class ProfileContainer extends React.Component {
 
     componentDidMount () {
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(obj => {
+        let user_id = this.props.match.params.user_id;
+        user_id = user_id || 2;
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${user_id}`).then(obj => {
             this.props.setUserProfile(obj.data);
         });
     }

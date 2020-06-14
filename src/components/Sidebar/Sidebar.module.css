@@ -1,11 +1,18 @@
 .sidebar {
     grid-area: sdb;
-
-    background-color: #9999ff;
+    box-shadow: inset 0px 2px 5px 0px rgba(122, 22, 222, .4);;
+    background-color: #201530;
 }
 
-.container {
+.auth_data {
+    height: 90px;
+    color: white;
+    background-color: #252059;
+}
+
+.menu_item{
+    margin-top: 13px;
     display: grid;
-    margin: 25px;
     grid-gap: 10px;
 }
+

@@ -3,12 +3,13 @@
     max-width: 1800px;
     margin: 0 auto;
     height: 100vh; /*на всю высоту*/
+    background-color: #010105;
 
     display: grid;
 
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 200px 1fr;
-    grid-gap: 0px;
+    grid-template-rows: 56px 1fr;
+    grid-template-columns: 250px 1fr;
+    grid-gap: 3px;
 
     grid-template-areas: 
     "hdr hdr"
@@ -18,6 +19,8 @@
 
 
 .content {
+    z-index: 10;
+    background-color: #ddbbff;
     grid-area: cnt;
     display: grid;
     grid-template-rows: 1fr;
