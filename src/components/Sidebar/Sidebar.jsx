@@ -2,14 +2,26 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import cls from './Sidebar.module.css';
 import MenuItem from './MenuItem/MenuItem.jsx';
+import default_avatar from '../../assets/images/avatar_default.png';
 
 const Sidebar = (props) => {
+
+    let avatar = props.photo || default_avatar;
     return (
         <div className={cls.sidebar}>
             <div className={cls.auth_data}>
                 {
-                    props.is_auth 
-                    ?'Olexander Moruzuk'
+                    props.data.is_auth 
+                    ?<div>
+                        <div className={cls.avatar}>
+                            <img src={avatar} />
+                        </div>
+                        <NavLink to='/signin' onClick={()=>{props.setAuthData({is_auth: false})}}>
+                            Exit
+                        </NavLink>
+                        <br></br>
+                        {props.data.name}
+                    </div>
                     :<div>
                         <NavLink to='/signin'>
                             {'Sign in'}

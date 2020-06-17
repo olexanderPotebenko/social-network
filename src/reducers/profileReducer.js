@@ -45,6 +45,7 @@ function addNewText (state, text) {
 };
 
 function setUserProfile (state, profile) {
+    debugger;
     let state_copy = {...state};
     state_copy.profile = profile;
     return state_copy;

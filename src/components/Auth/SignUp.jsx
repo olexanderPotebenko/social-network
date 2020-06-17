@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import * as axios from 'axios';
 import cls from './SignUp.module.css';
 
@@ -24,13 +25,15 @@ const SignUp  = (props) => {
             body: JSON.stringify(data),
         }).then(res => res.json()
         ).then(data => {
+            if(data.status_code === 0){
+                props.history.push(`/signin`);
+            };
             console.log(data);
         }).catch(err => {
             console.log(err)
         });
     };
 
-    debugger;
     return (
         <div className={cls.wrapper_container}>
             <div className={cls.items_container} >
@@ -56,7 +59,6 @@ const mapsStateToProps = (state) => {
 };
 
 const mapsDispatchToProps = {
-
 };
 
-export default connect(mapsStateToProps, mapsDispatchToProps)(SignUp);
+export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(SignUp));

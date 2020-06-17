@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Sidebar from './Sidebar.jsx';
+import {setAuthDataActionCreator} from '../../reducers/authReducer.js';
 
 class SidebarContainer extends React.Component {
 
@@ -20,6 +21,7 @@ const mapsStateToProps = (state) => {
 };
 
 const mapsDispatchToProps = {
+    setAuthData: setAuthDataActionCreator,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(Sidebar);

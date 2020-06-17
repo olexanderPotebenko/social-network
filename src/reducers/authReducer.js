@@ -1,9 +1,11 @@
 const SET_AUTH_DATA = 'SET-AUTH-DATA';
 
 const initial_state = {
-    user_id: null,
+    id: null,
     email: null,
-    login: null,
+    name: null,
+    token: null,
+    photo: null,
     is_auth: false,
     is_fetching: false,
 };
@@ -11,16 +13,19 @@ const initial_state = {
 const authReducer = (state = initial_state, action) => {
     switch (action.type) {
         case SET_AUTH_DATA: 
-            return setAuthData(state, action);
+            return setAuthData(state, action.data);
         default:
             return state;
     };
 };
 
-const setAuthData = (state, action) => {
+const setAuthData = (state, data) => {
+    debugger;
     return {
         ...state,
-        ...action.data,
+        is_auth: true,
+        ...data,
+        is_fetching: false,
     };
 };
 

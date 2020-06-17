@@ -12,13 +12,13 @@ const Profile = (props) => {
         return <Preloader />;
     };
 
-    let {aboutMe, fullName, photos, contacts} = props.profile;
+    let {status, name, photos, contacts} = props.profile;
     return (
         <div> 
             <Poster />
             <ProfileInfo 
-                aboutMe={aboutMe}
-                fullName={fullName}
+                aboutMe={status}
+                fullName={name}
                 photos={photos}
                 contacts={contacts} />
             <CreatePostContainer />

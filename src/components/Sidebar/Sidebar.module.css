@@ -16,3 +16,7 @@
     grid-gap: 10px;
 }
 
+.avatar img {
+    width: 60px;
+    float: left;
+}

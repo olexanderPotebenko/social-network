@@ -12,10 +12,12 @@ class ProfileContainer extends React.Component {
     componentDidMount () {
 
         let user_id = this.props.match.params.user_id;
-        user_id = user_id || 2;
+        user_id = user_id || '5ee941cfc6b8a15631284def';
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${user_id}`).then(obj => {
-            this.props.setUserProfile(obj.data);
+        axios.get(`http://127.0.0.1:8080/profile/${user_id}`).then(obj => {
+            if(obj.data.status_code === 0){
+                this.props.setUserProfile(obj.data.data);
+            };
         });
     }
 
