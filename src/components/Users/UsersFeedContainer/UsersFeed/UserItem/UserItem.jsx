@@ -18,6 +18,7 @@ const UserItem = (props) => {
                             followed={props.user.followed}
                             follow={props.follow}
                             unfollow={props.unfollow}
+                            auth={props.auth}
                         />
                             </div>
                         </div>

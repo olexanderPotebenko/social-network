@@ -11,6 +11,7 @@ const UsersFeed = (props) => {
         return <UserItem 
             follow={props.follow}
             unfollow={props.unfollow}
+            auth={props.auth}
             user={item} />
     });
 

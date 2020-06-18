@@ -36,6 +36,7 @@ class UsersFeedApiContainer extends React.Component {
                 total_users_count={this.props.total_users_count}
                 is_fetching={this.props.is_fetching}
                 setIsFetching={this.props.setIsFetching}
+                auth={this.props.auth}
             />
         );
     };
@@ -50,6 +51,7 @@ let mapsStateToProps = (state) => {
         page_current: state.usersPage.options.page_current,
         total_users_count: state.usersPage.options.total_users_count,
         is_fetching: state.usersPage.options.is_fetching,
+        auth: state.auth,
     };
 };
 
