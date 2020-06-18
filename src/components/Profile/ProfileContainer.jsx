@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component {
     componentDidMount () {
 
         let user_id = this.props.match.params.user_id;
-        user_id = user_id || '5ee941cfc6b8a15631284def';
+        user_id = user_id || '5ee978dad56af10db6e64ba5';
 
         axios.get(`http://127.0.0.1:8080/profile/${user_id}`).then(obj => {
             if(obj.data.status_code === 0){

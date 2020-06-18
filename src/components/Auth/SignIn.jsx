@@ -35,8 +35,8 @@ const SignIn  = (props) => {
         <div className={cls.wrapper_container}>
             <div className={cls.items_container} >
                 <h3>{'Authorization'}</h3>
-                <input placeholder='enter your email' ref={email_input} />
-                <input placeholder='enter password' ref={password_input} />
+                <input placeholder='enter your email' value='oleg.goncharenko@gmail.com' ref={email_input} />
+                <input placeholder='enter password' value='111111' ref={password_input} />
                 <div className={cls.sign_up_button} >
                     <button onClick={onSignIn}>
                         {'Sign in'}

@@ -14,7 +14,6 @@ class UsersFeedApiContainer extends React.Component {
         this.props.setIsFetching(true);
         axios.get(`http://127.0.0.1:8080/users/?page=${this.props.page_current}&count=${this.props.page_size}`)
             .then((res) => {
-                debugger;
                 this.props.setUsers(res.data.items);
                 this.props.setUsersCount(res.data.totalCount);
                 this.props.setIsFetching(false);
