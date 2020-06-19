@@ -31,7 +31,13 @@ const PaginationBar = (props) => {
     let onPageChanged = (page_current) => {
         props.setIsFetching(true);
         props.setPageCurrent(page_current);
-        axios.get(`http://127.0.0.1:8080/users/?page=${page_current}&count=${props.page_size}`)
+        axios.get(`http://127.0.0.1:8080/users/?page=${page_current}
+            &count=${props.page_size}`, {
+                headers: {
+                    'Content-Type': 'application/json;charset=utf=8',
+                    'Authorize': props.auth.token,
+                    'id': props.auth.id,
+                },})
             .then((res) => {
                 props.setUsers(res.data.items);
                 props.setUsersCount(res.data.totalCount);

@@ -13,15 +13,20 @@ const UserItem = (props) => {
                     name={props.user.name}
                     user_id={props.user.id}
                 />
-                        <FollowButton 
-                            user_id={props.user.id}
-                            followed={props.user.followed}
-                            follow={props.follow}
-                            unfollow={props.unfollow}
-                            auth={props.auth}
-                        />
-                            </div>
-                        </div>
+                        {
+                            ( () => {
+                                if(props.auth.is_auth)
+                                    return <FollowButton 
+                                        user_id={props.user.id}
+                                        followed={props.user.followed}
+                                        follow={props.follow}
+                                        unfollow={props.unfollow}
+                                        auth={props.auth}
+                                    />
+                            } )()
+                        }
+                                    </div>
+                                </div>
     );
 };
 

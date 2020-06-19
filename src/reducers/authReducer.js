@@ -20,7 +20,6 @@ const authReducer = (state = initial_state, action) => {
 };
 
 const setAuthData = (state, data) => {
-    debugger;
     return {
         ...state,
         is_auth: true,

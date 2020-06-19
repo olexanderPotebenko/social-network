@@ -20,6 +20,7 @@ const UsersFeed = (props) => {
 
 
             <PaginationBar
+                auth={props.auth}
                 className={cls.users_feed_block_1}
                 classNam
                 page_count={props.total_users_count/props.page_size}
