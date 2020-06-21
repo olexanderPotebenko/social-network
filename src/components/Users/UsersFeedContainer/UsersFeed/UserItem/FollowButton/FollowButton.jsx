@@ -21,14 +21,20 @@ const FollowButton = (props) => {
         props.unfollow(options);
     };
 
+    let isDisabled = () => {
+        return props.is_following_fetching.some(item => item === props.user_id);
+    };
+
     let button = props.followed 
         ?
         (<button
+            disabled={isDisabled()}
             onClick={onUnfollow}>
             FOLLOW
         </button>) 
         :
         (<button 
+            disabled={isDisabled()}
             onClick={onFollow}>
             UNFOLLOW
         </button>)

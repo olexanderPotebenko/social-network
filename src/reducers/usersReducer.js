@@ -1,10 +1,13 @@
 import {userApi, followApi} from '../api/api.js';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 const SET_PAGE_CURRENT = 'SET-PAGE-CURRENT';
 const SET_IS_FETCHING = 'SET-IS-FETCHING';
+const ADD_IS_FOLLOWING_FETCHING = 'ADD-IS-FOLLOWING-FETCHING';
+const REMOVE_IS_FOLLOWING_FETCHING = 'REMOVE-IS-FOLLOWING-FETCHING';
 
 const initial_state = {
     options: {
@@ -12,6 +15,7 @@ const initial_state = {
         page_current: 1,
         total_users_count: 0,
         is_fetching: false,
+        is_following_fetching: [],
     },
     users: [],
 };
@@ -30,6 +34,10 @@ let usersReducer = (state = initial_state, action) => {
             return setPageCurrent(state, action.page_current);
         case SET_IS_FETCHING: 
             return setIsFetching(state, action.is_fetching);
+        case ADD_IS_FOLLOWING_FETCHING:
+            return addIsFollowingFetching(state, action.id);
+        case REMOVE_IS_FOLLOWING_FETCHING:
+            return removeIsFollowingFetching(state, action.id);
         default:
             return state;
     };
@@ -84,6 +92,29 @@ let setIsFetching = (state, is_fetching) => {
     return state_copy;
 }
 
+let addIsFollowingFetching = (state, id) => {
+
+    return {
+        ...state,
+        options: {
+            ...state.options,
+            is_following_fetching: state.options.is_following_fetching.concat(id),
+        },
+    };
+};
+
+let removeIsFollowingFetching = (state, id) => {
+
+    return {
+        ...state,
+        options: {
+            ...state.options,
+            is_following_fetching: state.options.is_following_fetching.filter(item => item === id),
+        },
+    };
+};
+
+
 let followedActionCreator = user_id => {
     return {type: FOLLOW, user_id: user_id};
 };
@@ -107,6 +138,14 @@ let setIsFetchingActionCreator = is_fetching => {
     return {type: SET_IS_FETCHING, is_fetching};
 };
 
+let removeIsFollowingFetchingActionCreator = is_fetching => {
+    return {type: REMOVE_IS_FOLLOWING_FETCHING, is_fetching};
+};
+
+let addIsFollowingFetchingActionCreator = id => {
+    return {type: ADD_IS_FOLLOWING_FETCHING, id};
+};
+
 export const getUsers = (options) => dispatch => {
     dispatch(setIsFetchingActionCreator(true));
     userApi.getUsers(options)
@@ -118,20 +157,24 @@ export const getUsers = (options) => dispatch => {
 }
 
 export const follow = (options) => dispatch => {
+    dispatch(addIsFollowingFetchingActionCreator(options.user_id));
     followApi.follow(options)
         .then(data => {
             if(data.result_code === 0){
                 dispatch(followedActionCreator(options.user_id));
             };
+            dispatch(removeIsFollowingFetchingActionCreator(options.user_id));
         });
 };
 
 export const unfollow = (options) => dispatch => {
+    dispatch(addIsFollowingFetchingActionCreator(options.user_id));
     followApi.unfollow(options)
         .then(data => {
             if(data.result_code === 0){
                 dispatch(unfollowedActionCreator(options.user_id));
             };
+            dispatch(removeIsFollowingFetchingActionCreator(options.user_id));
         });
 };
 

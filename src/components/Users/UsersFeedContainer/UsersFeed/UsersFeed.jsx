@@ -9,6 +9,7 @@ const UsersFeed = (props) => {
     let users = props.users.map(item => {
 
         return <UserItem 
+            is_following_fetching={props.is_following_fetching}
             follow={props.follow}
             unfollow={props.unfollow}
             auth={props.auth}
@@ -28,11 +29,11 @@ const UsersFeed = (props) => {
                 page_size={props.page_size}
             />
                     <div className={cls.users_feed_block_2}>
-                    {
-                        !props.is_fetching? 
+                        {
+                            !props.is_fetching? 
                             users:
                             <Preloader />
-                    }
+                        }
                         </div>
                     </div>
     );

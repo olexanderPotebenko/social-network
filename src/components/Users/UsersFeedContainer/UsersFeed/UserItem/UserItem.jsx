@@ -17,6 +17,7 @@ const UserItem = (props) => {
                             ( () => {
                                 if(props.auth.is_auth)
                                     return <FollowButton 
+                                        is_following_fetching={props.is_following_fetching}
                                         user_id={props.user.id}
                                         followed={props.user.followed}
                                         follow={props.follow}
