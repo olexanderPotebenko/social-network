@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as axios from 'axios';
 import Profile from './Profile.jsx';
 import {setUserProfileActionCreator} from '../../reducers/profileReducer.js';
+import {profileApi} from '../../api/api.js';
 
 class ProfileContainer extends React.Component {
     constructor(props) {
@@ -14,9 +14,9 @@ class ProfileContainer extends React.Component {
         let user_id = this.props.match.params.user_id;
         user_id = user_id || '5ee978dad56af10db6e64ba5';
 
-        axios.get(`http://127.0.0.1:8080/profile/${user_id}`).then(obj => {
-            if(obj.data.status_code === 0){
-                this.props.setUserProfile(obj.data.data);
+        profileApi.getProfile({user_id}).then(obj => {
+            if(obj.data.result_code === 0){
+                this.props.setUserProfile(obj.data);
             };
         });
     }

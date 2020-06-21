@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import * as axios from 'axios';
 import cls from './SignUp.module.css';
+import {authApi} from '../../api/api.js';
 
 const SignUp  = (props) => {
 
@@ -20,11 +20,9 @@ const SignUp  = (props) => {
             password: password_input.current.value,
         };
 
-        fetch('http://127.0.0.1:8080/auth', {
-            method: 'POST',
-            body: JSON.stringify(data),
-        }).then(res => res.json()
-        ).then(data => {
+        authApi.signUp(data)
+            .then(data => {
+                debugger;
             if(data.status_code === 0){
                 props.history.push(`/signin`);
             };

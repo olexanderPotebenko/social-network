@@ -1,19 +1,18 @@
 import React from 'react';
 import cls from './FollowButton.module.css';
+import {followApi} from '../../../../../../api/api.js';
 
 const FollowButton = (props) => {
 
     let onFollow = () => {
-        fetch(`http://127.0.0.1:8080/follow/${props.user_id}`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf=8',
-                    'Authorize': props.auth.token,
-                    'id': props.auth.id,
-                },
-            }).then(res => res.json())
+        let options = {
+            id: props.auth.id,
+            user_id: props.user_id,
+            token: props.auth.token,
+        };
+        followApi.follow(options)
             .then(data => {
+                debugger;
                 if(data.result_code === 0){
                     props.follow(props.user_id)
                 };
@@ -21,16 +20,12 @@ const FollowButton = (props) => {
     };
 
     let onUnfollow = () => {
-        debugger;
-        fetch(`http://127.0.0.1:8080/follow/${props.user_id}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf=8',
-                    'Authorize': props.auth.token,
-                    'id': props.auth.id,
-                },
-            }).then(res => res.json())
+        let options = {
+            id: props.auth.id,
+            user_id: props.user_id,
+            token: props.auth.token,
+        };
+        followApi.unfollow(options)
             .then(data => {
                 debugger;
                 if(data.result_code === 0){

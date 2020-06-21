@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from './PaginationBar.module.css';
-import * as axios from 'axios';
+import {userApi} from '../../../../../api/api.js';
 
 const PaginationBar = (props) => {
 
@@ -10,9 +10,9 @@ const PaginationBar = (props) => {
     let i = props.page_current <= item_middle? 1: props.page_current - item_middle + 1; 
     let max_i = props.page_count < items_count? props.page_count:
         (props.page_current <= item_middle ? 
-        items_count : 
-        props.page_current + item_middle - 1); 
-        max_i = Math.ceil(max_i);
+            items_count : 
+            props.page_current + item_middle - 1); 
+    max_i = Math.ceil(max_i);
 
     for (i; i <= Math.ceil(props.page_count) && i <=  max_i; i++){
         let classes = cls.page_number;
@@ -31,16 +31,17 @@ const PaginationBar = (props) => {
     let onPageChanged = (page_current) => {
         props.setIsFetching(true);
         props.setPageCurrent(page_current);
-        axios.get(`http://127.0.0.1:8080/users/?page=${page_current}
-            &count=${props.page_size}`, {
-                headers: {
-                    'Content-Type': 'application/json;charset=utf=8',
-                    'Authorize': props.auth.token,
-                    'id': props.auth.id,
-                },})
-            .then((res) => {
-                props.setUsers(res.data.items);
-                props.setUsersCount(res.data.totalCount);
+
+        let options = {
+            page_current,
+            page_size: props.page_size,
+            id: props.auth.id,
+            token: props.auth.token,
+        };
+        userApi.getUsers(options)
+            .then((data) => {
+                props.setUsers(data.items);
+                props.setUsersCount(data.totalCount);
                 props.setIsFetching(false);
             });
     };

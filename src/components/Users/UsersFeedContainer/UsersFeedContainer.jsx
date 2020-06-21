@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as axios from 'axios';
 import UsersFeed from './UsersFeed/UsersFeed.jsx';
 import {followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../../reducers/usersReducer.js';
+import {userApi} from '../../../api/api.js';
 
 class UsersFeedApiContainer extends React.Component {
     constructor(props) {
@@ -12,18 +13,17 @@ class UsersFeedApiContainer extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true);
-        axios.get(`http://127.0.0.1:8080/users/?page=${this.props.page_current}&count=${this.props.page_size}`, {
-            headers: ( () => this.props.auth.is_auth ? 
-            {
-                'Content-Type': 'application/json;charset=utf=8',
-                'Authorize': this.props.auth.token,
-                'id': this.props.auth.id,
-            }: {})()
-            ,})
-            .then((res) => {
-                debugger;
-                this.props.setUsers(res.data.items);
-                this.props.setUsersCount(res.data.totalCount);
+
+        let options = {
+            page_current: this.props.page_current,
+            page_size: this.props.page_size,
+            id: this.props.auth.id,
+            token: this.props.auth.token,
+        };
+        userApi.getUsers(options)
+                    .then(data => {
+                this.props.setUsers(data.items);
+                this.props.setUsersCount(data.totalCount);
                 this.props.setIsFetching(false);
             });
     };
