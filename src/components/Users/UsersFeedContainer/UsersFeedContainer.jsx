@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as axios from 'axios';
 import UsersFeed from './UsersFeed/UsersFeed.jsx';
-import {followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../../reducers/usersReducer.js';
+import {getUsers, follow, unfollow, followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../../reducers/usersReducer.js';
 import {userApi} from '../../../api/api.js';
 
 class UsersFeedApiContainer extends React.Component {
@@ -12,7 +12,6 @@ class UsersFeedApiContainer extends React.Component {
     };
 
     componentDidMount() {
-        this.props.setIsFetching(true);
 
         let options = {
             page_current: this.props.page_current,
@@ -20,30 +19,22 @@ class UsersFeedApiContainer extends React.Component {
             id: this.props.auth.id,
             token: this.props.auth.token,
         };
-        userApi.getUsers(options)
-                    .then(data => {
-                this.props.setUsers(data.items);
-                this.props.setUsersCount(data.totalCount);
-                this.props.setIsFetching(false);
-            });
+        this.props.getUsers(options);
     };
 
     render () {
 
         return (
             <UsersFeed
+                getUsers={this.props.getUsers}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 users={this.props.users}
                 page_count={this.props.total_users_count/this.props.page_size}
                 page_current={this.props.page_current}
-                setUsers={this.props.setUsers}
-                setUsersCount={this.props.setUsersCount}
-                setPageCurrent={this.props.setPageCurrent}
                 page_size={this.props.page_size}
                 total_users_count={this.props.total_users_count}
                 is_fetching={this.props.is_fetching}
-                setIsFetching={this.props.setIsFetching}
                 auth={this.props.auth}
             />
         );
@@ -63,17 +54,10 @@ let mapsStateToProps = (state) => {
     };
 };
 
-let mapsDispatchToProps = (dispatch) => {
-    return {
-        follow: (user_id) => {
-            return dispatch(followedActionCreator(user_id))
-        },
-        unfollow: (user_id) => dispatch(unfollowedActionCreator(user_id)),
-        setUsers: (users) => dispatch(setUsersActionCreator(users)),
-        setUsersCount: (total_users_count) => dispatch(setUsersCountActionCreator(total_users_count)),
-        setPageCurrent: (page_current) => dispatch(setPageCurrentActionCreator(page_current)),
-        setIsFetching: (is_fetching) => dispatch(setIsFetchingActionCreator(is_fetching)),
-    };
+let mapsDispatchToProps = {
+    follow,
+    unfollow,
+    getUsers,
 };
 
 const UsersFeedContainer = connect(mapsStateToProps, mapsDispatchToProps)(UsersFeedApiContainer);

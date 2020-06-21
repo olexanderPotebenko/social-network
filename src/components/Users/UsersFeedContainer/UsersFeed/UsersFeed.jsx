@@ -20,15 +20,11 @@ const UsersFeed = (props) => {
 
 
             <PaginationBar
+                getUsers={props.getUsers}
                 auth={props.auth}
                 className={cls.users_feed_block_1}
-                classNam
                 page_count={props.total_users_count/props.page_size}
                 page_current={props.page_current}
-                setUsers={props.setUsers}
-                setUsersCount={props.setUsersCount}
-                setPageCurrent={props.setPageCurrent}
-                setIsFetching={props.setIsFetching}
                 page_size={props.page_size}
             />
                     <div className={cls.users_feed_block_2}>

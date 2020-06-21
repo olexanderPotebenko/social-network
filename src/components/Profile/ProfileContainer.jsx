@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Profile from './Profile.jsx';
-import {setUserProfileActionCreator} from '../../reducers/profileReducer.js';
-import {profileApi} from '../../api/api.js';
+import {getProfile} from '../../reducers/profileReducer.js';
 
 class ProfileContainer extends React.Component {
     constructor(props) {
@@ -13,12 +12,12 @@ class ProfileContainer extends React.Component {
 
         let user_id = this.props.match.params.user_id;
         user_id = user_id || '5ee978dad56af10db6e64ba5';
-
-        profileApi.getProfile({user_id}).then(obj => {
-            if(obj.data.result_code === 0){
-                this.props.setUserProfile(obj.data);
-            };
-        });
+        let options = {
+            user_id,
+            id: this.props.auth? this.props.auth.id: '',
+            token: this.props.auth? this.props.auth.id: '',
+        };
+        this.props.getProfile(options);
     }
 
     render() {
@@ -33,4 +32,4 @@ let mapsStateToProps = (state) => {
     };
 };
 
-export default connect(mapsStateToProps, {setUserProfile: setUserProfileActionCreator})(ProfileContainer);
+export default connect(mapsStateToProps, {getProfile})(ProfileContainer);

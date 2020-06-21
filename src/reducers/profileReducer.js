@@ -1,3 +1,5 @@
+import {profileApi} from '../api/api.js';
+
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_TEXT = 'ADD-NEW-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -48,6 +50,14 @@ function setUserProfile (state, profile) {
     let state_copy = {...state};
     state_copy.profile = profile;
     return state_copy;
+};
+
+export const getProfile = options => dispatch => {
+    profileApi.getProfile(options)
+        .then(data => {
+            if(data.data.result_code === 0)
+                dispatch(setUserProfileActionCreator(data.data));
+        });
 };
 
 export const setUserProfileActionCreator = profile => ({type: SET_USER_PROFILE, profile});

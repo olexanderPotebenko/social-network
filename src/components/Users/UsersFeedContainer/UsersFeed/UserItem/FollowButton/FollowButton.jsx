@@ -1,6 +1,5 @@
 import React from 'react';
 import cls from './FollowButton.module.css';
-import {followApi} from '../../../../../../api/api.js';
 
 const FollowButton = (props) => {
 
@@ -10,13 +9,7 @@ const FollowButton = (props) => {
             user_id: props.user_id,
             token: props.auth.token,
         };
-        followApi.follow(options)
-            .then(data => {
-                debugger;
-                if(data.result_code === 0){
-                    props.follow(props.user_id)
-                };
-            });
+        props.follow(options);
     };
 
     let onUnfollow = () => {
@@ -25,13 +18,7 @@ const FollowButton = (props) => {
             user_id: props.user_id,
             token: props.auth.token,
         };
-        followApi.unfollow(options)
-            .then(data => {
-                debugger;
-                if(data.result_code === 0){
-                    props.unfollow(props.user_id)
-                };
-            });
+        props.unfollow(options);
     };
 
     let button = props.followed 

@@ -1,3 +1,4 @@
+import {userApi, followApi} from '../api/api.js';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -12,44 +13,7 @@ const initial_state = {
         total_users_count: 0,
         is_fetching: false,
     },
-        users: [
-    //        {
-    //            user_id: 2,
-    //            name: { first_name: 'Olexander', last_name: 'Miroshnichenko'},
-    //            birth_date: 862444800,
-    //            status: 'I learn React',
-    //            location: { sity: 'Kcharkiv', country: 'Ukraine' },
-    //            followed: true,
-    //            avatar: 'https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' 
-    //        },
-    //        {
-    //            user_id: 3,
-    //            name: { first_name: 'Kateryna', last_name: 'Miroshnichenko'},
-    //            birth_date: 862433000,
-    //            status: 'I learn',
-    //            location: { sity: 'Sumy', country: 'Ukraine' },
-    //            followed: false,
-    //            avatar: 'https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' 
-    //        },
-    //        {
-    //            user_id: 4,
-    //            name: { first_name: 'Viktoriya', last_name: 'Maruyenko'},
-    //            birth_date: 862444333,
-    //            status: 'I learn React',
-    //            location: { sity: 'Lviv', country: 'Ukraine' },
-    //            followed: true,
-    //            avatar: 'https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' 
-    //        },
-    //        {
-    //            user_id: 5,
-    //            name: { first_name: 'Sergiy', last_name: 'Ostapenko'},
-    //            birth_date: 862444800,
-    //            status: 'I learn React',
-    //            location: { sity: 'Mykolaiyiv', country: 'Ukraine' },
-    //            followed: false,
-    //            avatar: 'https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png' 
-    //        },
-        ]
+    users: [],
 };
 
 let usersReducer = (state = initial_state, action) => {
@@ -120,27 +84,56 @@ let setIsFetching = (state, is_fetching) => {
     return state_copy;
 }
 
-export let followedActionCreator = user_id => {
+let followedActionCreator = user_id => {
     return {type: FOLLOW, user_id: user_id};
 };
-export let unfollowedActionCreator = user_id => {
+let unfollowedActionCreator = user_id => {
     return {type: UNFOLLOW, user_id: user_id};
 };
 
-export let setUsersActionCreator = users => {
+let setUsersActionCreator = users => {
     return {type: SET_USERS, users};
 };
 
-export let setUsersCountActionCreator = total_users_count => {
+let setUsersCountActionCreator = total_users_count => {
     return {type: SET_USERS_TOTAL_COUNT, total_users_count};
 };
 
-export let setPageCurrentActionCreator = page_current => {
+let setPageCurrentActionCreator = page_current => {
     return {type: SET_PAGE_CURRENT, page_current};
 };
 
-export let setIsFetchingActionCreator = is_fetching => {
+let setIsFetchingActionCreator = is_fetching => {
     return {type: SET_IS_FETCHING, is_fetching};
 };
+
+export const getUsers = (options) => dispatch => {
+    dispatch(setIsFetchingActionCreator(true));
+    userApi.getUsers(options)
+        .then(data => {
+            dispatch(setUsersActionCreator(data.items) );
+            dispatch(setUsersCountActionCreator(data.totalCount) );
+            dispatch(setIsFetchingActionCreator(false) );
+        });
+}
+
+export const follow = (options) => dispatch => {
+    followApi.follow(options)
+        .then(data => {
+            if(data.result_code === 0){
+                dispatch(followedActionCreator(options.user_id));
+            };
+        });
+};
+
+export const unfollow = (options) => dispatch => {
+    followApi.unfollow(options)
+        .then(data => {
+            if(data.result_code === 0){
+                dispatch(unfollowedActionCreator(options.user_id));
+            };
+        });
+};
+
 
 export default usersReducer;

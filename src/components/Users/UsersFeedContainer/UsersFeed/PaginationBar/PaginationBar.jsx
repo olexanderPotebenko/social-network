@@ -29,8 +29,6 @@ const PaginationBar = (props) => {
     };
 
     let onPageChanged = (page_current) => {
-        props.setIsFetching(true);
-        props.setPageCurrent(page_current);
 
         let options = {
             page_current,
@@ -38,12 +36,7 @@ const PaginationBar = (props) => {
             id: props.auth.id,
             token: props.auth.token,
         };
-        userApi.getUsers(options)
-            .then((data) => {
-                props.setUsers(data.items);
-                props.setUsersCount(data.totalCount);
-                props.setIsFetching(false);
-            });
+        props.getUsers(options);
     };
 
     return (
