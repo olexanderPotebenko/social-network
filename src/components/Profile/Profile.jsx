@@ -17,7 +17,7 @@ const Profile = (props) => {
         <div> 
             <Poster />
             <ProfileInfo 
-                aboutMe={status}
+                status={status}
                 fullName={name}
                 photos={photos}
                 contacts={contacts} />

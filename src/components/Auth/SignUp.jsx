@@ -1,54 +1,28 @@
 import React from 'react';
+import {compose} from 'redux';
+import WithAuthData from '../../hocs/WithAuthData.jsx';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import cls from './SignUp.module.css';
 import {authApi} from '../../api/api.js';
+import {signUp, setSignUpResultActionCreator} from '../../reducers/authReducer.js';
+import SignUpForm from './SignUpForm.jsx';
+import cls from './SignIn.module.css';
 
 const SignUp  = (props) => {
 
-    let first_name_input = React.createRef();
-    let last_name_input = React.createRef();
-    let email_input = React.createRef();
-    let password_input = React.createRef();
-    let check_password_input = React.createRef();
-
-    let onSignUp = () => {
-        let data = {
-            first_name: first_name_input.current.value,
-            last_name: last_name_input.current.value,
-            email: email_input.current.value,
-            password: password_input.current.value,
-        };
-
-        authApi.signUp(data)
-            .then(data => {
-                debugger;
-            if(data.status_code === 0){
-                props.history.push(`/signin`);
-            };
-            console.log(data);
-        }).catch(err => {
-            console.log(err)
-        });
+    let onSubmit = ({check_password, ...form_data}) => {
+        console.log(form_data);
+        props.signUp(form_data)
     };
 
-    return (
-        <div className={cls.wrapper_container}>
-            <div className={cls.items_container} >
-                <h3>{'Authorization'}</h3>
-                <input placeholder='enter your first name' ref={first_name_input} />
-                <input placeholder='enter your last name' ref={last_name_input} />
-                <input placeholder='enter your email' ref={email_input} />
-                <input placeholder='enter password' ref={password_input} />
-                <input placeholder='check your password' ref={check_password_input} />
-                <div className={cls.sign_up_button} >
-                    <button onClick={onSignUp}>
-                        {'Sign up'}
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+    if(props.auth.success_sign_up){
+        props.setSignUpResult(false);
+        props.history.push(`/signin`);
+    };
+    return <div className={cls.wrapper_container}>
+        <h3>Sign Up</h3>
+        <SignUpForm onSubmit={onSubmit} />
+    </div>
 };
 
 const mapsStateToProps = (state) => {
@@ -57,6 +31,11 @@ const mapsStateToProps = (state) => {
 };
 
 const mapsDispatchToProps = {
+    signUp,
+    setSignUpResult: setSignUpResultActionCreator,
 };
 
-export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(SignUp));
+export default compose(
+    connect(mapsStateToProps, mapsDispatchToProps),
+    WithAuthData
+)(SignUp);

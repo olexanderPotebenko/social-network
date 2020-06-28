@@ -1,46 +1,25 @@
 import React from 'react';
+import {compose} from 'redux';
+import WithAuthData from '../../hocs/WithAuthData.jsx';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
+import {login} from '../../reducers/authReducer.js';
+import SignInForm from './SignInForm.jsx';
 import cls from './SignIn.module.css';
-import {setAuthDataActionCreator} from '../../reducers/authReducer.js';
-import {authApi} from '../../api/api.js';
 
 const SignIn  = (props) => {
 
-    let email_input = React.createRef();
-    let password_input = React.createRef();
-
-    let onSignIn = () => {
-        let data = {
-            email: email_input.current.value,
-            password: password_input.current.value,
-        };
-
-        authApi.signIn(data)
-        .then( (data) => {
-            if(data.status_code === 0){
-                props.setAuthData(data.data);
-                props.history.push(`/profile/${data.data.id}`);
-            };
-        }).catch(err => {
-            console.log(err)
-        });
+    let onSubmit = (form_data) => {
+        console.log(form_data);
+        props.login(form_data)
     };
 
-    return (
-        <div className={cls.wrapper_container}>
-            <div className={cls.items_container} >
-                <h3>{'Authorization'}</h3>
-                <input placeholder='enter your email' defaultValue='oleg.goncharenko@gmail.com' ref={email_input} />
-                <input placeholder='enter password' defaultValue='111111' ref={password_input} />
-                <div className={cls.sign_up_button} >
-                    <button onClick={onSignIn}>
-                        {'Sign in'}
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+    if(props.auth.is_auth)
+        props.history.push(`/profile/${props.auth.id}`);
+    return <div className={cls.wrapper_container}>
+        <h3>Sign in</h3>
+        <SignInForm onSubmit={onSubmit} />
+    </div>
 };
 
 const mapsStateToProps = (state) => {
@@ -49,7 +28,11 @@ const mapsStateToProps = (state) => {
 };
 
 const mapsDispatchToProps = {
-    setAuthData: setAuthDataActionCreator,
+    login
 };
 
-export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(SignIn));
+export default compose(
+    connect(mapsStateToProps, mapsDispatchToProps),
+   WithAuthData 
+)(SignIn);
+

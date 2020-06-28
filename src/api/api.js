@@ -30,7 +30,8 @@ export const authApi = {
     signIn ({email, password}) {
 
         return instance.post(`signin`, {password, email} )
-            .then( res => res.data );
+            .then( res => {
+                return res.data });
 
     },
     signUp ({email, password, first_name, last_name}) {

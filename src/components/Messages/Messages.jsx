@@ -1,5 +1,9 @@
 import React from 'react';
 import cls from './Messages.module.css';
+import {compose} from 'redux';
+
+import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
+import WithAuthData from '../../hocs/WithAuthData.jsx';
 
 import MessagesSidebarContainer from './MessagesSidebarContainer/MessagesSidebarContainer.jsx';
 import MessagesContent from './MessagesContent/MessagesContent.jsx';
@@ -14,4 +18,7 @@ const Messages = (props) => {
     );
 };
 
-export default Messages;
+export default compose(
+    WithAuthData,
+    WithSignInRedirect,
+)(Messages);

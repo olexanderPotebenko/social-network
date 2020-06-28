@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer.jsx';
 import SidebarContainer from './components/Sidebar/SidebarContainer.jsx';
 import ProfileContainer from './components/Profile/ProfileContainer.jsx';
@@ -22,8 +22,9 @@ function App(props) {
                 <SidebarContainer /> 
 
                 <div className='content'>
+                    <Route path='/' render={() => <Redirect to='/profile' /> } />
                     <Route component={ProfileContainer} path='/profile/:user_id?'/>
-                    <Route render={Messages} path='/messages' />
+                    <Route component={Messages} path='/messages' />
                     <Route component={Users} path='/users' />
                     <Route component={News} path='/news' />
                     <Route component={Music} path='/music' />
