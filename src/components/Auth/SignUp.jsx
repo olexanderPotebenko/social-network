@@ -4,35 +4,42 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {authApi} from '../../api/api.js';
-import {signUp, setSignUpResultActionCreator} from '../../reducers/authReducer.js';
+import {signUp, setServerErrorActionCreator} from '../../reducers/authReducer.js';
 import SignUpForm from './SignUpForm.jsx';
-import cls from './SignIn.module.css';
+import cls from './Auth.module.css';
 
-const SignUp  = (props) => {
+class SignUp extends React.Component {
 
-    let onSubmit = ({check_password, ...form_data}) => {
-        console.log(form_data);
-        props.signUp(form_data)
-    };
+    componentWillUnmount(){
+        this.props.setServerError(undefined);
+    }
 
-    if(props.auth.success_sign_up){
-        props.setSignUpResult(false);
-        props.history.push(`/signin`);
-    };
-    return <div className={cls.wrapper_container}>
-        <h3>Sign Up</h3>
-        <SignUpForm onSubmit={onSubmit} />
-    </div>
+    render(){
+        let onSubmit = ({check_password, ...form_data}) => {
+            console.log(form_data);
+            this.props.signUp(form_data)
+        };
+
+        if(this.props.auth.success_sign_up){
+            this.props.setSignUpResult(false);
+            this.props.history.push(`/signin`);
+        };
+        return <div className={cls.wrapper_container}>
+            <h3>Sign Up</h3>
+            <SignUpForm onSubmit={onSubmit} {...this.props}/>
+        </div>
+    }
 };
 
 const mapsStateToProps = (state) => {
     return {
+        server_error: state.auth.server_error,
     };
 };
 
 const mapsDispatchToProps = {
     signUp,
-    setSignUpResult: setSignUpResultActionCreator,
+    setServerError: setServerErrorActionCreator,
 };
 
 export default compose(

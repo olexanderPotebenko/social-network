@@ -18,3 +18,8 @@ export const emailValidate = (address) => {
    let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
    return reg.test(address)? undefined: 'Enter correct email address';
 }
+
+export const onlyLetters = value => {
+    let reg = /\W/;
+        return !value.match(reg) ? undefined: 'Fields must been equals english letters only';
+}

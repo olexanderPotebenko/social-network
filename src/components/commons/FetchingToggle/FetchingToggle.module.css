@@ -1,0 +1,15 @@
+.toggle {
+    display: inline-block;
+    margin: auto;
+}
+
+.toggle_img {
+    width: 20px;
+    height: 20px;
+    animation: toggle .7s infinite linear;
+}
+
+@keyframes toggle {
+    0%  {transform: rotate(0deg); }
+    100% {transform: rotate(-360deg); }
+}
