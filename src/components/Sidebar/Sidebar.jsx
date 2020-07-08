@@ -1,50 +1,43 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {setAuthDataActionCreator} from '../../reducers/authReducer.js';
 import cls from './Sidebar.module.css';
 import MenuItem from './MenuItem/MenuItem.jsx';
-import default_avatar from '../../assets/images/avatar_default.png';
+import AuthInfo from './AuthInfo/AuthInfo.jsx';
+
 
 const Sidebar = (props) => {
 
-    let avatar = props.photo || default_avatar;
+    let animation = props.data.is_auth ? 
+        cls.after_auth_position:
+        props.data.is_authed && cls.after_unauth_position || cls.before_auth_position;
+
     return (
-        <div className={cls.sidebar}>
-            <div className={cls.auth_data}>
-                {
-                    props.data.is_auth 
-                    ?<div>
-                        <div className={cls.avatar}>
-                            <img src={avatar} />
-                        </div>
-                        <NavLink to='/signin' onClick={()=>{props.setAuthData({is_auth: false})}}>
-                            Exit
-                        </NavLink>
-                        <br></br>
-                        {props.data.name}
-                    </div>
-                    :<div>
-                        <NavLink to='/signin'>
-                            {'Sign in'}
-                        </NavLink>
-                        <br></br>
-                        {'or'}
-                        <br></br>
-                        <NavLink to='/signup'>
-                            {'Sign up'}
-                        </NavLink>
-                    </div>
-                }
-                </div>
-                <nav className={cls.menu_item}>
-                    <MenuItem link='/profile' text='Profiles' />
-                    <MenuItem link='/messages' text='Messages' />
-                    <MenuItem link='/users' text='Users' />
-                    <MenuItem link='/news' text='News' />
-                    <MenuItem link='/music' text='Music' />
-                    <MenuItem link='/settings' text='Settings' />
+        <div className={cls.sidebar}> 
+            <div className={animation}>
+                <AuthInfo setAuthData={props.setAuthData}/>
+                <nav className={`${cls.menu_item} `}>
+                    <MenuItem {...props} link='/profile' text='Profiles' />
+                    <MenuItem {...props} link='/messages' text='Messages' />
+                    <MenuItem {...props} link='/users' text='Users' />
+                    <MenuItem {...props} link='/news' text='News' />
+                    <MenuItem {...props} link='/music' text='Music' />
+                    <MenuItem {...props} link='/settings' text='Settings' />
                 </nav>
             </div>
+        </div>
     )
 };
 
-export default Sidebar;
+const mapsStateToProps = (state) => {
+    return {
+        data: state.auth,
+    };
+};
+
+const mapsDispatchToProps = {
+    setAuthData: setAuthDataActionCreator,
+};
+
+export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(Sidebar));

@@ -11,6 +11,7 @@ const initial_state = {
     token: null,
     photo: null,
     is_auth: false,
+    is_authed: false,
     is_fetching: false,
     server_error: undefined,
 };
@@ -35,6 +36,7 @@ const setAuthData = (state, data) => {
     return {
         ...state,
         is_auth: true,
+        is_authed: true,
         ...data,
         is_fetching: false,
     };

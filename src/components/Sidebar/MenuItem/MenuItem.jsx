@@ -4,14 +4,16 @@ import {NavLink} from 'react-router-dom';
 
 const MenuItem = (props) => {
 
+    let is_active = props.history.location.pathname
+        .split('/').includes(props.link.slice(1));
+
+    let styles = [cls.item, cls.text];
+    if(is_active) styles.push(cls.active);
+    styles = styles.join(' ');
     return (
-        <>
-        <NavLink activeClassName={cls.link__container} to={props.link}>
-            <div className={cls.text}>
-                {props.text}
-            </div>
-        </NavLink>
-        </>
+            <NavLink className={styles} to={props.link}>
+                    {props.text}
+            </NavLink>
     );
 }
 

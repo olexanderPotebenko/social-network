@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer.jsx';
-import SidebarContainer from './components/Sidebar/SidebarContainer.jsx';
+import Sidebar from './components/Sidebar/Sidebar.jsx';
 import ProfileContainer from './components/Profile/ProfileContainer.jsx';
 import Messages from './components/Messages/Messages.jsx';
 import News from './components/News/News.jsx';
@@ -19,7 +19,7 @@ function App(props) {
             <div className='wrapper'>
                 <HeaderContainer /> 
 
-                <SidebarContainer /> 
+                <Sidebar/> 
 
                 <div className='content'>
                     <Route path='/' render={() => <Redirect to='/profile' /> } />
