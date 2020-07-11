@@ -1,7 +1,9 @@
 .sidebar {
     grid-area: sdb;
     box-shadow: inset 0px 2px 5px 0px rgba(122, 22, 222, .4);;
-    background-color: #201530;
+    background-color: #212131;
+    box-sizing: border-box;
+    border-right: 3px solid #554466;
 }
 
 .menu_item{
@@ -15,12 +17,12 @@
 
 .after_unauth_position {
     transform: translateY(-115px);
-    animation: success_unauthed_animation .2s linear;
+    animation: success_unauthed_animation .0s linear;
 }
 
 .after_auth_position {
     transform: translateY(0px);
-    animation: success_authed_animation .2s linear;
+    animation: success_authed_animation .0s linear;
 }
 
 @keyframes success_authed_animation {

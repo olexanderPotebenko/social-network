@@ -51,3 +51,11 @@ export const ErrorForm = ({message}) => {
         </div>
 };
 
+export const TextArea = ({input, meta, ...props}) => {
+
+    return <div>
+        <textarea {...input} {...props} />
+        {meta.visited && meta.error}
+    </div>
+};
+

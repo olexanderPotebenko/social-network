@@ -24,6 +24,37 @@ export const profileApi = {
                 headers:  id ? { authorize: token, id: id }: {} ,
             }).then(res => res.data);
     },
+
+    // posts
+    getPosts ({user_id, count, page}) {
+        return instance.get(`profile/${user_id}/posts/?page=${page}&count=&{count}`)
+            .then(res => res.data);
+    },
+    createPost ({id, token, post}) {
+        return instance.post(`profile/${id}/posts/`,
+            {post},
+            { headers: {authorize: token, id}, }
+        )
+            .then( res => res.data );
+    },
+    deletePost ({id, token, post_id}) {
+        return instance.delete(`profile/${id}/posts/${post_id}`,
+            { headers: {authorize: token, id}, })
+            .then(res => res.data);
+    },
+    likePosts ({id, token, user_id, post_id}) {
+        return instance.post(`profile/${user_id}/posts/${post_id}/liked`,
+            {},
+            { headers: {authorize: token, id}, })
+            .then(res => res.data);
+    },
+    likePosts ({id, token, user_id, post_id}) {
+        return instance.post(`profile/${user_id}/posts/${post_id}/unliked`,
+            {},
+            { headers: {authorize: token, id}, })
+            .then(res => res.data);
+    },
+                
 };
 
 export const authApi = {

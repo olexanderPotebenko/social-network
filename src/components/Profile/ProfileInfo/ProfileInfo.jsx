@@ -1,16 +1,27 @@
 import React from 'react';
-import cls from './ProfileInfo.module.css';
+import styles from './ProfileInfo.module.css';
 import Status from './Status.jsx';
+import poster from '../../../assets/images/space.jpg';
+import default_avatar from '../../../assets/images/avatar_default.png';
 
-const ProfileInfo = ({photos, fullName, status}) => {
+const ProfileInfo = ({photos, name, status, email}) => {
 
-    let photo = photos ? photos.small : 'https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png';
+    let photo = photos && photos.small ? photos.small : default_avatar;
     return (
-        <div className={cls.profil_info}>
-            <img className={cls.avatar} src={photo} />
-            <div className={cls.description}>
-                <h3 className={cls.myname}>{fullName}</h3>
-                <Status status={status}/>
+        <div className={styles.wrapper}>
+            {/*<img src={poster} className={styles.poster} />*/}
+
+            <div className={styles.content}>
+                <img className={styles.avatar} src={photo} />
+                <div className={styles.description}>
+                    <div>
+                        <span className={styles.name}>{name}</span>
+                        <span className={styles.address}>Ukraine, Dnipro</span>
+                    </div>
+                    <span className={styles.email}>{email}</span>
+                    <span className={styles.phone}>+88002553535</span>
+                    <Status status={status}/>
+                </div>
             </div>
         </div>
     );

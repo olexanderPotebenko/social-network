@@ -3,11 +3,11 @@ export const requiredFields = value => {
 };
 
 export const maxLengthCreator = (max_length) => (value) => {
-    return value.length <= max_length? undefined: `Max length is ${max_length}`;
+    return value && value.length <= max_length? undefined: `Max length is ${max_length}`;
 };
 
 export const minLengthCreator = (min_length) => (value) => {
-    return value.length >= min_length? undefined: `Min length is ${min_length}`;
+    return value && value.length >= min_length? undefined: `Min length is ${min_length}`;
 };
 
 export const matchPasswords = (password, all_values) => {

@@ -5,3 +5,12 @@
     background-color: #aabbff;
     grid-gap: 20px;
 }
+
+.wrapper {
+    margin-top: 40px;
+}
+
+.wrapper > .textarea {
+    width: 500px;
+    height: 200px;
+}

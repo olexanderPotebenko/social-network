@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 const MenuItem = (props) => {
 
     let is_active = props.history.location.pathname
-        .split('/').includes(props.link.slice(1));
+        .split('/').includes(props.link.split('/')[1]);
 
     let styles = [cls.item, cls.text];
     if(is_active) styles.push(cls.active);

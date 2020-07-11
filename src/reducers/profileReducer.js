@@ -3,6 +3,7 @@ import {profileApi} from '../api/api.js';
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_TEXT = 'ADD-NEW-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_USER_POSTS = 'SET-USER-POSTS';
 
 let initial_state = {
     posts: [
@@ -24,6 +25,12 @@ let profileReducer = (state = initial_state, action) => {
             return addNewText(state, action.text);
         case(SET_USER_PROFILE):
             return setUserProfile(state, action.profile);
+        case SET_USER_POSTS:
+            return {
+                ...state, 
+                //...state.profile,
+                posts: action.posts
+            };
     };
     return state;
 };
@@ -60,7 +67,18 @@ export const getProfile = options => dispatch => {
         });
 };
 
+export const getPosts = options => dispatch => {
+    profileApi.getPosts(options)
+        .then(data => {
+            if(data.result_code === 0 ){
+                dispatch(setUserPosts(data.posts));
+                console.log(data);
+            }
+        });
+};
+
 export const setUserProfileActionCreator = profile => ({type: SET_USER_PROFILE, profile});
+export const setUserPosts = posts => ({type: SET_USER_POSTS, posts});
 
 export default profileReducer;
 

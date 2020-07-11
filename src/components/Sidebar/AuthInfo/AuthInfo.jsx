@@ -12,7 +12,7 @@ let AuthInfo = (props) => {
         {
             props.auth.is_auth 
             ?<div>
-                <NavLink to={`/profile/${props.auth.id}`} >
+                <NavLink to={`/profile/${props.auth.id}/`} >
                     <div className={cls.avatar_wrapper}>
                         <img className={cls.avatar} src={avatar} />
                     </div>

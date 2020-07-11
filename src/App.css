@@ -20,7 +20,8 @@
 
 .content {
     z-index: 10;
-    background-color: #ddbbff;
+    /*background-color: #776699;*/
+    background-color: #191925;
     grid-area: cnt;
     display: grid;
     grid-template-rows: 1fr;

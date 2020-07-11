@@ -18,12 +18,12 @@ const Sidebar = (props) => {
             <div className={animation}>
                 <AuthInfo setAuthData={props.setAuthData}/>
                 <nav className={`${cls.menu_item} `}>
-                    <MenuItem {...props} link='/profile' text='Profiles' />
-                    <MenuItem {...props} link='/messages' text='Messages' />
+                    <MenuItem {...props} link={`/profile/${props.data.id}/posts`} text='Profile' />
+                    <MenuItem {...props} link={`/messages/${props.data.id}/`} text='Messages' />
                     <MenuItem {...props} link='/users' text='Users' />
-                    <MenuItem {...props} link='/news' text='News' />
-                    <MenuItem {...props} link='/music' text='Music' />
-                    <MenuItem {...props} link='/settings' text='Settings' />
+                    {/*  <MenuItem {...props} link='/news' text='News' />*/}
+                    {/*  <MenuItem {...props} link='/music' text='Music' />*/}
+                    {/*  <MenuItem {...props} link='/settings' text='Settings' />*/}
                 </nav>
             </div>
         </div>

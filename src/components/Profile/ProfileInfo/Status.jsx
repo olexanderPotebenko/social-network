@@ -20,7 +20,7 @@ class Status extends React.Component {
                 {
                     !this.state.edit_mode && <div 
                         onDoubleClick={() => {this.setState({edit_mode: true})} } >
-                        'loh'
+                        'Hello! This is my social network)'
                     </div>
                 }
             </div>
