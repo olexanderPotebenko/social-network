@@ -3,14 +3,14 @@ import {Field, reduxForm} from 'redux-form';
 import {requiredFields, maxLengthCreator, } from '../../utils/validators.js';
 import {Input, Button, ErrorForm} from '../commons/FormsControls/FormsControls.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
-import cls from './Auth.module.css';
+import styles from './Auth.module.css';
 
 const maxLength30 = maxLengthCreator(30);
 const SignInForm = (props) => {
     const {handleSubmit} = props;
 
     return <div>
-        <form className={cls.items_container} onSubmit={handleSubmit}>
+        <form className={styles.items_container} onSubmit={handleSubmit}>
             {
                 props.auth.is_fetching && <FetchingToggle />
                 || props.server_error && <ErrorForm message={props.server_error} /> 
@@ -28,7 +28,7 @@ const SignInForm = (props) => {
                             type='password'
                             placeholder=' Enter your password' />
                         </div>
-                        <div>
+                        <div className={styles.button_wrapper} >
                             <Button error={props.error} name={'Sign In'} type='submit' 
                                 disabled={props.auth.is_fetching}/>
                             </div>

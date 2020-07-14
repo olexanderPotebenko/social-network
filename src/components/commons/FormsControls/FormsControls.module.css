@@ -5,14 +5,14 @@
 }
 
 .input_container {
-    width: 80%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
     margin: auto;
 }
 
 .input {
     width: 100%;
-    height: 85%;
+    height: 100%;
     background-color: #eef;
 
     border-radius: 4px;
@@ -42,25 +42,24 @@
 }
 
 .required_payload {
-    display: inline-block;
+    display: block;
+    width: 100%;
     float: left;
     height: 25px;
     text-align: left;
-    color: #222;
+    color: #fff;
 }
 
 /* button */
 .button_wrapper {
     margin: auto;
-    margin-top: 20px;
-    width: 80%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
 }
 
 .button {
     width: 100%;
-    height: 85%;
-    margin: auto;
+    height: 100%;
 }
 
 /* error message */
@@ -72,7 +71,6 @@
     border-radius: 4px;
     background-color: #aa2222;
     font-weight: bold;
-    float: right;
     padding: 0px 5px 0px 5px;
 
     animation: animated-opacity-error-message .5s linear;
@@ -101,6 +99,21 @@
     color: white;
     display: inherit;
     font-size: 16px;
+}
+
+/* textarea */
+
+.textarea_wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.textarea_wrapper > textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    resize: none;
 }
 
 /* animation */

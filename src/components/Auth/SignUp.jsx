@@ -25,7 +25,7 @@ class SignUp extends React.Component {
             this.props.history.push(`/signin`);
         };
         return <div className={cls.wrapper_container}>
-            <h3>Sign Up</h3>
+            <h3>Registration</h3>
             <SignUpForm onSubmit={onSubmit} {...this.props}/>
         </div>
     }

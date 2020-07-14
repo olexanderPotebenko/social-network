@@ -1,0 +1,16 @@
+.wrapper {
+    max-width: 600px;
+    display: inline-block;
+    color: white;
+    background-color: rgba(0, 0, 10, .4);
+    border-radius: 5px;
+    box-sizing: border-content;
+    padding: 20px;
+
+}
+
+.content_wrapper {
+    width: 100%;
+    display: inline-block;
+    word-wrap: break-word;
+}

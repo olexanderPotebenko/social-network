@@ -1,18 +1,21 @@
 import React from 'react';
-import cls from './Post.module.css';
-import Avatar from './Avatar/Avatar.module.jsx';
-import Content from './Content/Content.jsx';
-import Likes from './Likes/Likes.jsx';
+import styles from './Post.module.css';
 
 const Post = (props) => {
-    
+
     return (
-        <div>
-            <Avatar avatar={props.avatar} />
-           <Content message={props.message} />
-            <Likes likes={props.likes} />
+        <div className={styles.wrapper}>
+
+            <div className={styles.content_wrapper}>
+                {props.message}
+            </div>
+
+            <div>
+                {props.likes}
+            </div>
         </div>
     );
 };
 
 export default Post;
+

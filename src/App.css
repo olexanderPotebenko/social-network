@@ -18,14 +18,21 @@
 
 
 
-.content {
+.content_wrapper {
     z-index: 10;
     /*background-color: #776699;*/
     background-color: #191925;
     grid-area: cnt;
     display: grid;
     grid-template-rows: 1fr;
+    overflow: hidden;
 
+}
+
+.content {
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 

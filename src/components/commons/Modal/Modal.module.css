@@ -1,0 +1,27 @@
+.wrapper {
+    position: static;
+}
+
+.color_filter {
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: rgba(13, 9, 13, .9);
+    z-index: 10;
+}
+
+.content {
+    display: block;
+    background-color: rgba(190, 180, 180, .9);
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 130px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px 5px rgba(10, 10, 10, .4);
+    z-index: 100;
+}
+
+.content:hover {
+    background-color: rgba(210, 200, 200, .9);
+    box-shadow: 0 0 30px 10px rgba(10, 10, 10, .4);
+}

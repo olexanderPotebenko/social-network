@@ -5,7 +5,7 @@ import {requiredFields, matchPasswords, minLengthCreator,
 from '../../utils/validators.js';
 import {Input, Button, ErrorForm, } from '../commons/FormsControls/FormsControls.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
-import cls from './Auth.module.css';
+import styles from './Auth.module.css';
 
 const maxLength20 = maxLengthCreator(20);
 const maxLength30 = maxLengthCreator(30);
@@ -18,7 +18,7 @@ class SignUpForm extends React.Component {
         const {handleSubmit} = this.props;
 
         return <div> 
-            <form onSubmit={handleSubmit} className={cls.items_container} >
+            <form onSubmit={handleSubmit} className={styles.items_container} >
 
                 {
                     this.props.auth.is_fetching && <FetchingToggle />
@@ -58,7 +58,7 @@ class SignUpForm extends React.Component {
                                                 component={Input}
                                                 placeholder=' Enter password again' />
                                             </div>
-                                            <div>
+                                            <div className={styles.button_wrapper}>
                                                 <Button error={this.props.error} name={'Sign Up'} type='submit' 
                                                     disabled={this.props.auth.is_fetching}/>
                                                 </div>

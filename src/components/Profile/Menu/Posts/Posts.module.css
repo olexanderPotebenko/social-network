@@ -1,8 +1,7 @@
 .posts {
     display: grid;
-    margin-top: 20px;
+    margin-top: 5px;
     padding: 10px 0px 0px 30px;
-    background-color: #aabbff;
     grid-gap: 20px;
 }
 
@@ -13,4 +12,12 @@
 .wrapper > .textarea {
     width: 500px;
     height: 200px;
+}
+
+.create_post_button {
+    width: 150px;
+    height: 40px;
+    background-color: #444455;
+    color: white;
+    font-size: 14px;
 }

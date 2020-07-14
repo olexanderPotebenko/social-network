@@ -45,17 +45,29 @@ const ErrorField = ({error}) => {
 
 export const ErrorForm = ({message}) => {
     return <div>
-        <div className={styles.error_form}>
-        <span className={styles.error_form_text}> {message} </span>
-    </div>
-        </div>
+        {
+            message && <>
+                <div className={styles.error_form}>
+                    <span className={styles.error_form_text}> {message} </span>
+                </div>
+                </>
+        }
+            </div>
 };
 
 export const TextArea = ({input, meta, ...props}) => {
 
-    return <div>
+    let input_styles = [styles.input];
+    let error_heandler = meta.touched && !meta.active && meta.error;
+    let success_handler = meta.touched && !meta.active && !meta.error;
+    if(error_heandler)
+        input_styles.push(styles.input_error);
+    else if(success_handler)
+        input_styles.push(styles.input_success);
+
+    return <div className={styles.textarea_wrapper}>
         <textarea {...input} {...props} />
-        {meta.visited && meta.error}
+        {error_heandler && <ErrorField error={meta.error} />}
     </div>
 };
 

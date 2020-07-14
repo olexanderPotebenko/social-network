@@ -14,6 +14,9 @@ import SignIn from './components/Auth/SignIn.jsx';
 
 function App(props) {
 
+    let width = document.documentElement.clientWidth - 230;
+    let height = document.documentElement.clientHeight;
+
     return (
         <BrowserRouter>
             <div className='wrapper'>
@@ -21,7 +24,8 @@ function App(props) {
 
                 <Sidebar/> 
 
-                <div className='content'>
+                <div className='content_wrapper'>
+                <div className='content' style={{width, height}}>
                     <Route path='/' render={() => <Redirect to='/profile' /> } />
                     <Route component={Profile} path='/profile/:user_id?'/>
                     <Route component={Messages} path='/messages' />
@@ -31,6 +35,7 @@ function App(props) {
                     <Route component={Settings} path='/settings' />
                     <Route component={SignUp} path='/signup' />
                     <Route component={SignIn} path='/signin' />
+                </div>
                 </div>
             </div>
         </BrowserRouter>
