@@ -1,5 +1,5 @@
 import React from 'react';
-import cls from './Profile.module.css';
+import styles from './Profile.module.css';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
@@ -23,7 +23,7 @@ const Profile = (props) => {
 
     let {status, name, photos, contacts, email} = props.profile;
     return (
-        <div> 
+        <> 
             <ProfileInfo 
                 status={status}
                 email={email}
@@ -31,7 +31,7 @@ const Profile = (props) => {
                 photos={photos}
                 contacts={contacts} />
                 <Menu />
-        </div>
+        </>
     );
 };
 

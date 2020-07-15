@@ -14,28 +14,25 @@ import SignIn from './components/Auth/SignIn.jsx';
 
 function App(props) {
 
-    let width = document.documentElement.clientWidth - 230;
-    let height = document.documentElement.clientHeight;
-
     return (
         <BrowserRouter>
             <div className='wrapper'>
-                <HeaderContainer /> 
 
+                <HeaderContainer />
                 <Sidebar/> 
 
                 <div className='content_wrapper'>
-                <div className='content' style={{width, height}}>
-                    <Route path='/' render={() => <Redirect to='/profile' /> } />
-                    <Route component={Profile} path='/profile/:user_id?'/>
-                    <Route component={Messages} path='/messages' />
-                    <Route component={Users} path='/users' />
-                    <Route component={News} path='/news' />
-                    <Route component={Music} path='/music' />
-                    <Route component={Settings} path='/settings' />
-                    <Route component={SignUp} path='/signup' />
-                    <Route component={SignIn} path='/signin' />
-                </div>
+                    <div className='content' >
+                        <Route path='/' render={() => <Redirect to='/profile' /> } />
+                        <Route component={Profile} path='/profile/:user_id?'/>
+                        <Route component={Messages} path='/messages' />
+                        <Route component={Users} path='/users' />
+                        <Route component={News} path='/news' />
+                        <Route component={Music} path='/music' />
+                        <Route component={Settings} path='/settings' />
+                        <Route component={SignUp} path='/signup' />
+                        <Route component={SignIn} path='/signin' />
+                    </div>
                 </div>
             </div>
         </BrowserRouter>

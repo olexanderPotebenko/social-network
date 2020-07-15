@@ -1,5 +1,6 @@
 .sidebar {
     grid-area: sdb;
+    max-height: 1000px;
     box-shadow: inset 0px 2px 5px 0px rgba(122, 22, 222, .4);;
     background-color: #212131;
     box-sizing: border-box;

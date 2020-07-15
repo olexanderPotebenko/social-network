@@ -42,7 +42,7 @@ class Posts extends React.Component {
         let posts = [];
         if(this.props.posts){
             posts = this.props.posts.map( (item) =>  
-                (<Post avatar={default_avatar} message={item.text} likes={item.likes} ></Post>) 
+                (<Post avatar={default_avatar} {...item}></Post>) 
             );
             posts.reverse();
         }
@@ -53,11 +53,14 @@ class Posts extends React.Component {
                     this.state.postedModal && <Modal width={500} height={300} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }
                     onSubmit={this.onSubmit} />
+
                 }
-                        <button className={styles.create_post_button}
-                            onClick={() => {this.changeVisibleModal(true)}} >
-                            Create new post
-                        </button>
+                        <div className={styles.create_post_button_wrapper}>
+                            <button className={styles.create_post_button}
+                                onClick={() => {this.changeVisibleModal(true)}} >
+                                Create new post
+                            </button>
+                        </div>
                 <div className={styles.posts}>
                     {posts}
                 </div>
