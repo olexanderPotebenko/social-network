@@ -20,19 +20,15 @@ const Profile = (props) => {
     if(!props.profile) {
         return <Preloader />;
     };
-
+/*<ProfileInfo 
+                    status={status}
+                    email={email}
+                    name={name}
+                    photos={photos}
+                    contacts={contacts} />*/
     let {status, name, photos, contacts, email} = props.profile;
-    return (
-        <> 
-            <ProfileInfo 
-                status={status}
-                email={email}
-                name={name}
-                photos={photos}
-                contacts={contacts} />
-                <Menu />
-        </>
-    );
+    return <Menu {...props}/>
+            
 };
 
 class ProfileContainer extends React.Component {

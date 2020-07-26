@@ -31,29 +31,31 @@ export const profileApi = {
             .then(res => res.data);
     },
     createPost ({id, token, post}) {
+        debugger;
         return instance.post(`profile/${id}/posts/`,
-            {post},
-            { headers: {authorize: token, id}, }
+            post,
+            { headers: {authorize: token, id, 'Content-Type': 'form/multipart'}, }
         )
-            .then( res => res.data );
+            .then( res =>  res.data );
     },
     deletePost ({id, token, post_id}) {
         return instance.delete(`profile/${id}/posts/${post_id}`,
             { headers: {authorize: token, id}, })
             .then(res => res.data);
     },
-    likePosts ({id, token, user_id, post_id}) {
-        return instance.post(`profile/${user_id}/posts/${post_id}/liked`,
+    likedPost ({id, token, user_id, post_id}) {
+        return instance.post(`profile/${user_id}/posts/${post_id}/like`,
             {},
             { headers: {authorize: token, id}, })
             .then(res => res.data);
     },
-    likePosts ({id, token, user_id, post_id}) {
-        return instance.post(`profile/${user_id}/posts/${post_id}/unliked`,
-            {},
-            { headers: {authorize: token, id}, })
-            .then(res => res.data);
-    },
+    /*
+            id: this.props.auth.id,
+            user_id: this.props.profile.id,
+            token: this.props.auth.token,
+            post_id: this.props.post.id,
+            */
+
                 
 };
 

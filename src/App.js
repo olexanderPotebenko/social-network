@@ -16,24 +16,28 @@ function App(props) {
 
     return (
         <BrowserRouter>
-            <div className='wrapper'>
+            <div className='app'>
+                <div></div>
+                <div className='wrapper'>
 
-                <HeaderContainer />
-                <Sidebar/> 
+                    {/*<HeaderContainer />*/}
+                    <Sidebar/> 
 
-                <div className='content_wrapper'>
-                    <div className='content' >
-                        <Route path='/' render={() => <Redirect to='/profile' /> } />
-                        <Route component={Profile} path='/profile/:user_id?'/>
-                        <Route component={Messages} path='/messages' />
-                        <Route component={Users} path='/users' />
-                        <Route component={News} path='/news' />
-                        <Route component={Music} path='/music' />
-                        <Route component={Settings} path='/settings' />
-                        <Route component={SignUp} path='/signup' />
-                        <Route component={SignIn} path='/signin' />
+                    <div className='content_wrapper'>
+                        <div className='content' >
+                            <Route path='/' render={() => <Redirect to='/profile' /> } />
+                            <Route component={Profile} path='/profile/:user_id?'/>
+                            <Route component={Messages} path='/messages' />
+                            <Route component={Users} path='/users' />
+                            <Route component={News} path='/news' />
+                            <Route component={Music} path='/music' />
+                            <Route component={Settings} path='/settings' />
+                            <Route component={SignUp} path='/signup' />
+                            <Route component={SignIn} path='/signin' />
+                        </div>
                     </div>
                 </div>
+                <div></div>
             </div>
         </BrowserRouter>
     );

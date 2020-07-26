@@ -71,3 +71,23 @@ export const TextArea = ({input, meta, ...props}) => {
     </div>
 };
 
+export const InputImage = ({ 
+    input: { value: omitValue, onChange, onBlur, ...inputProps }, 
+    meta: omitMeta, 
+    ...props 
+}) => {
+    const adaptFileEventToValue = delegate => e => {
+        return delegate(e.target.files[0]);
+    };
+    if(props.input) debugger;
+
+    return <input 
+        onChange={adaptFileEventToValue(onChange)}
+        onBlur={adaptFileEventToValue(onBlur)}
+        type="file"
+        accept='.jpg, .png, .jpeg'
+        {...props.input}
+        {...props}
+    />
+}
+

@@ -2,7 +2,7 @@ import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import styles from './CreatePost.module.css';
 
-import {TextArea, Button, ErrorForm} from '../../../../commons/FormsControls/FormsControls';
+import {TextArea, Button, ErrorForm, InputImage} from '../../../../commons/FormsControls/FormsControls';
 import {minLengthCreator, maxLengthCreator} from '../../../../../utils/validators.js';
 
 let minLength10 = minLengthCreator(10);
@@ -22,6 +22,7 @@ class CreatePost extends React.Component {
                     <div className={styles.server_response}>
                         <ErrorForm message={this.props.error} />
                     </div>
+                        <Field name="picture" component={InputImage} type="file" value={null} />
                     <div className={styles.button_wrapper}>
                         <Button error={this.props.error} name={'Create post'} type='submit' 
                             disabled={this.props.is_fetching}/>

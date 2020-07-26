@@ -76,3 +76,13 @@
     width: 30px;
     height: 30px;
 }
+
+.post_picture_wrp {
+    overflow: hidden;
+}
+
+.post_picture {
+    overflow: hidden;
+    display: block;
+    margin: auto;
+}

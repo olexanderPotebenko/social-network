@@ -61,16 +61,12 @@ class Menu extends React.Component {
                     </li>
                 </ul>
             </nav>
-            <div className={styles.content}>
-                {
-                    <>
-                    <Route component={Posts} path={'/profile/:user_id/posts'} />
-                    <Route component={Subscribers} path={'/profile/:user_id/subscribers'} />
-                    <Route component={Subscribed} path={'/profile/:user_id/subscribed'} />
-                    </>
-                    }
-                    </div>
-                </div>
+            <div className={'custom_scroll_bar' + ' ' + styles.content}>
+                <Route component={Posts} path={'/profile/:user_id/posts'} />
+                <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
+                <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
+            </div>
+        </div>
     }
 }
 

@@ -20,8 +20,9 @@ class Posts extends React.Component {
 
     componentDidMount() {
 
+        debugger;
         let options = {
-            user_id: this.props.auth.id, 
+            user_id: this.props.profile.id, 
         }
         this.props.getPosts(options);
     }
@@ -29,8 +30,12 @@ class Posts extends React.Component {
     onSubmit = (post) => {
         this.changeVisibleModal(false);
         let {id, token} = this.props.auth;
+        let fd = new FormData();
+        fd.append('text', post.create_post);
+        fd.append('image', post.picture);
         let options = {
-            id, token, post: post.create_post,
+            id, token,
+            post: fd,
         }
         this.props.createPost(options);
 
@@ -41,14 +46,16 @@ class Posts extends React.Component {
     render() {
         let posts = [];
         if(this.props.posts){
-            posts = this.props.posts.map( (item) =>  
-                (<Post avatar={default_avatar} {...item}></Post>) 
+            posts = this.props.posts.map( (item) =>  {
+                return (<Post avatar={default_avatar} post={item} auth={this.props.auth} 
+                    profile={this.props.profile}></Post>) 
+            }
             );
             posts.reverse();
         }
 
         return (
-            <div>
+            <div className=''>
                 {
                     this.state.postedModal && <Modal width={500} height={300} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }
@@ -61,7 +68,7 @@ class Posts extends React.Component {
                                 Create new post
                             </button>
                         </div>
-                <div className={styles.posts}>
+                <div className=''>
                     {posts}
                 </div>
 
@@ -72,6 +79,7 @@ class Posts extends React.Component {
 
 let mapsStateToProps = (state) => ({
     textNewPost: state.profilePage.textNewPost,
+    profile: state.profilePage.profile,
     posts: state.profilePage.posts,
     auth: state.auth,
 });

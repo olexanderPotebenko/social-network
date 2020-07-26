@@ -1,18 +1,21 @@
 .wrapper {
-    width: 99%;
-    background-color: rgba(144, 133, 144, .05);
+    width: 100%;
+    height: 100%;
     margin: auto;
-    margin-top: 30px;
     position: relative;
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    overflow: hidden;
 }
 
 .horizontal_menu {
     width: 100%;
-    height: 80px;
+    height: 100%;
+    z-index: 1000;
 }
 
 .horizontal_menu li {
-    color: #111;
+    color: #000;
     display: inline-block;
     box-sizing: border-box;
     background-color: rgba(144, 133, 144, .1);
@@ -36,4 +39,8 @@
 
 .separator {
     border-right: 2px solid rgba(144, 133, 144, .4);
+}
+
+.content {
+    background-color: rgba(22, 22, 33, .4);
 }

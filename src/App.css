@@ -1,25 +1,33 @@
-.wrapper {
-    min-width: 900px;
-    max-width: 1800px;
-    margin: 0 auto;
+.app {
+    min-width: 700px;
+    max-width: 1200px;
     height: 100vh; /*на всю высоту*/
+    display: grid;
+    grid-template-rows: 10px 1fr 10px;
+    margin: 0 auto;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+    overflow: hidden;
+    box-sizing: border-box;
 
     display: grid;
 
-    grid-template-rows: 0px 1fr;
     grid-template-columns: 350px 1fr;
 
     grid-template-areas: 
-    "hdr hdr"
     "sdb cnt";
 }
 
 .content_wrapper {
+    background-color: rgba(144, 133, 144, .1);
     height: 100%;
     width: 100%;
     display: grid;
     z-index: 10;
-    background-color: #191925;
     grid-area: cnt;
     overflow: hidden;
 
@@ -28,19 +36,37 @@
 .content {
     height: 100%;
     width: 100%;
+    overflow: hidden;
+}
+
+/* убираем скроллбар */
+.custom_scroll_bar {
     overflow: scroll;
     overflow-x: hidden;
 }
 
-/* убираем скроллбар */
-::-webkit-scrollbar { /* chrome based */
-    width: 0px;  /* ширина scrollbar'a */
-    height: 0px;
+.custom_scroll_bar::-webkit-scrollbar { /* chrome based */
+    width: 30px;
+    background-color: #334;
+}
+
+.custom_scroll_bar::-webkit-scrollbar-track {
+    background-color: #889;
+    border-radius: 5px;
+}
+
+.custom_scroll_bar::-webkit-scrollbar-thumb {
+    background-color: #334;
+    border-radius: 5px;
+}
+
+.custom_scroll_bar::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
 
 html {
     background-color: #191925;
-    -ms-overflow-style: none;  /* IE 10+ */
-    scrollbar-width: none; /* Firefox */
+    /*-ms-overflow-style: none;  /* IE 10+ */
+    /*scrollbar-width: none; /* Firefox */
 }
 
