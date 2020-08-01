@@ -1,1 +1,32 @@
+.horizontal_menu {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
 
+.horizontal_menu li {
+    color: #000;
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: rgba(144, 133, 144, .1);
+}
+
+.menu_item {
+    text-decoration: none;
+    color: white;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 10px;
+}
+
+.menu_item:hover {
+    background-color: rgba(144, 133, 144, 1);
+}
+
+.current_item {
+    background-color: rgba(144, 133, 144, .5);
+}
+
+.separator {
+    border-right: 2px solid rgba(144, 133, 144, .4);
+}

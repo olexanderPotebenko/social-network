@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {likedPost} from '../../../../../reducers/profileReducer';
+import {likedPost} from '../../../../reducers/profileReducer';
 import styles from './Post.module.css';
-import {getFormatedDate} from '../../../../../utils/functions';
-import heart from '../../../../../assets/images/heart.png';
+import {getFormatedDate} from '../../../../utils/functions';
+import heart from '../../../../assets/images/heart.png';
 
 class Post extends React.Component {
 

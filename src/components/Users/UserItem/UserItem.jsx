@@ -19,7 +19,7 @@ const UserItem = (props) => {
                                     return <FollowButton 
                                         is_following_fetching={props.is_following_fetching}
                                         user_id={props.user.id}
-                                        followed={props.user.followed}
+                                        followed={props.followed}
                                         follow={props.follow}
                                         unfollow={props.unfollow}
                                         auth={props.auth}

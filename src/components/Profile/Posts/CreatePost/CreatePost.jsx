@@ -2,8 +2,8 @@ import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import styles from './CreatePost.module.css';
 
-import {TextArea, Button, ErrorForm, InputImage} from '../../../../commons/FormsControls/FormsControls';
-import {minLengthCreator, maxLengthCreator} from '../../../../../utils/validators.js';
+import {TextArea, Button, ErrorForm, InputImage} from '../../../commons/FormsControls/FormsControls';
+import {minLengthCreator, maxLengthCreator} from '../../../../utils/validators.js';
 
 let minLength10 = minLengthCreator(10);
 let maxLength650 = maxLengthCreator(650);

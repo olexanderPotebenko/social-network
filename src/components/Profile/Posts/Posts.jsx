@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import {reduxForm, Field} from 'redux-form';
 
 import styles from './Posts.module.css';
-import default_avatar from '../../../../assets/images/avatar_default.png';
+import default_avatar from '../../../assets/images/avatar_default.png';
 import Post from './Post/Post.jsx';
 import CreatePost from './CreatePost/CreatePost';
 
-import {TextArea, Button} from '../../../commons/FormsControls/FormsControls';
-import Modal from '../../../commons/Modal/Modal';
-import {getPosts, createPost} from '../../../../reducers/profileReducer';
+import {TextArea, Button} from '../../commons/FormsControls/FormsControls';
+import Modal from '../../commons/Modal/Modal';
+import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
+import {getPosts, createPost} from '../../../reducers/profileReducer';
 
 
 class Posts extends React.Component {
@@ -59,20 +60,26 @@ class Posts extends React.Component {
                 {
                     this.state.postedModal && <Modal width={500} height={300} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }
-                    onSubmit={this.onSubmit} />
+                        onSubmit={this.onSubmit} />
 
                 }
-                        <div className={styles.create_post_button_wrapper}>
-                            <button className={styles.create_post_button}
-                                onClick={() => {this.changeVisibleModal(true)}} >
-                                Create new post
-                            </button>
-                        </div>
-                <div className=''>
-                    {posts}
-                </div>
+                        {
+                            this.props.auth.id == this.props.profile.id &&
+                                <div className={styles.create_post_button_wrapper}>
+                                    <button className={styles.create_post_button}
+                                        onClick={() => {this.changeVisibleModal(true)}} >
+                                        Create new post
+                                    </button>
+                                </div>
+                        }
+                                <div className=''>
+                                    {
+                                        posts.length > 0 && posts
+                                            || <ListIsEmpty />
+                                    }
+                                </div>
 
-            </div>
+                            </div>
         );
     }
 };

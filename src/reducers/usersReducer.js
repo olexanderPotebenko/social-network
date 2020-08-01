@@ -11,7 +11,7 @@ const REMOVE_IS_FOLLOWING_FETCHING = 'REMOVE-IS-FOLLOWING-FETCHING';
 
 const initial_state = {
     options: {
-        page_size: 5,
+        page_size: 1,
         page_current: 1,
         total_users_count: 0,
         is_fetching: false,
@@ -150,6 +150,7 @@ export const getUsers = (options) => dispatch => {
     dispatch(setIsFetchingActionCreator(true));
     userApi.getUsers(options)
         .then(data => {
+            debugger;
             dispatch(setUsersActionCreator(data.items) );
             dispatch(setUsersCountActionCreator(data.totalCount) );
             dispatch(setIsFetchingActionCreator(false) );

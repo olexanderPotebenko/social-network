@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Profile.module.css';
 import {connect} from 'react-redux';
+import {NavLink, Route} from 'react-router-dom';
 import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {getProfile} from '../../reducers/profileReducer.js';
@@ -10,26 +11,89 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
 //components
-import Menu from './Menu/Menu.jsx';
-import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 import Preloader from '../commons/Preloader/Preloader.jsx';
+import Posts from './Posts/Posts';
+import Subscribers from './Subscribers/Subscribers';
+import Subscribed from './Subscribed/Subscribed';
 
 
-const Profile = (props) => {
 
-    if(!props.profile) {
-        return <Preloader />;
-    };
-/*<ProfileInfo 
+class Profile extends React.Component {
+
+    state = {
+        selected: 'subscribed',
+    }
+
+
+    render() {
+        if(!this.props.profile) {
+            return <Preloader />;
+        };
+        /*<ProfileInfo 
                     status={status}
                     email={email}
                     name={name}
                     photos={photos}
                     contacts={contacts} />*/
-    let {status, name, photos, contacts, email} = props.profile;
-    return <Menu {...props}/>
-            
+        let {status, name, photos, contacts, email} = this.props.profile;
+
+        let posts_styles = [styles.menu_item, styles.separator];
+        let subscribers_styles = [styles.menu_item, styles.separator];
+        let subscribed_styles = [styles.menu_item];
+
+        switch(this.state.selected) {
+            case 'posts':
+                 posts_styles.push(styles.current_item);
+                break;
+            case 'subscribers':
+                subscribers_styles.push(styles.current_item);
+                break;
+            case 'subscribed':
+                subscribed_styles.push(styles.current_item);
+                break;
+        };
+
+        posts_styles = posts_styles.join(' ');
+        subscribers_styles = subscribers_styles.join(' ');
+        subscribed_styles = subscribed_styles.join(' ');
+
+
+        return <div className={'wrp'}>
+            <nav className={styles.horizontal_menu}>
+                <ul>
+                    <li >
+                        <NavLink className={posts_styles} 
+                            onClick={() => this.state.selected = 'posts'}
+                            to='posts' >
+                            POSTS
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink  className={subscribers_styles} 
+                            onClick={() => this.state.selected = 'subscribers'}
+                            to='subscribers' >
+                            SUBSCRIBERS
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={subscribed_styles} 
+                            onClick={() => this.state.selected = 'subscribed'}
+                            to='subscribed' >
+                            SUBSRIBED
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
+            <div className={'custom_scroll_bar list'}>
+                <Route component={Posts} path={'/profile/:user_id/posts'} />
+                <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
+                <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
+            </div>
+        </div>
+    }
+
 };
+
 
 class ProfileContainer extends React.Component {
     constructor(props) {
