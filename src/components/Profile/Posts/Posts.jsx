@@ -58,7 +58,7 @@ class Posts extends React.Component {
         return (
             <div className=''>
                 {
-                    this.state.postedModal && <Modal width={500} height={300} Component={CreatePost}
+                    this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }
                         onSubmit={this.onSubmit} />
 

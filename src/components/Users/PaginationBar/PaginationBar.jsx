@@ -51,10 +51,9 @@ class PaginationBar extends React.Component {
 };
 
 let mapStateToProps = (state) => {
-    debugger;
     return {
         auth: state.auth,
-        page_count: state.usersPage.options.total_users_count,
+        page_count: state.usersPage.options.total_users_count/state.usersPage.options.page_size,
         page_current: state.usersPage.options.page_current,
         page_size: state.usersPage.options.page_size,
     }

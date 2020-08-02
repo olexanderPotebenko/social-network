@@ -3,7 +3,7 @@ import Filter from './Filter/Filter.jsx';
 import {connect} from 'react-redux';
 import * as axios from 'axios';
 import {getUsers, follow, unfollow, followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../reducers/usersReducer.js';
-import UserItem from './UserItem/UserItem.jsx';
+import UserItemWithData from '../commons/UserItem/UserItemWithData.jsx';
 import PaginationBar from './PaginationBar/PaginationBar.jsx';
 import Preloader from '../commons/Preloader/Preloader.jsx';
 import styles from './Users.module.css';
@@ -34,7 +34,7 @@ class Users extends React.Component {
                 return item.subscribers.find(user => user.id == this.props.auth.id);
             };
 
-            return <UserItem 
+            return <UserItemWithData 
                 is_following_fetching={this.props.is_following_fetching}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}

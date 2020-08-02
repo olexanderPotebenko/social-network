@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './UserItem.module.css';
 import {profileApi} from '../../../api/api';
-import FollowButton from '../FollowButton/FollowButton';
 import avatar_default from '../../../assets/images/avatar_default.png';
+import FollowButton from '../FollowButton/FollowButton';
 
 class UserItem extends React.Component {
     
@@ -29,7 +29,7 @@ class UserItem extends React.Component {
                     </div>
                 </div>
                 <div className={styles.follow_btn}>
-                    <FollowButton key={this.props.user.id} user={this.props.user} />
+                    <FollowButton key={this.props.user.id} user={this.props.user}/>
                 </div>
             </div>
         </div>

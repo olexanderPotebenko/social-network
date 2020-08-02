@@ -7,10 +7,10 @@ class Subscribed extends React.Component {
 
     render() {
 
-        debugger;
         let subscribed = this.props.subscribed.map(user => 
-            <UserItem id={user.id} name={user.name} /> );
+            <UserItem user={user} /> );
         return <>
+            {this.props.subscribed.length}
             {
                 this.props.subscribed
                 && this.props.subscribed.length
@@ -24,7 +24,7 @@ class Subscribed extends React.Component {
 let mapStateToProps = (state) => {
     debugger;
     return {
-        subscribed: state.profilePage.profile.subscribed_to,
+        subscribed: state.auth.subscribed_to,
     };
 };
 
