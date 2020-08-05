@@ -20,12 +20,16 @@ import Subscribed from './Subscribed/Subscribed';
 
 class Profile extends React.Component {
 
-    state = {
-        selected: 'posts',
+    componentDidMount() {
+    }
+
+    componentWillUpdate() {
     }
 
 
     render() {
+        let selected = this.props.location.pathname.split('/').slice(-1)[0];
+
         if(!this.props.profile) {
             return <Preloader />;
         };
@@ -41,7 +45,7 @@ class Profile extends React.Component {
         let subscribers_styles = [styles.menu_item, styles.separator];
         let subscribed_styles = [styles.menu_item];
 
-        switch(this.state.selected) {
+        switch(selected) {
             case 'posts':
                  posts_styles.push(styles.current_item);
                 break;
@@ -63,21 +67,21 @@ class Profile extends React.Component {
                 <ul>
                     <li >
                         <NavLink className={posts_styles} 
-                            onClick={() => this.state.selected = 'posts'}
+                            onClick={() => selected = 'posts'}
                             to='posts' >
                             POSTS
                         </NavLink>
                     </li>
                     <li>
                         <NavLink  className={subscribers_styles} 
-                            onClick={() => this.state.selected = 'subscribers'}
+                            onClick={() => selected = 'subscribers'}
                             to='subscribers' >
                             SUBSCRIBERS
                         </NavLink>
                     </li>
                     <li>
                         <NavLink className={subscribed_styles} 
-                            onClick={() => this.state.selected = 'subscribed'}
+                            onClick={() => selected = 'subscribed'}
                             to='subscribed' >
                             SUBSRIBED
                         </NavLink>
@@ -109,6 +113,7 @@ class ProfileContainer extends React.Component {
             id: this.props.auth? this.props.auth.id: '',
             token: this.props.auth? this.props.auth.token: '',
         };
+                debugger;
         this.props.getProfile(options);
     }
 
@@ -126,6 +131,7 @@ class ProfileContainer extends React.Component {
                     id: this.props.auth? this.props.auth.id: '',
                     token: this.props.auth? this.props.auth.token: '',
                 };
+                debugger;
                 this.props.getProfile(options);
             };
         };

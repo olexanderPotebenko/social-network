@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import styles from './UserItem.module.css';
 import {profileApi} from '../../../api/api';
 import avatar_default from '../../../assets/images/avatar_default.png';
@@ -21,7 +22,9 @@ class UserItem extends React.Component {
         return <div className={styles.wrp}>
             <div className={styles.container} >
                 <div className={styles.avatar}>
+                    <NavLink to={`/profile/${this.props.user.id}/posts`}>
                     <img src={avatar_default} />
+                </NavLink>
                 </div>
                 <div className={styles.name_wrp}>
                     <div className={styles.name}>

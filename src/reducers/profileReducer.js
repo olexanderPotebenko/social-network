@@ -27,6 +27,7 @@ let profileReducer = (state = initial_state, action) => {
         case(SET_USER_PROFILE):
             return setUserProfile(state, action.profile);
         case SET_USER_POSTS:
+            debugger;
             return {
                 ...state, 
                 //...state.profile,
@@ -74,6 +75,7 @@ function setUserProfile (state, profile) {
 export const getProfile = options => dispatch => {
     profileApi.getProfile(options)
         .then(data => {
+            debugger;
             if(data.data.result_code === 0)
                 dispatch(setUserProfileActionCreator(data.data));
         });

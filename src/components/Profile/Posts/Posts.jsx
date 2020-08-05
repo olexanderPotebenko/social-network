@@ -27,6 +27,14 @@ class Posts extends React.Component {
         this.props.getPosts(options);
     }
 
+    componentWillUpdate() {
+        let options = {
+            user_id: this.props.profile.id, 
+        }
+        this.props.getPosts(options);
+
+    }
+
     onSubmit = (post) => {
         this.changeVisibleModal(false);
         let {id, token} = this.props.auth;
