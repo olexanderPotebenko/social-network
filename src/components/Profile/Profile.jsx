@@ -21,7 +21,7 @@ import Subscribed from './Subscribed/Subscribed';
 class Profile extends React.Component {
 
     state = {
-        selected: 'subscribed',
+        selected: 'posts',
     }
 
 

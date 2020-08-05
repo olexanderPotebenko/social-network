@@ -3,18 +3,18 @@ import {connect} from 'react-redux';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
 import UserItem from '../../commons/UserItem/UserItem';
 
-class Subscribed extends React.Component {
+class Subscribers extends React.Component {
 
     render() {
 
-        let subscribed = this.props.subscribed.map(user => 
+        let subscribers = this.props.subscribers.map(user => 
             <UserItem user={user} /> );
         return <>
-            {this.props.subscribed.length}
+            {this.props.subscribers.length}
             {
-                this.props.subscribed
-                && this.props.subscribed.length
-                && subscribed
+                this.props.subscribers
+                && this.props.subscribers.length
+                && subscribers
                 || <ListIsEmpty />
             }
             </>
@@ -24,8 +24,8 @@ class Subscribed extends React.Component {
 let mapStateToProps = (state) => {
     debugger;
     return {
-        subscribed: state.auth.subscribed_to,
+        subscribers: state.auth.subscribers,
     };
 };
 
-export default connect(mapStateToProps, {})(Subscribed);
+export default connect(mapStateToProps, {})(Subscribers);

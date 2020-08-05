@@ -41,7 +41,15 @@ export const profileApi = {
     deletePost ({id, token, post_id}) {
         return instance.delete(`profile/${id}/posts/${post_id}`,
             { headers: {authorize: token, id}, })
-            .then(res => res.data);
+            .then(res => {
+                console.log(res);
+                return {post: {id: post_id}, result_code: 0};
+            },
+                rej => {
+                    console.log(rej);
+                    return {result_code: 1};
+                } 
+            )
     },
     likedPost ({id, token, user_id, post_id}) {
         return instance.post(`profile/${user_id}/posts/${post_id}/like`,

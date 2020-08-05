@@ -21,7 +21,6 @@ class Posts extends React.Component {
 
     componentDidMount() {
 
-        debugger;
         let options = {
             user_id: this.props.profile.id, 
         }

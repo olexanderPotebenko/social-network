@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {likedPost} from '../../../../reducers/profileReducer';
+import {likedPost, deletePost} from '../../../../reducers/profileReducer';
 import styles from './Post.module.css';
 import {getFormatedDate} from '../../../../utils/functions';
 import heart from '../../../../assets/images/heart.png';
+import criss_cross from '../../../../assets/images/criss-cross.png';
 
 class Post extends React.Component {
 
@@ -49,12 +50,28 @@ class Post extends React.Component {
 
     };
 
+    onDelete(e) {
+        let options = {
+            id: this.props.auth.id,
+            token: this.props.auth.token,
+            post_id: this.props.post.id,
+        };
+
+        this.props.deletePost(options);
+    }
+
     render () {
         window.localState = this.state;
         return (
             <div className={styles.wrapper}>
-                <div className={styles.date}>
-                    {getFormatedDate(this.props.post.date)}
+                {
+                    this.props.auth.id === this.props.profile.id 
+                    && <div className={styles.criss_cross} onClick={this.onDelete.bind(this)}>
+                        <img src={criss_cross} />
+                    </div>
+                }
+                    <div className={styles.date}>
+                        {getFormatedDate(this.props.post.date)}
                 </div>
                 <div className={styles.post}>
                     {console.log(this.props.post.picture)}
@@ -84,5 +101,5 @@ class Post extends React.Component {
     }
 };
 
-export default connect(() => {}, {likedPost})(Post);
+export default connect(() => {}, {likedPost, deletePost})(Post);
 

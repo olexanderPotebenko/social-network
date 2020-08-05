@@ -6,6 +6,7 @@ const ADD_NEW_TEXT = 'ADD-NEW-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_POSTS = 'SET-USER-POSTS';
 const SET_LIKES_POST = 'SET_LIKES_POST';
+const DELETE_POST = 'DELETE-POST';
 
 let initial_state = {
     posts: [
@@ -34,7 +35,7 @@ let profileReducer = (state = initial_state, action) => {
         case SET_LIKES_POST:
             let posts = state.posts.map(post => {
                 debugger;
-                if(post.id !== action.post.id){
+                if(post.id != action.post.id){
                     return post;
                 }else{
                     return action.post;
@@ -44,6 +45,15 @@ let profileReducer = (state = initial_state, action) => {
             return {
                 ...state,
                 posts,
+            };
+        case DELETE_POST: 
+
+            return {
+                ...state,
+                posts: state.posts.filter(post => {
+                    debugger;
+                    return (post.id != action.post.id)
+                }),
             };
     };
     return state;
@@ -102,10 +112,23 @@ export const likedPost = options => dispatch => {
         });
 };
 
+export const deletePost = options => dispatch => {
+    profileApi.deletePost(options)
+        .then(data => {
+            if(data.result_code === 0) {
+                debugger;
+                dispatch(deletePostActionCreator( data.post ));
+            }else{
+            };
+        });
+};
+
+
 export const setUserProfileActionCreator = profile => ({type: SET_USER_PROFILE, profile});
 export const setUserPosts = posts => ({type: SET_USER_POSTS, posts});
 export const addPost = post => ({type: ADD_POST, post});
 export const setPostLikes = (post) => ({type: SET_LIKES_POST, post}); 
+export const deletePostActionCreator = (post) => ({type: DELETE_POST, post});
 
 export default profileReducer;
 
