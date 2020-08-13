@@ -27,7 +27,6 @@ let profileReducer = (state = initial_state, action) => {
         case(SET_USER_PROFILE):
             return setUserProfile(state, action.profile);
         case SET_USER_POSTS:
-            debugger;
             return {
                 ...state, 
                 //...state.profile,
@@ -35,7 +34,6 @@ let profileReducer = (state = initial_state, action) => {
             };
         case SET_LIKES_POST:
             let posts = state.posts.map(post => {
-                debugger;
                 if(post.id != action.post.id){
                     return post;
                 }else{
@@ -52,7 +50,6 @@ let profileReducer = (state = initial_state, action) => {
             return {
                 ...state,
                 posts: state.posts.filter(post => {
-                    debugger;
                     return (post.id != action.post.id)
                 }),
             };
@@ -75,7 +72,6 @@ function setUserProfile (state, profile) {
 export const getProfile = options => dispatch => {
     profileApi.getProfile(options)
         .then(data => {
-            debugger;
             if(data.data.result_code === 0)
                 dispatch(setUserProfileActionCreator(data.data));
         });
@@ -94,7 +90,6 @@ export const getPosts = options => dispatch => {
 export const createPost = options => dispatch => {
     profileApi.createPost(options)
         .then(data => {
-            debugger;
             if(data.result_code === 0) {
                 dispatch(addPost(data.post));
             }else{
@@ -107,7 +102,6 @@ export const likedPost = options => dispatch => {
     profileApi.likedPost(options)
         .then(data => {
             if(data.result_code === 0) {
-                debugger;
                 dispatch(setPostLikes( data.post, ));
             }else{
             };
@@ -118,7 +112,6 @@ export const deletePost = options => dispatch => {
     profileApi.deletePost(options)
         .then(data => {
             if(data.result_code === 0) {
-                debugger;
                 dispatch(deletePostActionCreator( data.post ));
             }else{
             };

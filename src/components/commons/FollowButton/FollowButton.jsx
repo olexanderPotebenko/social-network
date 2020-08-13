@@ -12,13 +12,11 @@ class FollowButton extends React.Component {
 
     componentDidMount() {
 
-        debugger;
         let followed = this.props.subscribed.map(user => user.id).includes(this.props.user.id);
         this.setState({ followed });
     }
 
     async onFollow () {
-        debugger;
         let options = {
             id: this.props.auth.id,
             user_id: this.props.user.id,
@@ -29,7 +27,6 @@ class FollowButton extends React.Component {
             .then(data => {
                 if(data.result_code === 0){
 
-                    debugger;
                 this.props.setSubscribed(this.props.user);
                 this.setState({isFetching: false})
                 this.setState({followed: true})
@@ -41,7 +38,6 @@ class FollowButton extends React.Component {
     };
 
     onUnfollow () {
-                    debugger;
         let options = {
             id: this.props.auth.id,
             user_id: this.props.user.id,
@@ -53,7 +49,6 @@ class FollowButton extends React.Component {
             .then(data => {
                 if(data.result_code === 0){
 
-                    debugger;
                 this.props.setSubscribed(this.props.user);
                 this.setState({followed: false})
                 this.setState({isFetching: false})
@@ -69,7 +64,6 @@ class FollowButton extends React.Component {
     };
 
     render() {
-        debugger;
             
         return (
             <div className={styles.wrp}>

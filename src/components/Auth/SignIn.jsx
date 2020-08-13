@@ -10,7 +10,7 @@ import cls from './Auth.module.css';
 class SignIn extends React.Component {
 
     componentDidMount(){
-        this.props.login({email: 'ignat.lukianenko@gmail.com', password: '111111'})
+        this.props.login({email: 'maksym.maruenko@gmail.com', password: '111111'})
     }
     componentWillUnmount(){
         this.props.setServerError(undefined);

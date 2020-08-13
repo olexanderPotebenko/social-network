@@ -22,7 +22,6 @@ class Subscribers extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    debugger;
     return {
         subscribers: state.profilePage.profile.subscribers,
     };

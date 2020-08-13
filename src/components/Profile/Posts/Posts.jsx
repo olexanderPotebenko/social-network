@@ -28,10 +28,21 @@ class Posts extends React.Component {
     }
 
     componentWillUpdate() {
-        let options = {
-            user_id: this.props.profile.id, 
-        }
-        this.props.getPosts(options);
+        if(this.props.profile !== null){
+            let route_profile = this.props.location.pathname
+                .split('/').filter(item => item !== '')[1];
+            let current_profile = this.props.profile.id;
+
+            if(route_profile !== current_profile) {
+
+                let options = {
+                    user_id: route_profile, 
+                }
+
+                alert(this.props.profile.id + ' and ' + route_profile);
+                this.props.getPosts(options);
+            };
+        };
 
     }
 
@@ -52,6 +63,7 @@ class Posts extends React.Component {
     changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
 
     render() {
+
         let posts = [];
         if(this.props.posts){
             posts = this.props.posts.map( (item) =>  {
@@ -64,6 +76,9 @@ class Posts extends React.Component {
 
         return (
             <div className=''>
+                <div>
+                    {this.props.posts.length}
+                </div>
                 {
                     this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }

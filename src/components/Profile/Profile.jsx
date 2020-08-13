@@ -113,7 +113,6 @@ class ProfileContainer extends React.Component {
             id: this.props.auth? this.props.auth.id: '',
             token: this.props.auth? this.props.auth.token: '',
         };
-                debugger;
         this.props.getProfile(options);
     }
 
@@ -131,7 +130,6 @@ class ProfileContainer extends React.Component {
                     id: this.props.auth? this.props.auth.id: '',
                     token: this.props.auth? this.props.auth.token: '',
                 };
-                debugger;
                 this.props.getProfile(options);
             };
         };
