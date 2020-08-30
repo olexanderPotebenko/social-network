@@ -50,16 +50,13 @@
     bottom: 9px; right: 9px;
     box-sizing: border-box;
     border-radius: 17px;
-    padding: 5px;
+    height: 50px;
+    overflow: hidden;
+    background-color: rgba(220, 220, 250, .8);
 
     color: #444;
     font-weight: bold;
     margin: auto;
-}
-
-.likes:hover{
-    background-color: #66a;
-    color: white;
 }
 
 .likes .count {
@@ -67,15 +64,57 @@
     font-size: 23px;
     height: 30px;
     float: right;
-    display: inline-block;
+    padding: 3px;
 }
 
-.likes img {
+.likes .count .text {
+    color: #d33;
+    min-width: 30px;
+    padding: 1px;
+}
+
+.likes .count:hover .text {
+    filter: invert(100%);
+}
+
+.likes .heart {
     display: inline-block;
     float: left;
-    margin-right: 5px;
+    padding: 3px;
+    box-shadow: 5px 0px 4px -5px rgba(20, 20, 29, .6);
+}
+
+.heart img {
     width: 30px;
     height: 30px;
+}
+
+.heart:hover img {
+    filter: invert(100%);
+}
+
+.likes .count, .likes .heart {
+    min-width: 30px;
+    padding: 10px;
+    transition: background-color .5s;
+}
+
+.likes .count:hover, .likes .heart:hover {
+    background-color: #66a;
+}
+
+.user_ho_liked_wrp {
+    max-width: 0px;
+    height: 30px;
+    overflow: hidden;
+    float: left;
+}
+.user_ho_liked {
+    width: 30px;
+    height: 30px;
+    float: left;
+    background-color: #33aa33;
+    border-radius: 15px;
 }
 
 .criss_cross {

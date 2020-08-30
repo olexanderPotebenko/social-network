@@ -36,7 +36,6 @@ const authReducer = (state = initial_state, action) => {
             return {
                 ...state,
                 subscribed_to: (() => {
-                    debugger;
                     if(state.subscribed_to.map(user => user.id).includes(action.user.id)){
                         return state.subscribed_to.filter(user => user.id != action.user.id);
                     }else{

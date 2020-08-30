@@ -8,6 +8,7 @@ import Post from './Post/Post.jsx';
 import CreatePost from './CreatePost/CreatePost';
 
 import {TextArea, Button} from '../../commons/FormsControls/FormsControls';
+import Anchor from '../../commons/Anchor/Anchor';
 import Modal from '../../commons/Modal/Modal';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
 import {getPosts, createPost} from '../../../reducers/profileReducer';
@@ -17,6 +18,7 @@ class Posts extends React.Component {
 
     state = {
         postedModal: false,
+        scrollTop: 0,
     }
 
     componentDidMount() {
@@ -39,7 +41,6 @@ class Posts extends React.Component {
                     user_id: route_profile, 
                 }
 
-                alert(this.props.profile.id + ' and ' + route_profile);
                 this.props.getPosts(options);
             };
         };
@@ -74,8 +75,12 @@ class Posts extends React.Component {
             posts.reverse();
         }
 
+        let scrollbar = React.createRef();
+        
         return (
-            <div className=''>
+            <div ref={scrollbar} className={styles.posts + ' custom_scroll_bar'} >
+
+                <Anchor scrollbar={scrollbar} />
                 <div>
                     {this.props.posts.length}
                 </div>
@@ -99,9 +104,9 @@ class Posts extends React.Component {
                                         posts.length > 0 && posts
                                             || <ListIsEmpty />
                                     }
-                                </div>
+                                        </div>
 
-                            </div>
+                                    </div>
         );
     }
 };

@@ -33,12 +33,6 @@ class Profile extends React.Component {
         if(!this.props.profile) {
             return <Preloader />;
         };
-        /*<ProfileInfo 
-                    status={status}
-                    email={email}
-                    name={name}
-                    photos={photos}
-                    contacts={contacts} />*/
         let {status, name, photos, contacts, email} = this.props.profile;
 
         let posts_styles = [styles.menu_item, styles.separator];
@@ -60,7 +54,6 @@ class Profile extends React.Component {
         posts_styles = posts_styles.join(' ');
         subscribers_styles = subscribers_styles.join(' ');
         subscribed_styles = subscribed_styles.join(' ');
-
 
         return <div className={'wrp'}>
             <nav className={styles.horizontal_menu}>
@@ -88,7 +81,7 @@ class Profile extends React.Component {
                     </li>
                 </ul>
             </nav>
-            <div className={'custom_scroll_bar list'}>
+            <div style={ {overflow: 'hidden' } }>
                 <Route component={Posts} path={'/profile/:user_id/posts'} />
                 <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
                 <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />

@@ -99,10 +99,10 @@ export const createPost = options => dispatch => {
 };
 
 export const likedPost = options => dispatch => {
-    profileApi.likedPost(options)
+    return profileApi.likedPost(options)
         .then(data => {
             if(data.result_code === 0) {
-                dispatch(setPostLikes( data.post, ));
+                return dispatch(setPostLikes( data.post, ));
             }else{
             };
         });

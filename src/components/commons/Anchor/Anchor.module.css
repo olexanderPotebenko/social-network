@@ -1,0 +1,50 @@
+.arrow_wrp {
+    position: absolute;
+    bottom: 5px;
+    z-index: 100;
+    width: 100%;
+}
+
+.arrow {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    display: block;
+    margin: auto;
+    border-radius: 24px;
+    transition: opacity 1s linear;
+    transition: background-color 1s;
+    transition: box-shadow 1s linear;
+    background-color: rgba(190, 170, 256, .1);
+    box-shadow: 0 0 2px 1px rgba(22, 22, 55, .1) inset;
+    opacity: .5;
+}
+
+.arrow:hover {
+    transition: opacity 1s linear;
+    transition: background-color 1s;
+    transition: box-shadow 1s linear;
+    opacity: 1;
+    background-color: rgba(190, 170, 256, .9);
+    box-shadow: 0 0 2px 1px rgba(22, 22, 55, .7) inset;
+}
+
+.arrow:active {
+    animation: undercut .2s ease;
+}
+
+.arrow img {
+    position: absolute;
+    top: 4px; left: 4px;
+    right: 0px; bottom: 0px;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes undercut {
+    0% { top: 4px; }
+    20% { top: -6px; }
+    50% { top: 4px; }
+    75% { top: -6px; }
+    100% { top: 4px; }
+}

@@ -5,7 +5,7 @@ import style from './FetchingToggle.module.css';
 let FetchingToggle = (props) => {
 
     return <div className={style.wrapper}>
-        <img className={style.toggle_img} src={toggle} />
+            <img className={style.toggle_img + ' ' + (props.background === true && style.with_background || '')} src={toggle} />
     </div>
 };
 

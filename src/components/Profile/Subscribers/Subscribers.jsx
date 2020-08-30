@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
 import UserItem from '../../commons/UserItem/UserItem';
+import Anchor from '../../commons/Anchor/Anchor';
 
 class Subscribers extends React.Component {
 
@@ -9,7 +10,14 @@ class Subscribers extends React.Component {
 
         let subscribers = this.props.subscribers.map(user => 
             <UserItem user={user} /> );
-        return <>
+        
+        let scrollbar = React.createRef();
+
+        return <div ref={scrollbar} className={' custom_scroll_bar'}
+                style={ {width: '100%', height: '100%'} }>
+
+            <Anchor scrollbar={scrollbar} />
+
             {this.props.subscribers.length}
             {
                 this.props.subscribers
@@ -17,7 +25,7 @@ class Subscribers extends React.Component {
                 && subscribers
                 || <ListIsEmpty />
             }
-            </>
+            </div>
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
 import UserItem from '../../commons/UserItem/UserItem';
+import Anchor from '../../commons/Anchor/Anchor';
 
 class Subscribed extends React.Component {
 
@@ -9,20 +10,27 @@ class Subscribed extends React.Component {
 
         let subscribed = this.props.subscribed.map(user => 
             <UserItem user={user} /> );
-        return <>
-            {this.props.subscribed.length}
-            {
-                this.props.subscribed
-                && this.props.subscribed.length
-                && subscribed
-                || <ListIsEmpty />
-            }
-            </>
+
+        let scrollbar = React.createRef();
+        return (
+            <div ref={scrollbar} className={' custom_scroll_bar'}
+                style={ {width: '100%', height: '100%'} }>
+                <Anchor scrollbar={scrollbar} />
+                {this.props.subscribed.length}
+                <div>
+                {
+                    this.props.subscribed
+                        && this.props.subscribed.length
+                        && subscribed
+                        || <ListIsEmpty />
+                }
+                    </div>
+                    </div>
+        )
     }
 }
 
 let mapStateToProps = (state) => {
-    debugger;
     return {
         subscribed: state.profilePage.profile.subscribed_to,
     };
