@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Modal.module.css';
+import CloseButton from '../CloseButton/CloseButton';
 
 class Modal extends React.Component {
 
@@ -24,6 +25,7 @@ class Modal extends React.Component {
                 <div className={styles.content} 
                     style={{width: this.props.width, height: this.props.height}}
                     onClick={event => event.stopPropagation() } >
+                    <CloseButton close={(() => {return this.props.changeVisibleModal(false)}).bind(this)} />
                     <this.props.Component {...this.props} />
                 </div>
             </div>

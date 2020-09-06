@@ -5,23 +5,25 @@
 .color_filter {
     position: fixed;
     top: 0; bottom: 0; left: 0; right: 0;
-    background-color: rgba(13, 9, 13, .9);
+    background-color: rgba(21, 18, 24, .7);
     z-index: 1000;
 }
 
 .content {
+    position: relative;
     display: block;
-    background-color: rgba(190, 180, 180, .9);
+    background-color: rgba(9, 8, 12, .8);
     border-radius: 5px;
     margin: auto;
     margin-top: 130px;
     padding: 10px;
+    padding-top: 50px;
     box-sizing: border-box;
     box-shadow: 0 0 20px 5px rgba(10, 10, 10, .4);
     z-index: 1000;
 }
 
 .content:hover {
-    background-color: rgba(210, 200, 200, .9);
+    background-color: rgba(9, 8, 12, .9);
     box-shadow: 0 0 30px 10px rgba(10, 10, 10, .4);
 }

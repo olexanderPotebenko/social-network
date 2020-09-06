@@ -1,7 +1,12 @@
-.horizontal_menu {
+.header {
     width: 100%;
     height: 100%;
+    background-color: rgba(4, 3, 11, .1);
+}
+
+.horizontal_menu {
     z-index: 1000;
+    display: inline-block;
 }
 
 .horizontal_menu li {
@@ -9,6 +14,26 @@
     display: inline-block;
     box-sizing: border-box;
     background-color: rgba(144, 133, 144, .1);
+}
+
+.profile-info {
+    height: 100%;
+    display: inline-block;
+    float: right;
+}
+
+.profile-name {
+    margin-top: 29px;
+    font-size: 25px;
+}
+
+.profile-more-info {
+    text-decoration: none;
+    float: right;
+}
+
+.profile-name, .profile-more-info {
+    margin-right: 45px;
 }
 
 .menu_item {

@@ -1,30 +1,73 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import styles from './ProfileInfo.module.css';
-import Status from './Status.jsx';
 import poster from '../../../assets/images/space.jpg';
 import default_avatar from '../../../assets/images/avatar_default.png';
 
-const ProfileInfo = ({photos, name, status, email}) => {
 
-    let photo = photos && photos.small ? photos.small : default_avatar;
-    return (
-        <div className={styles.wrapper}>
-            {/*<img src={poster} className={styles.poster} />*/}
+class ProfileInfo extends React.Component {
 
-            <div className={styles.content}>
-                <img className={styles.avatar} src={photo} />
-                <div className={styles.description}>
-                    <div>
-                        <span className={styles.name}>{name}</span>
-                        <span className={styles.address}>Ukraine, Dnipro</span>
-                    </div>
-                    <span className={styles.email}>{email}</span>
-                    <span className={styles.phone}>+88002553535</span>
-                    <Status status={status}/>
+    render () {
+        debugger;
+        let profile = this.props.profile;
+
+        let avatar = this.props.profile.photos.small || default_avatar;
+        return (
+            <div className={styles.wrapper}>
+                <div className={styles.avatar}>
+                    <img src={avatar} />
                 </div>
+                <ul className={styles['list-info']}>
+                    <li>
+                        <span className={styles['item-field']}>
+                            name: 
+                        </span>
+                        <span className={styles['item-data']}>
+                            {`      ${this.props.profile.name}`}
+                        </span>
+                    </li>
+                    <li>
+                        <span className={styles['item-field']}>
+                            address:
+                        </span>
+                        <span className={styles['item-data']}>
+                            {`      ${this.props.profile.address}`}
+                        </span>
+                    </li>
+                    <li>
+                        <span className={styles['item-field']}>
+                            email:
+                        </span>
+                        <span className={styles['item-data']}>
+                            {`      ${this.props.profile.email}`}
+                        </span>
+                    </li>
+                    <li>
+                        <span className={styles['item-field']}>
+                            phone:
+                        </span>
+                        <span className={styles['item-data']}>
+                            {`      ${this.props.profile.phone}`}
+                        </span>
+                    </li>
+                    <li>
+                        <span className={styles['item-field']}>
+                            status:
+                        </span>
+                        <span className={styles['item-data']}>
+                            {`      ${this.props.profile.status}`}
+                        </span>
+                    </li>
+                </ul>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
-export default ProfileInfo;
+let mapStateToProps = (state) => {
+    return {
+        profile: state.profilePage.profile,
+    }
+};
+
+export default connect(mapStateToProps, {})(ProfileInfo);

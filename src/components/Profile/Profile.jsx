@@ -15,16 +15,25 @@ import Preloader from '../commons/Preloader/Preloader.jsx';
 import Posts from './Posts/Posts';
 import Subscribers from './Subscribers/Subscribers';
 import Subscribed from './Subscribed/Subscribed';
+import Modal from '../commons/Modal/Modal';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
 
 class Profile extends React.Component {
+
+    state = {
+        postedModal: false,
+        scrollTop: 0,
+    }
 
     componentDidMount() {
     }
 
     componentWillUpdate() {
     }
+
+    changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
 
 
     render() {
@@ -56,37 +65,68 @@ class Profile extends React.Component {
         subscribed_styles = subscribed_styles.join(' ');
 
         return <div className={'wrp'}>
-            <nav className={styles.horizontal_menu}>
-                <ul>
-                    <li >
-                        <NavLink className={posts_styles} 
-                            onClick={() => selected = 'posts'}
-                            to='posts' >
-                            POSTS
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink  className={subscribers_styles} 
-                            onClick={() => selected = 'subscribers'}
-                            to='subscribers' >
-                            SUBSCRIBERS
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink className={subscribed_styles} 
-                            onClick={() => selected = 'subscribed'}
-                            to='subscribed' >
-                            SUBSRIBED
-                        </NavLink>
-                    </li>
-                </ul>
-            </nav>
+            <div className={styles.header}>
+                <nav className={styles.horizontal_menu}>
+                    <ul>
+                        <li >
+                            <NavLink className={posts_styles} 
+                                onClick={() => selected = 'posts'}
+                                to='posts' >
+                                POSTS
+                                {
+                                    ` ${this.props.posts.length}`
+                                }
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink  className={subscribers_styles} 
+                                onClick={() => selected = 'subscribers'}
+                                to='subscribers' >
+                                SUBSCRIBERS
+                                {
+                                    ` ${this.props.subscribers.length}`
+                                }
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className={subscribed_styles} 
+                                onClick={() => selected = 'subscribed'}
+                                to='subscribed' >
+                                SUBSRIBED 
+                                {
+                                    ` ${this.props.subscribed.length}`
+                                }
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+                <div className={styles['profile-info']} >
+                    <div className={styles['profile-name']} >
+                        {this.props.profile.name}
+                    </div>
+                    <a href='' className={styles['profile-more-info']}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.changeVisibleModal(true)}
+                        } >
+                        more info
+                        
+                            </a>
+            {
+                this.state.postedModal && <Modal width={800} height={420} 
+                    Component={ProfileInfo}
+                    changeVisibleModal={ this.changeVisibleModal }
+                    onSubmit={this.onSubmit} />
+
+            }
+                </div>
+            </div>
             <div style={ {overflow: 'hidden' } }>
                 <Route component={Posts} path={'/profile/:user_id/posts'} />
                 <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
-                <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
-            </div>
-        </div>
+                        <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
+                    </div>
+                </div>
     }
 
 };
@@ -137,6 +177,9 @@ class ProfileContainer extends React.Component {
 let mapsStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
+        posts: state.profilePage.posts,
+        subscribers: state.profilePage.profile && state.profilePage.profile.subscribers || [],
+        subscribed: state.profilePage.profile && state.profilePage.profile.subscribed_to || [],
     };
 };
 
