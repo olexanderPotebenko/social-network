@@ -10,14 +10,12 @@ class Anchor extends React.Component {
     }
 
     addScollListener = () => {
-        debugger;
         this.props.scrollbar.current
         && this.props.scrollbar.current.addEventListener('scroll', e => {
             let scrollTop = e.target.scrollTop;
             let clientHeight = e.target.clientHeight;
             let scrollHeight = e.target.scrollHeight;
             this.setState({ scrollTop, clientHeight, scrollHeight });
-            debugger;
             if(scrollTop > clientHeight/2){
                 this.setState({visible: true})
             }else{
@@ -30,7 +28,6 @@ class Anchor extends React.Component {
     componentWillUpdate(nextProps, nextState) {
 
         let bool = this.props.scrollbar.current != nextProps.scrollbar.current;
-        debugger;
         this.props.scrollbar && nextProps.scrollbar
             && bool
             && this.addScollListener();

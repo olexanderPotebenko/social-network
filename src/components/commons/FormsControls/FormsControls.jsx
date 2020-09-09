@@ -16,17 +16,47 @@ export const Input = ({input, meta, ...props}) => {
     return <>
         <div className={styles.input_wrapper}>
             <div className={styles.input_container}>
-            <div className={styles.required_payload} >
-                { (input.name[0].toUpperCase() + input.name.slice(1))
-                    .split('')
-                        .map(item => item == '_'? ' ': item)}
+                <div className={styles.required_payload} >
+                    { (input.name[0].toUpperCase() + input.name.slice(1))
+                            .split('')
+                            .map(item => item == '_'? ' ': item)}
+                </div>
+                <input className={input_styles} {...input} {...props}/>
+                {error_heandler && <ErrorField error={meta.error} />}
             </div>
-            <input className={input_styles} {...input} {...props}/>
-        {error_heandler && <ErrorField error={meta.error} />}
-        </div>
         </div>
         </>
 };
+
+export const Input2 = ({input, meta, editMode, ...props}) => {
+
+    let input_styles = [styles.input];
+    let error_heandler = meta.touched && !meta.active && meta.error;
+    let success_handler = meta.touched && !meta.active && !meta.error;
+    if(error_heandler)
+        input_styles.push(styles.input_error);
+    else if(success_handler)
+        input_styles.push(styles.input_success);
+
+    input_styles.push(styles.input2_text);
+
+    input_styles = input_styles.join(' ');
+
+    return <>
+        <div className={styles.input2_wrapper}>
+            <div className={styles.input_container}>
+                {
+                    editMode
+                    && <input className={input_styles} {...input} {...props}/>
+                    || <div className={styles.input2_text} >{input.value}</div>
+                }
+                    {editMode && error_heandler && <ErrorField error={meta.error} />}
+                </div>
+            </div>
+        </>
+};
+
+
 
 export const Button = ({type, name, disabled}) => {
 

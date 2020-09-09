@@ -115,8 +115,7 @@ class Profile extends React.Component {
             {
                 this.state.postedModal && <Modal width={800} height={420} 
                     Component={ProfileInfo}
-                    changeVisibleModal={ this.changeVisibleModal }
-                    onSubmit={this.onSubmit} />
+                    changeVisibleModal={ this.changeVisibleModal } />
 
             }
                 </div>

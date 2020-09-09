@@ -19,7 +19,7 @@ export const profileApi = {
     getProfile (options) {
 
         let {id, token, user_id} = options;
-         return instance.get(`profile/${user_id}`,
+        return instance.get(`profile/${user_id}`,
             {
                 headers:  id ? { authorize: token, id: id }: {} ,
             }).then(res => res.data);
@@ -38,6 +38,20 @@ export const profileApi = {
         )
             .then( res =>  res.data );
     },
+
+    likedPost ({id, token, user_id, post_id}) {
+        return instance.post(`profile/${user_id}/posts/${post_id}/like`,
+            {},
+            { headers: {authorize: token, id}, })
+            .then(res => res.data);
+    },
+    /*
+            id: this.props.auth.id,
+            user_id: this.props.profile.id,
+            token: this.props.auth.token,
+            post_id: this.props.post.id,
+            */
+    // delete
     deletePost ({id, token, post_id}) {
         return instance.delete(`profile/${id}/posts/${post_id}`,
             { headers: {authorize: token, id}, })
@@ -51,20 +65,16 @@ export const profileApi = {
                 } 
             )
     },
-    likedPost ({id, token, user_id, post_id}) {
-        return instance.post(`profile/${user_id}/posts/${post_id}/like`,
-            {},
+    // put 
+    updateProfile ({id, token, formData}) {
+        return instance.put(`profile/${id}/update`,
+            formData,
             { headers: {authorize: token, id}, })
-            .then(res => res.data);
+            .then(res => {
+                return res.data;
+            });
     },
-    /*
-            id: this.props.auth.id,
-            user_id: this.props.profile.id,
-            token: this.props.auth.token,
-            post_id: this.props.post.id,
-            */
 
-                
 };
 
 export const authApi = {
@@ -86,13 +96,13 @@ export const authApi = {
 export const followApi = {
     follow ({token, id, user_id}) {
 
-         return instance.post(`follow/${user_id}`, {},
+        return instance.post(`follow/${user_id}`, {},
             { headers: {authorize: token, id} }
-         ).then( res => res.data );
+        ).then( res => res.data );
     },
     unfollow ({token, id, user_id}) {
 
-         return instance.delete(`follow/${user_id}/`, 
+        return instance.delete(`follow/${user_id}/`, 
             { headers: {authorize: token, id} }
         ).then( res => res.data );
     },

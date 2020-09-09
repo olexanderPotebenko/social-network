@@ -23,7 +23,7 @@ class Modal extends React.Component {
             <div className={styles.color_filter}
                 onClick={() => this.props.changeVisibleModal(false) } >
                 <div className={styles.content} 
-                    style={{width: this.props.width, height: this.props.height}}
+                    style={{width: this.props.width, 'min-height': this.props.height}}
                     onClick={event => event.stopPropagation() } >
                     <CloseButton close={(() => {return this.props.changeVisibleModal(false)}).bind(this)} />
                     <this.props.Component {...this.props} />

@@ -7,6 +7,7 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_POSTS = 'SET-USER-POSTS';
 const SET_LIKES_POST = 'SET_LIKES_POST';
 const DELETE_POST = 'DELETE-POST';
+const UPDATE_PROFILE = 'UPDATE-PROFILE';
 
 let initial_state = {
     posts: [
@@ -52,6 +53,11 @@ let profileReducer = (state = initial_state, action) => {
                 posts: state.posts.filter(post => {
                     return (post.id != action.post.id)
                 }),
+            };
+        case UPDATE_PROFILE:
+            return {
+                ...state,
+                profile: {...state.profile},
             };
     };
     return state;
@@ -118,12 +124,23 @@ export const deletePost = options => dispatch => {
         });
 };
 
+export const updateProfile = options => dispatch => {
+    return profileApi.updateProfile(options)
+        .then(data => {
+            if(data.result_code === 0) {
+                return dispatch(updateProfileActionCreator() );
+            }else{
+            };
+        });
+};
+
 
 export const setUserProfileActionCreator = profile => ({type: SET_USER_PROFILE, profile});
 export const setUserPosts = posts => ({type: SET_USER_POSTS, posts});
 export const addPost = post => ({type: ADD_POST, post});
 export const setPostLikes = (post) => ({type: SET_LIKES_POST, post}); 
 export const deletePostActionCreator = (post) => ({type: DELETE_POST, post});
+export const updateProfileActionCreator = () => ({type: UPDATE_PROFILE});
 
 export default profileReducer;
 
