@@ -7,7 +7,7 @@ import styles from './ProfileInfo.module.css';
 import WithAuthData from '../../../hocs/WithAuthData';
 import {updateProfile, getProfile} from '../../../reducers/profileReducer';
 
-import {Input2, Button, ErrorForm} from '../../commons/FormsControls/FormsControls.jsx';
+import {Input2, InputImage, Button, ErrorForm} from '../../commons/FormsControls/FormsControls.jsx';
 import poster from '../../../assets/images/space.jpg';
 import default_avatar from '../../../assets/images/avatar_default.png';
 import FetchingToggle from '../../commons/FetchingToggle/FetchingToggle';
@@ -17,7 +17,7 @@ const maxLength30 = maxLengthCreator(30);
 class ProfileInfo extends React.Component {
 
     state = {
-        editMode: false,
+        editMode: true,
         isFetching: false,
     }
 
@@ -29,14 +29,16 @@ class ProfileInfo extends React.Component {
         this.setState({isFetching: !this.state.isFetching});
     }
 
-    onSubmit = async ({name, email, phone, address, age}) => {
-        debugger;
+    onSubmit = async ({phone, address, age, picture}) => {
         let formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('address', address);
-        formData.append('age', age);
+        if(phone)
+            formData.append('phone', phone);
+        if(address)
+            formData.append('address', address);
+        if(age)
+            formData.append('age', age);
+        if(picture)
+            formData.append('image', picture);
 
         let options = {
             formData,
@@ -47,10 +49,10 @@ class ProfileInfo extends React.Component {
         this.changeIsFetching();
         this.props.updateProfile(options)
             .then(res => {
-                debugger;
                 this.changeIsFetching();
                 this.changeEditMode();
                 this.props.changeVisibleModal(false);
+                // toto возможно нужно будет удалить 7 строк снизу
                 let user_id = this.props.profile.id;
                 user_id = user_id;
                 let options = {
@@ -63,12 +65,13 @@ class ProfileInfo extends React.Component {
     }
 
     render () {
-        let avatar = this.props.profile.photos.small || default_avatar;
+        let avatar_img = this.props.profile.photos.small || default_avatar;
         let save_button = React.createRef();
+        let avatar_ref = React.createRef();
         return (
             <div className={styles.wrapper}>
                 <div className={styles.avatar}>
-                    <img src={avatar} />
+                    <img ref={avatar_ref} src={avatar_img} />
                 </div>
 
                 <ProfileInfoReduxForm onSubmit={this.onSubmit} 
@@ -76,6 +79,7 @@ class ProfileInfo extends React.Component {
                     profile={this.props.profile}
                     changeEditMode={this.changeEditMode.bind(this)}
                     state={this.state}
+                    avatar_ref={avatar_ref}
                     editMode={this.state.editMode} save_button={save_button} />
                 </div>
         );
@@ -115,10 +119,19 @@ class ProfileInfoForm extends React.Component {
 
                         </li>
                 });
+        console.log(this.props.avatar_ref.current);
+        if(this.props.avatar_ref.current){
+            this.props.avatar_ref.current.innerHTML = `<img src="" />`;
+        }
 
         return <form onSubmit={this.props.handleSubmit} className={styles['list-info']}>
             <ul>
                 {info}
+                {
+                    this.props.state.editMode 
+                        && <Field name="picture" component={InputImage} 
+                    type="file" value={null} avatar_ref={this.props.avatar_ref} />
+                }
             </ul>
             {
                 this.props.auth.id == this.props.profile.id
@@ -168,7 +181,10 @@ class ProfileInfoForm extends React.Component {
 let ProfileInfoReduxForm = compose(
     connect(
         state => ({
-            initialValues: state.profilePage.profile// pull initial values from account reducer
+            initialValues: {
+                ...state.profilePage.profile,
+                ...state.profilePage.profile.info[0],
+            }// pull initial values from account reducer
         })
     ),
     reduxForm({form: 'profile-info'}),

@@ -18,7 +18,6 @@ class Subscribers extends React.Component {
 
             <Anchor scrollbar={scrollbar} />
 
-            {this.props.subscribers.length}
             {
                 this.props.subscribers
                 && this.props.subscribers.length

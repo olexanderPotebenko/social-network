@@ -78,8 +78,11 @@ function setUserProfile (state, profile) {
 export const getProfile = options => dispatch => {
     profileApi.getProfile(options)
         .then(data => {
-            if(data.data.result_code === 0)
+            if(data.data.result_code === 0){
+                console.log('profile object!!!' + ' ');
+            console.log(data.data);
                 dispatch(setUserProfileActionCreator(data.data));
+            }
         });
 };
 

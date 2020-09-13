@@ -81,9 +81,6 @@ class Posts extends React.Component {
             <div ref={scrollbar} className={styles.posts + ' custom_scroll_bar'} >
 
                 <Anchor scrollbar={scrollbar} />
-                <div>
-                    {this.props.posts.length}
-                </div>
                 {
                     this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
                         changeVisibleModal={ this.changeVisibleModal }

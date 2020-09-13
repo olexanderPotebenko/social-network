@@ -113,7 +113,7 @@ class Profile extends React.Component {
                         
                             </a>
             {
-                this.state.postedModal && <Modal width={800} height={420} 
+                !this.state.postedModal && <Modal width={800} height={420} 
                     Component={ProfileInfo}
                     changeVisibleModal={ this.changeVisibleModal } />
 

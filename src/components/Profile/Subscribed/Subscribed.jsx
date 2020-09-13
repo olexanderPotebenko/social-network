@@ -16,7 +16,6 @@ class Subscribed extends React.Component {
             <div ref={scrollbar} className={' custom_scroll_bar'}
                 style={ {width: '100%', height: '100%'} }>
                 <Anchor scrollbar={scrollbar} />
-                {this.props.subscribed.length}
                 <div>
                 {
                     this.props.subscribed

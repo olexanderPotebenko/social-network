@@ -107,17 +107,26 @@ export const InputImage = ({
     ...props 
 }) => {
     const adaptFileEventToValue = delegate => e => {
+
+        let fr = new FileReader();
+
+        fr.addEventListener("load", function () {
+            props.avatar_ref.current.src = fr.result;
+        }, false);
+
+        if(e.target.files.length) fr.readAsDataURL(e.target.files[0]);
         return delegate(e.target.files[0]);
     };
-    if(props.input) debugger;
 
-    return <input 
-        onChange={adaptFileEventToValue(onChange)}
-        onBlur={adaptFileEventToValue(onBlur)}
-        type="file"
-        accept='.jpg, .png, .jpeg'
-        {...props.input}
-        {...props}
-    />
+    return <div>
+        <input 
+            onChange={adaptFileEventToValue(onChange)}
+            onBlur={adaptFileEventToValue(onBlur)}
+            type="file"
+            accept='.jpg, .png, .jpeg'
+            {...props.input}
+            {...props}
+        />
+            </div>
 }
 
