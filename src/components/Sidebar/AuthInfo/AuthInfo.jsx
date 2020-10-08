@@ -6,8 +6,7 @@ import WithAuthData from '../../../hocs/WithAuthData.jsx';
 
 let AuthInfo = (props) => {
 
-
-    let avatar = props.photo || default_avatar;
+    let avatar = props.auth.photo || default_avatar;
     return <div className={cls.wrapper}>
         {
             props.auth.is_auth 

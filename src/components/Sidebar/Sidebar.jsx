@@ -1,43 +1,61 @@
 import React from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {setAuthDataActionCreator} from '../../reducers/authReducer.js';
+import {setAuthDataActionCreator, login} from '../../reducers/authReducer.js';
 import cls from './Sidebar.module.css';
 import MenuItem from './MenuItem/MenuItem.jsx';
 import AuthInfo from './AuthInfo/AuthInfo.jsx';
 
 
-const Sidebar = (props) => {
+class Sidebar extends React.Component {
 
-    let animation = props.data.is_auth ? 
-        cls.after_auth_position:
-        props.data.is_authed && cls.after_unauth_position || cls.before_auth_position;
+    componentWillUpdate(nextProps, nextState) {
+        
+        if(this.props.auth && this.props.profile
+            && this.props.profile.id == this.props.auth.id
+            && this.props.auth.photo != nextProps.profile.photos.small
+            && !this.props.auth.is_fetching
+        ){
+            this.props.login({
+                email: this.props.auth.email,
+                password: '111111'
+            })
+        }
+    }
+    render () {
+        let animation = this.props.auth.is_auth ? 
+            cls.after_auth_position:
+            this.props.auth.is_authed && cls.after_unauth_position || cls.before_auth_position;
 
-    return (
-        <div className={cls.sidebar}> 
-            <div className={animation}>
-                <AuthInfo setAuthData={props.setAuthData}/>
-                <nav className={`${cls.menu_item} `}>
-                    <MenuItem {...props} link={`/profile/${props.data.id}/posts`} text='Profile' />
-                    <MenuItem {...props} link={`/messages/${props.data.id}/`} text='Messages' />
-                    <MenuItem {...props} link='/users' text='Users' />
-                    {/*  <MenuItem {...props} link='/news' text='News' />*/}
-                    {/*  <MenuItem {...props} link='/music' text='Music' />*/}
-                    {/*  <MenuItem {...props} link='/settings' text='Settings' />*/}
-                </nav>
+        return (
+            <div className={cls.sidebar}> 
+                <div className={animation}>
+                    <AuthInfo setAuthData={this.props.setAuthData}/>
+                    <nav className={`${cls.menu_item} `}>
+                        <MenuItem {...this.props} link={`/profile/${this.props.auth.id}/posts`} text='Profile' />
+                        <MenuItem {...this.props} link={`/messages/${this.props.auth.id}/`} text='Messages' />
+                        <MenuItem {...this.props} link='/users' text='Users' />
+                        {/*  <MenuItem {...this.props} link='/news' text='News' />*/}
+                        {/*  <MenuItem {...this.props} link='/music' text='Music' />*/}
+                        {/*  <MenuItem {...this.props} link='/settings' text='Settings' />*/}
+                    </nav>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 };
 
 const mapsStateToProps = (state) => {
     return {
-        data: state.auth,
+        auth: state.auth,
+        profile: state.profilePage.profile,
+        photo: state.auth.photo,
     };
 };
 
 const mapsDispatchToProps = {
     setAuthData: setAuthDataActionCreator,
+    login,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(Sidebar));

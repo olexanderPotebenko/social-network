@@ -17,7 +17,7 @@ const maxLength30 = maxLengthCreator(30);
 class ProfileInfo extends React.Component {
 
     state = {
-        editMode: true,
+        editMode: false,
         isFetching: false,
     }
 
