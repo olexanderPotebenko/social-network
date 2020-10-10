@@ -104,28 +104,42 @@ export const TextArea = ({input, meta, ...props}) => {
 export const InputImage = ({ 
     input: { value: omitValue, onChange, onBlur, ...inputProps }, 
     meta: omitMeta, 
+    change_photo_button,
     ...props 
 }) => {
+
+    let input = React.createRef();
+
+    setTimeout(() => {
+        if(change_photo_button.current){
+            change_photo_button.current.addEventListener("click", () => {
+                if(input.current) input.current.click();
+            });
+        };
+    }, 100);
+
     const adaptFileEventToValue = delegate => e => {
 
         let fr = new FileReader();
 
-        fr.addEventListener("load", function () {
+        fr.addEventListener("load", function (e) {
             props.avatar_ref.current.src = fr.result;
         }, false);
 
         if(e.target.files.length) fr.readAsDataURL(e.target.files[0]);
-        return delegate(e.target.files[0]);
+        return e.target.files[0]? delegate(e.target.files[0]): props.avatar_ref.current.src;
     };
 
     return <div>
         <input 
+            ref={input}
             onChange={adaptFileEventToValue(onChange)}
             onBlur={adaptFileEventToValue(onBlur)}
             type="file"
             accept='.jpg, .png, .jpeg'
             {...props.input}
             {...props}
+            style={ {position: 'absolute', opacity: 0, width: 0, height: 0} }
         />
             </div>
 }

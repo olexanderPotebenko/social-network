@@ -68,10 +68,20 @@ class ProfileInfo extends React.Component {
         let avatar_img = this.props.profile.photos.small || default_avatar;
         let save_button = React.createRef();
         let avatar_ref = React.createRef();
+        let change_photo_button = React.createRef();
         return (
             <div className={styles.wrapper}>
                 <div className={styles.avatar}>
                     <img ref={avatar_ref} src={avatar_img} />
+                    {
+                        this.state.editMode && <div className={styles['change-photo-button']} >
+                            <div className={styles['button-wrp']} >
+                                <button ref={change_photo_button} >
+                                    CHANGE PHOTO
+                                </button>
+                            </div>
+                        </div>
+                    }
                 </div>
 
                 <ProfileInfoReduxForm onSubmit={this.onSubmit} 
@@ -80,6 +90,7 @@ class ProfileInfo extends React.Component {
                     changeEditMode={this.changeEditMode.bind(this)}
                     state={this.state}
                     avatar_ref={avatar_ref}
+                    change_photo_button={change_photo_button}
                     editMode={this.state.editMode} save_button={save_button} />
                 </div>
         );
@@ -91,7 +102,6 @@ class ProfileInfoForm extends React.Component {
     render() {
 
         this.props.editMode || this.props.reset();
-        console.log(this.props);
         let info = [
             ['name', 'Enter your name', [requiredFields]],
             ['email', 'Enter your email', [requiredFields, emailValidate]],
@@ -130,11 +140,12 @@ class ProfileInfoForm extends React.Component {
                 {
                     this.props.state.editMode 
                         && <Field name="picture" component={InputImage} 
-                    type="file" value={null} avatar_ref={this.props.avatar_ref} />
+                            change_photo_button={this.props.change_photo_button}
+                            type="file" value={null} avatar_ref={this.props.avatar_ref} />
                 }
-            </ul>
-            {
-                this.props.auth.id == this.props.profile.id
+                        </ul>
+                        {
+                            this.props.auth.id == this.props.profile.id
                     && <div className={styles['buttons-wrapper']}>
                         {
                             !this.props.state.editMode 
