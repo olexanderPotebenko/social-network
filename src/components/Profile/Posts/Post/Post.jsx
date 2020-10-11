@@ -7,12 +7,14 @@ import heart from '../../../../assets/images/heart.png';
 import heart_fool from '../../../../assets/images/heart_fool.png';
 import criss_cross from '../../../../assets/images/criss-cross.png';
 import FetchingToggle from '../../../commons/FetchingToggle/FetchingToggle';
+import FullSizeToggle from '../../../commons/FullSizeToggle/FullSizeToggle';
 
 class Post extends React.Component {
 
     state = {
         widthMax: 900,
         widthMin: 700,
+        heightMax: 400,
         width: 0,
         height: 0,
         like_fetching: false,
@@ -90,15 +92,24 @@ class Post extends React.Component {
                         {getFormatedDate(this.props.post.date)}
                 </div>
                 <div className={styles.post}>
-                    {console.log(this.props.post.picture)}
-                    <div className={styles.post_picture_wrp}>
+                    <div className={styles.post_picture_wrp}
+                    style={ {'max-height': this.state.heightMax} }>
                         <img src={this.props.post.picture} className={styles.post_picture}
                             onLoad={this.fitImage.bind(this)} 
                             style={{
-                                width: this.state.width,
-                                height: this.state.height,
+                                width: 0, height: 0,
                             }}
                         />
+                                <div style={ {
+                                    'background-image': `url("${this.props.post.picture}")`,
+                                    'background-repeat': 'no-repeat',
+                                    'background-size': 'cover',
+                                    'background-position': 'center',
+                                    width: this.state.width,
+                                    height: this.state.height,
+                                }}>
+                                    <FullSizeToggle />
+                                </div>
                             </div>
 
                             <div className={styles.text}>

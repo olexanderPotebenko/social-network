@@ -88,14 +88,6 @@
     display: inline-block;
 }
 
-.change-info {
-    border-radius: 4px;
-    width: 100px;
-    height: 35px;
-    font-size: 17px;
-    font-weight: bold;
-}
-
 .change-info-cancel {
     margin-left: 10px;
 }

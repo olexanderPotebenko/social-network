@@ -96,7 +96,9 @@ export const TextArea = ({input, meta, ...props}) => {
         input_styles.push(styles.input_success);
 
     return <div className={styles.textarea_wrapper}>
-        <textarea {...input} {...props} />
+        <textarea {...input} {...props} 
+            className='commons-font-for-input'
+        />
         {error_heandler && <ErrorField error={meta.error} />}
     </div>
 };
@@ -131,6 +133,48 @@ export const InputImage = ({
     };
 
     return <div>
+        <input 
+            ref={input}
+            onChange={adaptFileEventToValue(onChange)}
+            onBlur={adaptFileEventToValue(onBlur)}
+            type="file"
+            accept='.jpg, .png, .jpeg'
+            {...props.input}
+            {...props}
+            style={ {position: 'absolute', opacity: 0, width: 0, height: 0} }
+        />
+            </div>
+}
+
+export const InputImage2 = ({ 
+    input: { value: omitValue, onChange, onBlur, ...inputProps }, 
+    meta: omitMeta, 
+    choose_photo_button,
+    choosed_file_name,
+    ...props 
+}) => {
+
+    let input = React.createRef();
+
+    setTimeout(() => {
+        if(choose_photo_button.current){
+            choose_photo_button.current.addEventListener("click", (e) => {
+                e.preventDefault();
+                if(input.current) input.current.click();
+            }, false);
+        };
+    }, 100);
+
+    const adaptFileEventToValue = delegate => e => {
+
+        if(choosed_file_name.current)
+            choosed_file_name.current.innerText = e.target.files[0].name;
+
+        debugger;
+        return delegate(e.target.files[0]);
+    };
+
+    return <div className={styles['input-image2-wrp']}>
         <input 
             ref={input}
             onChange={adaptFileEventToValue(onChange)}

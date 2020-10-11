@@ -92,7 +92,7 @@ class Posts extends React.Component {
                                 <div className={styles.create_post_button_wrapper}>
                                     <button className={styles.create_post_button}
                                         onClick={() => {this.changeVisibleModal(true)}} >
-                                        Create new post
+                                        CREATE NEW POST
                                     </button>
                                 </div>
                         }

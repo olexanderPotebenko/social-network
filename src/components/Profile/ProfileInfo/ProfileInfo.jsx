@@ -149,7 +149,7 @@ class ProfileInfoForm extends React.Component {
                     && <div className={styles['buttons-wrapper']}>
                         {
                             !this.props.state.editMode 
-                            && <button className={styles['change-info']}
+                            && <button className={'commons-modal-button'}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     this.props.changeEditMode();
@@ -159,7 +159,7 @@ class ProfileInfoForm extends React.Component {
                             </button>
                             || <button name={'submit'} type='submit' 
                                 disabled={this.props.state.isFetching}
-                                className={styles['change-info']} >
+                                className={'commons-modal-button'} >
                                 SAVE
                             </button>
                         }
@@ -175,7 +175,7 @@ class ProfileInfoForm extends React.Component {
                                     {
                                         this.props.state.editMode 
                                             && <button 
-                                                className={styles['change-info'] + ' ' 
+                                                className={'commons-modal-button' + ' ' 
                                                         + styles['change-info-cancel']}
                                                 onClick={this.props.changeEditMode} >
                                                 CANCEL

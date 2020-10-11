@@ -6,6 +6,10 @@ export const maxLengthCreator = (max_length) => (value) => {
     return value && value.length <= max_length? undefined: `Max length is ${max_length}`;
 };
 
+export const maxLengthOrNothingCreator = (max_length) => (value) => {
+    return !value || value.length <= max_length? undefined: `Max length is ${max_length}`;
+};
+
 export const minLengthCreator = (min_length) => (value) => {
     return value && value.length >= min_length? undefined: `Min length is ${min_length}`;
 };

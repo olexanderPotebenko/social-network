@@ -80,6 +80,13 @@
     height: 100%;
 }
 
+.input-image2-wrp button {
+    width: 150px;
+    height: 40px;
+    border-radius: 4px;
+    border: 0px;
+}
+
 /* error message */
 .field_error_wrapper {
     /*visibility: visible;*/

@@ -78,10 +78,24 @@
     background-color: #555;
 }
 
+/* commons */
+
 .commons_user_item {
 }
 
 .commons_user_avatar {
+}
+
+.commons-font-for-input {
+    font-size: 19px;
+}
+
+.commons-modal-button {
+    border-radius: 4px;
+    width: 140px;
+    height: 35px;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 html {
