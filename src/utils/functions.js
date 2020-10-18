@@ -32,3 +32,27 @@ export function getFormatedDate(date){
 
 }
 
+export function fitImage (e) {
+        let img = new Image();
+        img.src = e.target.currentSrc;
+        let width, height;
+        if(true){
+            width = e.currentTarget.parentElement.clientWidth;
+            height = width * img.height/ img.width;
+        }else if(img.width < this.state.widthMin){
+            width = this.state.widthMin;
+            height = this.state.widthMin * img.height / img.width;
+        }else if(img.width < this.state.widthMax){
+            width = img.width;
+            height = img.height;
+        }else{
+            
+            width = this.state.widthMax;
+            height = this.state.widthMax * img.height / img.width;
+        };
+
+        this.setState({ width, height });
+
+    };
+
+

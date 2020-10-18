@@ -143,6 +143,7 @@
 
 .post_picture_wrp {
     overflow: hidden;
+    position: relative;
 }
 
 .post_picture {

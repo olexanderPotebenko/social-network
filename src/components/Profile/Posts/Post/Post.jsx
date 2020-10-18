@@ -8,6 +8,7 @@ import heart_fool from '../../../../assets/images/heart_fool.png';
 import criss_cross from '../../../../assets/images/criss-cross.png';
 import FetchingToggle from '../../../commons/FetchingToggle/FetchingToggle';
 import FullSizeToggle from '../../../commons/FullSizeToggle/FullSizeToggle';
+import FullSizeImage from '../../../commons/FullSizeImage/FullSizeImage';
 
 class Post extends React.Component {
 
@@ -18,6 +19,7 @@ class Post extends React.Component {
         width: 0,
         height: 0,
         like_fetching: false,
+        isFullSize: false,
     }
 
     fitImage (e) {
@@ -71,6 +73,10 @@ class Post extends React.Component {
         return this.props.post.likes.includes(this.props.auth.id)? heart_fool: heart;
     }
 
+    fullSizeToggle () {
+        this.setState({isFullSize: !this.state.isFullSize})
+    }
+
     render () {
         window.localState = this.state;
 
@@ -94,6 +100,8 @@ class Post extends React.Component {
                 <div className={styles.post}>
                     <div className={styles.post_picture_wrp}
                     style={ {'max-height': this.state.heightMax} }>
+                        <FullSizeToggle 
+                            fullSizeToggle={this.fullSizeToggle.bind(this)}/>
                         <img src={this.props.post.picture} className={styles.post_picture}
                             onLoad={this.fitImage.bind(this)} 
                             style={{
@@ -105,10 +113,10 @@ class Post extends React.Component {
                                     'background-repeat': 'no-repeat',
                                     'background-size': 'cover',
                                     'background-position': 'center',
+                                    position: 'relative',
                                     width: this.state.width,
                                     height: this.state.height,
                                 }}>
-                                    <FullSizeToggle />
                                 </div>
                             </div>
 
@@ -140,6 +148,15 @@ class Post extends React.Component {
                                     </a>
                             </div>
                         </div>
+                        {
+                            this.state.isFullSize
+                                && <FullSizeImage 
+                                    fullSizeToggle={this.fullSizeToggle.bind(this)}
+                                    picture={this.props.post.picture}
+                                    width={this.state.width}
+                                    height={this.state.height}
+                                />
+                        }
                     </div>
         );
     }
