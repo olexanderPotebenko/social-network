@@ -8,13 +8,45 @@
 }
 
 .container {
+    /*
     position: absolute;
     top: -1px; bottom: -1px;
-    left: -1px; right: -1px;
+    left: -1px; right: -1px; 
+    */
+    
 }
 
 .wrp img {
     width: 100%;
     height: 100%;
+}
+
+.toggle-panel-wrp {
+    z-index: 1000;
+    position: fixed;
+    bottom: 10px; left: 0; right: 0;
+}
+
+.toggle-panel {
+    display: inline-block;
+    height: 100px;
+    margin: auto;
+}
+
+.next-button, .back-button {
+    display: block;
+    float: left;
+    width: 120px;
+    height: 40px;
+    margin: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 21px;
+    opacity: .6;
+    border-radius: 6px;
+}
+
+.next-button:hover, .back-button:hover {
+    opacity: .9;
 }
 

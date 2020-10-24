@@ -68,8 +68,12 @@ class Posts extends React.Component {
         let posts = [];
         if(this.props.posts){
             posts = this.props.posts.map( (item) =>  {
-                return (<Post avatar={default_avatar} post={item} auth={this.props.auth} 
-                    profile={this.props.profile}></Post>) 
+                return (
+                    <Post avatar={default_avatar} 
+                        posts={this.props.posts}
+                        post={item} auth={this.props.auth} 
+                        profile={this.props.profile}></Post>
+                ) 
             }
             );
             posts.reverse();

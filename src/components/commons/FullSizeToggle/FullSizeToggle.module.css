@@ -1,18 +1,18 @@
 .container {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     position: absolute;
     bottom: 15px;
     right: 15px;
     padding: 4px;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgba(255, 255, 255, .3);
     border-radius: 6px;
     z-index: 10;
 }
 
 .container:hover {
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(255, 255, 255, .6);
     cursor: pointer;
 }
 

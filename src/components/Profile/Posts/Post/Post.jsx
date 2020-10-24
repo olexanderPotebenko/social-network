@@ -152,6 +152,7 @@ class Post extends React.Component {
                             this.state.isFullSize
                                 && <FullSizeImage 
                                     fullSizeToggle={this.fullSizeToggle.bind(this)}
+                                    posts={this.props.posts}
                                     picture={this.props.post.picture}
                                     width={this.state.width}
                                     height={this.state.height}
