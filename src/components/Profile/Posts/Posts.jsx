@@ -18,7 +18,6 @@ class Posts extends React.Component {
 
     state = {
         postedModal: false,
-        scrollTop: 0,
     }
 
     componentDidMount() {
@@ -61,10 +60,13 @@ class Posts extends React.Component {
 
     };
 
+
+
     changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
 
     render() {
 
+        let scrollbar = React.createRef();
         let posts = [];
         if(this.props.posts){
             posts = this.props.posts.map( (item) =>  {
@@ -72,6 +74,7 @@ class Posts extends React.Component {
                     <Post avatar={default_avatar} 
                         posts={this.props.posts}
                         post={item} auth={this.props.auth} 
+                        scrollbar={scrollbar}
                         profile={this.props.profile}></Post>
                 ) 
             }
@@ -79,7 +82,6 @@ class Posts extends React.Component {
             posts.reverse();
         }
 
-        let scrollbar = React.createRef();
         
         return (
             <div ref={scrollbar} className={styles.posts + ' custom_scroll_bar'} >

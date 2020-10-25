@@ -22,7 +22,8 @@ class UserItem extends React.Component {
         return <div className={styles.wrp}>
             <div className={styles.container} >
                 <div className={styles.avatar}>
-                    <NavLink to={`/profile/${this.props.user.id}/posts`}>
+                    <NavLink to={`/profile/${this.props.user.id}/posts`}
+                    onClick={this.props.changeVisibleModal}>
                         <img src={avatar_default} />
                     </NavLink>
                 </div>

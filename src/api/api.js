@@ -30,6 +30,10 @@ export const profileApi = {
         return instance.get(`profile/${user_id}/posts/?page=${page}&count=&{count}`)
             .then(res => res.data);
     },
+    getLikersPost ({user_id, post_id}) {
+        return instance.get(`likers/?user_id=${user_id}&post_id=${post_id}`)
+            .then(res => res.data);
+    },
     createPost ({id, token, post}) {
         debugger;
         return instance.post(`profile/${id}/posts/`,

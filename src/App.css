@@ -56,7 +56,7 @@
 /* убираем скроллбар */
 .custom_scroll_bar {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .custom_scroll_bar::-webkit-scrollbar { /* chrome based */

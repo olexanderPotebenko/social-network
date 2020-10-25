@@ -21,7 +21,7 @@ class Modal extends React.Component {
     render() {
         return <div className={styles.wrapper} >
             <div className={styles.color_filter}
-                onClick={() => this.props.changeVisibleModal(false) } >
+            >
                 <div className={styles.content} 
                     style={{width: this.props.width, 'min-height': this.props.height}}
                     onClick={event => event.stopPropagation() } >

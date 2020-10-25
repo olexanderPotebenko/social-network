@@ -46,7 +46,11 @@
     border-radius: 6px;
 }
 
-.next-button:hover, .back-button:hover {
+.next-button:not([disabled]):hover, .back-button:not([disabled]):hover {
     opacity: .9;
+    cursor: pointer;
+}
+.next-button:disabled, .back-button:disabled {
+    opacity: .4;
 }
 

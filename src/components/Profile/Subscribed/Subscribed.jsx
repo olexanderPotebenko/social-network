@@ -7,6 +7,8 @@ import Anchor from '../../commons/Anchor/Anchor';
 class Subscribed extends React.Component {
 
     render() {
+    console.log('SUBSCRIBIED');
+    console.log(this.props.subscribed);
 
         let subscribed = this.props.subscribed.map(user => 
             <UserItem user={user} /> );
