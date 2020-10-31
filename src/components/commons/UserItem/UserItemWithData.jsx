@@ -18,12 +18,15 @@ class UserItem extends React.Component {
     }
 
     render() {
+        let avatar = avatar_default;
+
+        if(this.props.user.photos.small) avatar = this.props.user.photos.small;
 
         return <div className={styles.wrp}>
             <div className={styles.container} >
                 <div className={styles.avatar}>
                     <NavLink to={`/profile/${this.props.user.id}/posts`}>
-                    <img src={avatar_default} />
+                    <img src={avatar} />
                 </NavLink>
                 </div>
                 <div className={styles.name_wrp}>

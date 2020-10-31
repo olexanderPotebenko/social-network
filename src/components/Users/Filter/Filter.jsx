@@ -4,7 +4,8 @@ import cls from './Filter.module.css';
 const Filter = (props) => {
 
     return (
-        <div className={cls.filter}>
+        <div className={cls.filter} 
+        style={ {display: 'none'} }>
             filter
         </div>
     );

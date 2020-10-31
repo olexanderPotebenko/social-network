@@ -1,17 +1,25 @@
 .pagination_bar {
-    height: 20px;
+    height: 40px;
     display: inline-block;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px;
 }
 
 .page_number {
+    /*
     background-color: #aa33ff;
+    */
+    background-color: #403050;
     text-align: center;
-    min-width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     float: left;
+    line-height: 1.6em;
+    cursor: pointer;
 }
 
 .selected_page {
-    background-color: #cc77ff;
+    background-color: #cc88ff;
     font-weight: bold;
 }

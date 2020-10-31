@@ -25,6 +25,18 @@ export const profileApi = {
             }).then(res => res.data);
     },
 
+    /*
+    getAvatar (options) {
+
+        let {user_id} = options;
+        return instance.get(`profile/${user_id}/avatar`)
+            .then(res => {
+                debugger;
+                return res.data 
+            });
+    },
+    */
+
     // posts
     getPosts ({user_id, count, page}) {
         return instance.get(`profile/${user_id}/posts/?page=${page}&count=&{count}`)

@@ -8,27 +8,44 @@ class PaginationBar extends React.Component {
 
     render() {
         let pages = [];
-        let items_count = 9;
+        let items_count = 4;
         let item_middle = Math.ceil(items_count/2);
-        let i = this.props.page_current <= item_middle? 1: this.props.page_current - item_middle + 1; 
+        let i = this.props.page_current <= item_middle? 1: 
+            (this.props.page_current >= this.props.page_count?
+                this.props.page_current - items_count + 1:
+                this.props.page_current - item_middle); 
         let max_i = this.props.page_count < items_count? this.props.page_count:
             (this.props.page_current <= item_middle ? 
-                items_count : 
-                this.props.page_current + item_middle - 1); 
+                items_count :
+                (this.props.page_current == i - 1?
+                    item_middle + 1:
+                    this.props.page_current + item_middle - 1)
+            ); 
         max_i = Math.ceil(max_i);
 
+        debugger;
         for (i; i <= Math.ceil(this.props.page_count) && i <=  max_i; i++){
             let classes = styles.page_number;
             if(i == this.props.page_current)
                 classes = `${styles.page_number} ${styles.selected_page}`;
 
-            let value = i < max_i ? 
-                i + ',': 
-                (max_i < this.props.page_count? i + '...': i);
+            let value = i < max_i && 
+                max_i < this.props.page_count?
+                i : 
+                    (max_i < this.props.page_count? i + '...': i);
 
-            pages.push( <div className={classes} onClick={(e) => {
-
-                onPageChanged( parseInt(e.target.innerText) )}}><span>{value}</span></div>);
+            let num = parseInt(value); 
+            let str = value;
+            value = '' + value;
+            if(value.slice(-3) == '...') str = '...';
+            let onClick = num => e => {
+                debugger;
+                onPageChanged(num);
+            };
+            onClick = onClick(num);
+            pages.push( <div className={classes} 
+                value={num}
+                onClick={onClick}><span>{str}</span></div>);
         };
 
         let onPageChanged = (page_current) => {
