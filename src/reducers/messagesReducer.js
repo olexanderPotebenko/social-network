@@ -1,93 +1,48 @@
+import {messageApi} from '../api/api';
+
 export const ADD_NEW_TEXT_MESSAGE = 'ADD-NEW-TEXT-MESSAGE';
 export const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
+export const SET_IS_FETCHING = 'SET-IS-FETCHING';
+export const SET_DIALOGS = 'SET-DIALOGS';
 
 let initial_state = {
-    dialogs: [
-        {
-            dialog_id: 1,
-            messages: [
-                {
-                    user_id: 1,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 2,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 1,
-                    message_body: 'How are you?'
-                },
-            ],
-            textNewMessage: ''
-        },
-        {
-            dialog_id: 2,
-            messages: [
-                {
-                    user_id: 1,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 3,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 1,
-                    message_body: 'How are you?'
-                },
-            ],
-            textNewMessage: ''
-        },
-        {
-            dialog_id: 3,
-            messages: [
-                {
-                    user_id: 1,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 4,
-                    message_body: 'Hy!'
-                },
-                {
-                    user_id: 1,
-                    message_body: 'How are you?'
-                },
-            ],
-            textNewMessage: ''
-        }
-
-    ],
+    isFetching: true,
+    currentDialog: '',
+    newMessage: 0,
+    dialogs: [],
 };
 
 let messagesReducer = (state = initial_state, action) => {
     switch (action.type) {
-        case ADD_NEW_TEXT_MESSAGE: 
-            return addNewText(state, action.text, action.id);
-        case ADD_NEW_MESSAGE:
-            return addNewMessage(state, action.id);
+        case SET_IS_FETCHING: 
+            return {
+                ...state, 
+                isFetching: action.isFetching,
+            };
+        case SET_DIALOGS: 
+            return {
+                ...state,
+                dialogs: action.dialogs,
+            };
         default: return state;
     };
 };
 
-let addNewText = (state, text, id) => {
-    let state_copy = {...state};
-    state_copy.dialogs = [...state.dialogs];
-    state_copy.dialogs[state.dialogs.findIndex(item => item.dialog_id == id)].textNewMessage = text;
+const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
 
-    return state_copy;
-};
+const setDialogsActionCreator = dialogs => ({type: SET_DIALOGS, dialogs});
 
-let addNewMessage = (state, id) => {
-    let state_copy = {...state};
-    state_copy.dialogs = [...state.dialogs];
-    state_copy.dialogs[0].messages = [...state.dialogs[0].messages];
-    state_copy.dialogs[0].messages.push({user_id: id, message_body: state_copy.dialogs[0].textNewMessage});
-    state_copy.dialogs[0].textNewMessage = '';
-
-    return state_copy;
-};
+export const getDialogs = options => dispatch => {
+    dispatch(setIsFetching(true));
+    messageApi.getDialogs(options)
+        .then(data => {
+            if(data.result_code == 0){
+                dispatch(setDialogsActionCreator(data.dialogs) );
+            }else{
+            };
+            dispatch(setIsFetching(false));
+        });
+}
 
 export default messagesReducer;
 

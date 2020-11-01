@@ -27,7 +27,7 @@ function App(props) {
                         <div className='content' >
                             <Route path='/' render={() => <Redirect to='/profile' /> } />
                             <Route component={Profile} path='/profile/:user_id?'/>
-                            <Route component={Messages} path='/messages' />
+                            <Route component={Messages} path='/messages/:user_id?' />
                             <Route component={Users} path='/users' />
                             <Route component={News} path='/news' />
                             <Route component={Music} path='/music' />

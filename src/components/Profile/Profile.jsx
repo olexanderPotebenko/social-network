@@ -12,6 +12,7 @@ import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
 //components
 import Preloader from '../commons/Preloader/Preloader.jsx';
+import DropDownMenu from '../commons/DropDownMenu/DropDownMenu';
 import Posts from './Posts/Posts';
 import Subscribers from './Subscribers/Subscribers';
 import Subscribed from './Subscribed/Subscribed';
@@ -64,6 +65,33 @@ class Profile extends React.Component {
         subscribers_styles = subscribers_styles.join(' ');
         subscribed_styles = subscribed_styles.join(' ');
 
+        let drop_down_menu_items_arr = [
+            {
+                value: 'more info',
+                onClick: ((e) => {
+                            e.preventDefault();
+                    this.changeVisibleModal(true)
+                }).bind(this),
+            },
+            {
+                value: 'send message',
+                onClick: () => alert('not implemented functionality'),
+            },
+            {
+                value: 'follow',
+                onClick: () => alert('not implemented functionality'),
+            },
+            {
+                value: 'follow',
+                onClick: () => alert('not implemented functionality'),
+            },
+            {
+                value: 'follow',
+                onClick: () => alert('not implemented functionality'),
+            },
+
+        ];
+
         return <div className={'wrp'}>
             <div className={styles.header}>
                 <nav className={styles.horizontal_menu}>
@@ -100,29 +128,38 @@ class Profile extends React.Component {
                         </li>
                     </ul>
                 </nav>
+                <div 
+                    style={ {
+                        position: 'absolute',
+                        top: '5px', right: 40,
+                    } } >
+                    <DropDownMenu 
+                        drop_down_menu_items_arr={drop_down_menu_items_arr}/>
+                </div>
+                <div className={styles['profile-name']} >
+                    {this.props.profile.name}
+                </div>
+                {/*
                 <div className={styles['profile-info']} >
-                    <div className={styles['profile-name']} >
-                        {this.props.profile.name}
-                    </div>
                     <a href='' className={styles['profile-more-info']}
                         onClick={(e) => {
                             e.preventDefault();
                             this.changeVisibleModal(true)}
                         } >
                         more info
-                        
-                            </a>
+                    </a>
+                </div>
+                */}
+            </div>
             {
                 this.state.postedModal && <Modal width={800} height={420} 
                     Component={ProfileInfo}
                     changeVisibleModal={ this.changeVisibleModal } />
 
             }
-                </div>
-            </div>
-            <div style={ {overflow: 'hidden' } }>
-                <Route component={Posts} path={'/profile/:user_id/posts'} />
-                <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
+                    <div style={ {overflow: 'hidden' } }>
+                        <Route component={Posts} path={'/profile/:user_id/posts'} />
+                        <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
                         <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
                     </div>
                 </div>

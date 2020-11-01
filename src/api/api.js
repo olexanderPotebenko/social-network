@@ -47,7 +47,6 @@ export const profileApi = {
             .then(res => res.data);
     },
     createPost ({id, token, post}) {
-        debugger;
         return instance.post(`profile/${id}/posts/`,
             post,
             { headers: {authorize: token, id, 'Content-Type': 'form/multipart'}, }
@@ -121,6 +120,17 @@ export const followApi = {
         return instance.delete(`follow/${user_id}/`, 
             { headers: {authorize: token, id} }
         ).then( res => res.data );
+    },
+
+};
+
+export const messageApi = {
+    getDialogs (options) {
+        let {id, token} = options
+        return instance.get(`messages/${id}/`,
+            {
+                headers: {authorize: token, id}
+            }).then(res => res.data);
     },
 
 };
