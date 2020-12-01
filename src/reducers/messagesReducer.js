@@ -44,5 +44,17 @@ export const getDialogs = options => dispatch => {
         });
 }
 
+export const createDialog = options => dispatch => {
+    alert('CREATE DIALOG');
+    messageApi.createDialog(options)
+        .then(data => {
+            if(data.result_code == 0){
+                dispatch(getDialogs(options));
+            }else{
+                alert(data.result_code);
+            }
+        });
+};
+
 export default messagesReducer;
 

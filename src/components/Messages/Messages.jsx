@@ -3,16 +3,13 @@ import cls from './Messages.module.css';
 
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-
 //hoocs
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
-
 //components
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle';
-
 //reducers
-import {getDialogs} from '../../reducers/messagesReducer';
+import {getDialogs, createDialog} from '../../reducers/messagesReducer';
 
 class Messages extends React.Component {
 
@@ -22,6 +19,7 @@ class Messages extends React.Component {
             token: this.props.auth.token,
         };
         this.props.getDialogs(options);
+
     }
 
     render() {
@@ -57,5 +55,5 @@ let mapsStateToProps = state => {
 export default compose(
     WithAuthData,
     WithSignInRedirect,
-    connect(mapsStateToProps, {getDialogs}),
+    connect(mapsStateToProps, {getDialogs, createDialog}),
 )(Messages);

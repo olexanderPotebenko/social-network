@@ -1,10 +1,12 @@
 import {authApi} from '../api/api.js';
 import {stopSubmit} from 'redux-form';
+
 const SET_AUTH_DATA = 'SET-AUTH-DATA';
 const SET_SERVER_ERROR = 'SET-SERVER-ERROR';
 const SET_IS_FETCHING = 'SET-IS-FETCHING';
 const SET_SUBSCRIBED = 'SET-SUBSCRIBED';
 const SET_SUBSCRIBERS = 'SET-SUBSCRIBERS';
+const SET_WS = 'SET_WS';
 
 const initial_state = {
     id: null,
@@ -19,6 +21,10 @@ const initial_state = {
     is_fetching: false,
     server_error: undefined,
     profile: null,
+    //
+    ws: {
+        readyState: 0,
+    },
 };
 
 const authReducer = (state = initial_state, action) => {
@@ -43,6 +49,11 @@ const authReducer = (state = initial_state, action) => {
                         return state.subscribed_to;
                     }
                 })(),
+            };
+        case SET_WS:
+            return {
+                ...state,
+                ws: action.ws,
             };
         default:
             return state;
@@ -103,5 +114,7 @@ export const setAuthDataActionCreator = data => ({type: SET_AUTH_DATA, data});
 export const setServerErrorActionCreator = server_error => ({type: SET_SERVER_ERROR, server_error});
 
 export const setSubscribed = user => ({type: SET_SUBSCRIBED, user});
+
+export const setWsActionCreator = ws => ({type: SET_WS, ws});
 
 export default authReducer;

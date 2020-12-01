@@ -10,6 +10,10 @@ import {getProfile} from '../../reducers/profileReducer.js';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
+//reducers
+import {createDialog} from '../../reducers/messagesReducer';
+
+
 //components
 import Preloader from '../commons/Preloader/Preloader.jsx';
 import DropDownMenu from '../commons/DropDownMenu/DropDownMenu';
@@ -75,7 +79,17 @@ class Profile extends React.Component {
             },
             {
                 value: 'send message',
-                onClick: () => alert('not implemented functionality'),
+                onClick: ((e) => {
+                    e.preventDefault();
+                    debugger;
+                    let options = {
+                        id: this.props.auth.id,
+                        token: this.props.auth.token,
+                        user_id: this.props.profile.id,
+                    };
+                    this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}`);
+                    this.props.createDialog(options);
+                }).bind(this),
             },
             {
                 value: 'follow',
@@ -220,7 +234,7 @@ let mapsStateToProps = (state) => {
 };
 
 export default compose(
-    connect(mapsStateToProps, {getProfile}),
+    connect(mapsStateToProps, {getProfile, createDialog}),
     WithAuthData,
     WithSignInRedirect,
 )(withRouter(ProfileContainer));

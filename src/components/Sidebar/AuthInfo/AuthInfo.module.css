@@ -6,14 +6,25 @@
 }
 
 .avatar_wrapper {
+    width: 60px;
+    height: 60px;
     display: inline-block;
-    margin: 5px
+    padding: 5px;
+    position: relative;
 }
 
 .avatar {
-    width: 60px;
-    height: 60px;
+    width: 100%;
+    height: 100%;
     border-radius: 30px;
+}
+
+.indicator {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: 2px; right: 2px;
+    border-radius: 5px;
 }
 
 .name {
