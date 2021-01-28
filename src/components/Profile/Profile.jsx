@@ -11,7 +11,7 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
 //reducers
-import {createDialog} from '../../reducers/messagesReducer';
+import {sendMessage} from '../../reducers/messagesReducer';
 
 
 //components
@@ -77,7 +77,22 @@ class Profile extends React.Component {
                     this.changeVisibleModal(true)
                 }).bind(this),
             },
-            {
+                        // {
+            //     value: 'follow',
+            //     onClick: () => alert('not implemented functionality'),
+            // },
+            // {
+            //     value: 'follow',
+            //     onClick: () => alert('not implemented functionality'),
+            // },
+            // {
+            //     value: 'follow',
+            //     onClick: () => alert('not implemented functionality'),
+            // },
+
+        ];
+        if(this.props.auth.id !== this.props.profile.id){
+          drop_down_menu_items_arr.push({
                 value: 'send message',
                 onClick: ((e) => {
                     e.preventDefault();
@@ -86,25 +101,18 @@ class Profile extends React.Component {
                         id: this.props.auth.id,
                         token: this.props.auth.token,
                         user_id: this.props.profile.id,
+                        message: {
+                          date: new Date(),
+                          text: '',
+                        },
                     };
-                    this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}`);
-                    this.props.createDialog(options);
-                }).bind(this),
-            },
-            {
-                value: 'follow',
-                onClick: () => alert('not implemented functionality'),
-            },
-            {
-                value: 'follow',
-                onClick: () => alert('not implemented functionality'),
-            },
-            {
-                value: 'follow',
-                onClick: () => alert('not implemented functionality'),
-            },
+                    alert(options.id + ' ' + options.user_id)
 
-        ];
+                    this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}`);
+                    this.props.sendMessage(options);
+                }).bind(this),
+            })
+        }
 
         return <div className={'wrp'}>
             <div className={styles.header}>
@@ -234,7 +242,7 @@ let mapsStateToProps = (state) => {
 };
 
 export default compose(
-    connect(mapsStateToProps, {getProfile, createDialog}),
+    connect(mapsStateToProps, {getProfile, sendMessage}),
     WithAuthData,
     WithSignInRedirect,
 )(withRouter(ProfileContainer));

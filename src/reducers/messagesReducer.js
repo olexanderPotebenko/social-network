@@ -44,11 +44,12 @@ export const getDialogs = options => dispatch => {
         });
 }
 
-export const createDialog = options => dispatch => {
+export const sendMessage = options => dispatch => {
     alert('CREATE DIALOG');
-    messageApi.createDialog(options)
+    messageApi.sendMessage(options)
         .then(data => {
             if(data.result_code == 0){
+                debugger;
                 dispatch(getDialogs(options));
             }else{
                 alert(data.result_code);

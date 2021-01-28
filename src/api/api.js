@@ -132,9 +132,10 @@ export const messageApi = {
                 headers: {authorize: token, id}
             }).then(res => res.data);
     },
-    createDialog (options) {
-        let {id, token, user_id} = options;
-        return instance.post(`messages/${id}/send/${user_id}`, {},
+    sendMessage (options) {
+        let {id, token, user_id, message} = options;
+        return instance.post(`messages/${id}/send/${user_id}`, 
+            {message},
             {
                 headers: {authorize: token, id}
             }).then(res => res.data);

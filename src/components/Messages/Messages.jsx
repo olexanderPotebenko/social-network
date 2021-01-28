@@ -8,8 +8,9 @@ import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
 //components
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle';
+import Dialog from './Dialog/Dialog'
 //reducers
-import {getDialogs, createDialog} from '../../reducers/messagesReducer';
+import {getDialogs, sendMessage} from '../../reducers/messagesReducer';
 
 class Messages extends React.Component {
 
@@ -23,37 +24,34 @@ class Messages extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                {
-                    this.props.isFetching
-                        && <div style={ {
-                            width: 40,
-                            height: 40,
-                            margin: 'auto',
-                            'padding-top': 200,
-                        } }>
-                            <FetchingToggle background={true}
-                            />
-                                </div>
-                        || <div className={cls.message__wraper}>
-                            'messages'
+      // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
-                        </div>
-                }
-                    </div>
-        );
+      let dialogs = this.props.dialogs;
+      if(dialogs.length === 0) {
+        dialogs = 'Dialogs list is empty'
+      }else {
+        dialogs = dialogs.map(item => {
+          return <Dialog item={item} />
+    })
+  }
+      return (
+        <div>
+          {dialogs}
+
+          </div>
+);
     };
 };
 
 let mapsStateToProps = state => {
     return {
         isFetching: state.messagesPage.isFetching,
+        dialogs: state.messagesPage.dialogs,
     };
 };
 
 export default compose(
     WithAuthData,
     WithSignInRedirect,
-    connect(mapsStateToProps, {getDialogs, createDialog}),
+    connect(mapsStateToProps, {getDialogs, sendMessage}),
 )(Messages);
