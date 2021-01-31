@@ -19,86 +19,87 @@ import Settings from './components/Settings/Settings.jsx';
 import Users from './components/Users/Users.jsx';
 import SignUp from './components/Auth/SignUp.jsx';
 import SignIn from './components/Auth/SignIn.jsx';
+let arr = [];
 
 class App extends React.Component {
-    componentDidMount() {
-        let startWebSocketConnection = () => {
-            let ws = new WebSocket('ws://127.0.0.1:8181');
-            ws.onopen = (e) => {
-                this.props.setWsActionCreator(ws);
-                //alert("[open] Соединение установлено");
-                //alert("Отправляем данные на сервер");
-                debugger;
-                ws.send(JSON.stringify({
-                    token: this.props.auth.token,
-                    id: this.props.auth.id,
-                    action: 'AUTH',
-                }));
-                let data = JSON.stringify({
-                    id: this.props.auth.id,
-                    action: 'SEND-MESSAGE',
-                    user_id: '',
-                });
+  componentDidMount() {
+    let startWebSocketConnection = () => {
+      let ws = new WebSocket('ws://127.0.0.1:8181');
+      ws.onopen = (e) => {
+        this.props.setWsActionCreator(ws);
+        //alert("[open] Соединение установлено");
+        //alert("Отправляем данные на сервер");
+        debugger;
+        ws.send(JSON.stringify({
+          token: this.props.auth.token,
+          id: this.props.auth.id,
+          action: 'AUTH',
+        }));
+        let data = JSON.stringify({
+          id: this.props.auth.id,
+          action: 'SEND-MESSAGE',
+          user_id: '',
+        });
 
-                ws.send(data);
-            };
+        ws.send(data);
+      };
 
-            ws.onmessage = (event) => {
-                //alert(`[message] Данные получены с сервера: ${event.data}`);
-            };
+      ws.onmessage = (event) => {
+        //alert(`[message] Данные получены с сервера: ${event.data}`);
+      };
 
-            ws.onclose = (event) => {
-                if (event.wasClean) {
-                    //alert(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-                } else {
-                    // например, сервер убил процесс или сеть недоступна
-                    // обычно в этом случае event.code 1006
-                    //alert('[close] Соединение прервано');
-                    setTimeout(startWebSocketConnection, 2000);
-                }
-            };
+      ws.onclose = (event) => {
+        if (event.wasClean) {
+          //alert(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+        } else {
+          // например, сервер убил процесс или сеть недоступна
+          // обычно в этом случае event.code 1006
+          //alert('[close] Соединение прервано');
+          setTimeout(startWebSocketConnection, 2000);
+        }
+      };
 
-            ws.onerror = (error) => {
-                //alert(`[error] ${error.message}`);
-            };
-        };
-        startWebSocketConnection();
-    }
+      ws.onerror = (error) => {
+        //alert(`[error] ${error.message}`);
+      };
+    };
+    startWebSocketConnection();
+  }
 
-    render() {
+  render() {
 
-        return (
-            <BrowserRouter>
-                <div className='app'>
-                    <div></div>
-                    <div className='wrapper'>
+    return (
+      <BrowserRouter>
+        <div className='app'>
+          <div></div>
+          <div className='wrapper'>
 
-                        {/*<HeaderContainer />*/}
-                        <Sidebar/> 
+            {/*<HeaderContainer />*/}
+            <Sidebar/> 
 
-                        <div className='content_wrapper'>
-                            <div className='content' >
-                                <Route path='/' render={() => <Redirect to='/profile' /> } />
-                                <Route component={Profile} path='/profile/:user_id?'/>
-                                <Route component={Messages} path='/messages/:user_id?' />
-                                <Route component={Users} path='/users' />
-                                <Route component={News} path='/news' />
-                                <Route component={Music} path='/music' />
-                                <Route component={Settings} path='/settings' />
-                                <Route component={SignUp} path='/signup' />
-                                <Route component={SignIn} path='/signin' />
-                            </div>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </BrowserRouter>
-        );
-    }
+            <div className='content_wrapper'>
+              <div className='content' >
+                <Route path='/' render={() => <Redirect to='/profile' /> } />
+                <Route component={Profile} path='/profile/:user_id?'/>
+                <Route component={Messages} path='/messages/:user_id?' />
+                <Route component={Users} path='/users' />
+                <Route component={News} path='/news' />
+                <Route component={Music} path='/music' />
+                <Route component={Settings} path='/settings' />
+                <Route component={SignUp} path='/signup' />
+                <Route component={SignIn} path='/signin' />
+              </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 
 export default compose(
-    connect(() => {}, {setWsActionCreator}),
-    WithAuthData)
+  connect(() => {}, {setWsActionCreator}),
+  WithAuthData)
 (App);

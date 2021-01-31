@@ -6,26 +6,27 @@ export const SET_IS_FETCHING = 'SET-IS-FETCHING';
 export const SET_DIALOGS = 'SET-DIALOGS';
 
 let initial_state = {
-    isFetching: true,
-    currentDialog: '',
-    newMessage: 0,
-    dialogs: [],
+  isFetching: true,
+  currentDialog: '',
+  newMessage: 0,
+  dialogs: [],
 };
 
 let messagesReducer = (state = initial_state, action) => {
-    switch (action.type) {
-        case SET_IS_FETCHING: 
-            return {
-                ...state, 
-                isFetching: action.isFetching,
-            };
-        case SET_DIALOGS: 
-            return {
-                ...state,
-                dialogs: action.dialogs,
-            };
-        default: return state;
-    };
+  switch (action.type) {
+    case SET_IS_FETCHING: 
+      return {
+        ...state, 
+        isFetching: action.isFetching,
+      };
+    case SET_DIALOGS: 
+      debugger;
+      return {
+        ...state,
+        dialogs: action.dialogs,
+      };
+    default: return state;
+  };
 };
 
 const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
@@ -33,28 +34,30 @@ const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
 const setDialogsActionCreator = dialogs => ({type: SET_DIALOGS, dialogs});
 
 export const getDialogs = options => dispatch => {
-    dispatch(setIsFetching(true));
-    messageApi.getDialogs(options)
-        .then(data => {
-            if(data.result_code == 0){
-                dispatch(setDialogsActionCreator(data.dialogs) );
-            }else{
-            };
-            dispatch(setIsFetching(false));
-        });
+  dispatch(setIsFetching(true));
+  messageApi.getDialogs(options)
+    .then(res => {
+      debugger;
+      if(res.data.result_code == 0){
+      debugger;
+        dispatch(setDialogsActionCreator(res.data.dialogs) );
+      }else{
+      };
+      dispatch(setIsFetching(false));
+    });
 }
 
 export const sendMessage = options => dispatch => {
-    alert('CREATE DIALOG');
-    messageApi.sendMessage(options)
-        .then(data => {
-            if(data.result_code == 0){
-                debugger;
-                dispatch(getDialogs(options));
-            }else{
-                alert(data.result_code);
-            }
-        });
+  alert('CREATE DIALOG');
+  messageApi.sendMessage(options)
+    .then(data => {
+      if(data.result_code == 0){
+        debugger;
+        dispatch(getDialogs(options));
+      }else{
+        alert(data.result_code);
+      }
+    });
 };
 
 export default messagesReducer;
