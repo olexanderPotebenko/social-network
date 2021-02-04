@@ -29,7 +29,6 @@ class App extends React.Component {
         this.props.setWsActionCreator(ws);
         //alert("[open] Соединение установлено");
         //alert("Отправляем данные на сервер");
-        debugger;
         ws.send(JSON.stringify({
           token: this.props.auth.token,
           id: this.props.auth.id,
@@ -81,7 +80,7 @@ class App extends React.Component {
               <div className='content' >
                 <Route path='/' render={() => <Redirect to='/profile' /> } />
                 <Route component={Profile} path='/profile/:user_id?'/>
-                <Route component={Messages} path='/messages/:user_id?' />
+                <Route component={Messages} path='/messages/:user_id?/' />
                 <Route component={Users} path='/users' />
                 <Route component={News} path='/news' />
                 <Route component={Music} path='/music' />

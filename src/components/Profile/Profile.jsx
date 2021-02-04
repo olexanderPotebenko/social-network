@@ -11,7 +11,7 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
 //reducers
-import {sendMessage} from '../../reducers/messagesReducer';
+import {sendMessage, getDialogs} from '../../reducers/messagesReducer';
 
 
 //components
@@ -107,10 +107,10 @@ class Profile extends React.Component {
               text: '',
             },
           };
-          alert(options.id + ' ' + options.user_id)
 
-          this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}`);
+          this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}/`);
           this.props.sendMessage(options);
+          this.props.getDialogs(options);
         }).bind(this),
       })
     }
@@ -243,7 +243,7 @@ let mapsStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapsStateToProps, {getProfile, sendMessage}),
+  connect(mapsStateToProps, {getProfile, sendMessage, getDialogs}),
   WithAuthData,
   WithSignInRedirect,
 )(withRouter(ProfileContainer));

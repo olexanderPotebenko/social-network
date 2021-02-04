@@ -7,35 +7,35 @@ import styles from './Auth.module.css';
 
 const maxLength30 = maxLengthCreator(30);
 const SignInForm = (props) => {
-    const {handleSubmit} = props;
+  const {handleSubmit} = props;
 
-    return <div>
-        <form className={styles.items_container} onSubmit={handleSubmit}>
-            {
-                props.auth.is_fetching 
-                && <div style={ {width: '40px', height: '40px' } }>
-                    <FetchingToggle />
-                </div>
-                || props.server_error && <ErrorForm message={props.server_error} /> 
-                || <div> </div>
-            }
-                <div>
-                    <Field name='email' autoFocus={true} 
-                        validate={[requiredFields, maxLength30]}
-                        component={Input} 
-                        placeholder=' Enter your email' />
-                    </div>
-                    <div>
-                        <Field name='password' component={Input} 
-                            validate={[requiredFields, maxLength30, ]} 
-                            type='password'
-                            placeholder=' Enter your password' />
-                        </div>
-                        <div className={styles.button_wrapper} >
-                            <Button error={props.error} name={'Sign In'} type='submit' 
-                                disabled={props.auth.is_fetching}/>
-                            </div>
-                        </form>
+  return <div>
+    <form className={styles.items_container} onSubmit={handleSubmit}>
+      {
+        props.auth.is_fetching 
+          && <div style={ {width: '40px', height: '40px' } }>
+      <FetchingToggle />
+    </div>
+      || props.server_error && <ErrorForm message={props.server_error} /> 
+      || <div> </div>
+      }
+      <div>
+        <Field name='email' autoFocus={true} 
+          validate={[requiredFields, maxLength30]}
+          component={Input} 
+          placeholder=' Enter your email' />
+      </div>
+      <div>
+        <Field name='password' component={Input} 
+          validate={[requiredFields, maxLength30, ]} 
+          type='password'
+          placeholder=' Enter your password' />
+      </div>
+      <div className={styles.button_wrapper} >
+        <Button error={props.error} name={'Sign In'} type='submit' 
+          disabled={props.auth.is_fetching}/>
+      </div>
+  </form>
                     </div>
 };
 

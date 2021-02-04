@@ -8,7 +8,6 @@ let AuthInfo = (props) => {
 
     let avatar = props.auth.photo || default_avatar;
     let indicator_styles = '';
-    debugger;
     switch(props.auth.ws.readyState){
         case 0:     //'CONNECTING':
             indicator_styles = 'rgba(127, 155, 0, .7)';

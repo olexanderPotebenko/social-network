@@ -83,7 +83,6 @@ export const login = (data) => (dispatch) => {
     authApi.signIn(data)
         .then(res => {
             if(res.result_code === 0) {
-              debugger;
                 dispatch(setAuthDataActionCreator(res.data));
                 dispatch(stopSubmit('signin', {_error: res.message}));
             }else{

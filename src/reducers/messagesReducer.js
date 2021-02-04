@@ -4,12 +4,15 @@ export const ADD_NEW_TEXT_MESSAGE = 'ADD-NEW-TEXT-MESSAGE';
 export const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
 export const SET_IS_FETCHING = 'SET-IS-FETCHING';
 export const SET_DIALOGS = 'SET-DIALOGS';
+export const SET_DIALOG = 'SET-DIALOG';
+export const SELECT_DIALOG = 'SELECT-DIALOG';
 
 let initial_state = {
   isFetching: true,
-  currentDialog: '',
+  currentDialog: '6015db7666184dfbd6476141',
   newMessage: 0,
   dialogs: [],
+  dialog: {},
 };
 
 let messagesReducer = (state = initial_state, action) => {
@@ -20,11 +23,20 @@ let messagesReducer = (state = initial_state, action) => {
         isFetching: action.isFetching,
       };
     case SET_DIALOGS: 
-      debugger;
       return {
         ...state,
         dialogs: action.dialogs,
       };
+    case SET_DIALOG: 
+      return {
+        ...state,
+        dialog: action.dialog,
+      };
+    case SELECT_DIALOG:
+      return {
+        ...state,
+        currentDialog: action.dialog_id,
+      }
     default: return state;
   };
 };
@@ -33,13 +45,15 @@ const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
 
 const setDialogsActionCreator = dialogs => ({type: SET_DIALOGS, dialogs});
 
+const setDialogActionCreator = dialog => ({type: SET_DIALOG, dialog});
+
+export const selectDialog = dialog_id => ({type: SELECT_DIALOG, dialog_id});
+
 export const getDialogs = options => dispatch => {
   dispatch(setIsFetching(true));
   messageApi.getDialogs(options)
     .then(res => {
-      debugger;
       if(res.data.result_code == 0){
-      debugger;
         dispatch(setDialogsActionCreator(res.data.dialogs) );
       }else{
       };
@@ -47,15 +61,31 @@ export const getDialogs = options => dispatch => {
     });
 }
 
+export const getDialog = options => dispatch => {
+  messageApi.getDialog(options)
+    .then(res => {
+      console.log(res);
+      if(res.data.result_code === 0){
+        let dialog = {
+          date: res.data.date,
+          dateLastModified: res.data.dateLastModified,
+          user_id: res.data.user_id,
+          messages: res.data.messages,
+        };
+        dispatch(setDialogActionCreator(dialog));
+      } else {
+      }
+    });
+}
+
 export const sendMessage = options => dispatch => {
-  alert('CREATE DIALOG');
-  messageApi.sendMessage(options)
+  return messageApi.sendMessage(options)
     .then(data => {
-      if(data.result_code == 0){
         debugger;
-        dispatch(getDialogs(options));
+      if(data.result_code == 0){
+        return dispatch(getDialogs(options));
       }else{
-        alert(data.result_code);
+        return 1;
       }
     });
 };

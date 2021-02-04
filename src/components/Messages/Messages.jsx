@@ -1,8 +1,8 @@
 import React from 'react';
-import cls from './Messages.module.css';
-
+import styles from './Messages.module.css';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {Route, NavLink} from 'react-router-dom';
 //hoocs
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
@@ -10,7 +10,9 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle';
 import Dialog from './Dialog/Dialog'
 //reducers
-import {getDialogs, sendMessage} from '../../reducers/messagesReducer';
+import {getDialogs, sendMessage, selectDialog} from '../../reducers/messagesReducer';
+//utils
+import {getFormatedDate} from '../../utils/functions.js';
 
 class Messages extends React.Component {
 
@@ -24,6 +26,13 @@ class Messages extends React.Component {
   }
 
   render() {
+    if (this.props.currentDialog &&
+    !this.props.history.location.pathname.split('/').includes('dialog') ) {
+      debugger;
+      console.log(this.props.history);
+      this.props.history.push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
+    }
+    console.log('CURRENT DIALOG :' + this.props.currentDialog);
     debugger;
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
@@ -32,13 +41,51 @@ class Messages extends React.Component {
       dialogs = 'Dialogs list is empty'
     }else {
       dialogs = dialogs.map(dialog => {
-        return <Dialog dialog={dialog} />
+        let time = getFormatedDate(dialog.dateLastModified);
+        debugger;
+        time = time.split(':');    
+        debugger;
+        if(time.length === 1) time = time[0];
+        else time = time[0] + ':' + time[1] + time[2].slice(-3);
+
+        console.log(this.props.dialog);
+        let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
+        if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
+        console.log(lastMessage);
+        return <NavLink to={`dialog/${dialog.dialog_id}/`}
+          onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
+          <div className={styles['item-dialog']}>
+            <div className={styles['container-left']} >
+              <div className={styles.avatar}>
+                <img src={dialog.user_avatar} />
+              </div>
+            </div>
+            <div className={styles['container-middle']}>
+              <div className={styles.name}>
+                {dialog.user_name}
+              </div>
+              <div className={styles['last-message']}>
+                <span>
+                   {lastMessage}
+                </span>
+              </div>
+            </div>
+            <div className={styles['container-right']}>
+              <div className={styles.time}>
+                {time}
+              </div>
+            </div>
+          </div>
+        </NavLink>
       })
     }
     return (
-      <div>
-        {dialogs}
-
+      <div className={styles.wrp}>
+        {
+          this.props.currentDialog ? 
+            <Route component={Dialog} path={`/messages/:id/dialog/:dialog_id/`} /> :
+        dialogs
+        }
       </div>
     );
   };
@@ -48,11 +95,12 @@ let mapsStateToProps = state => {
   return {
     isFetching: state.messagesPage.isFetching,
     dialogs: state.messagesPage.dialogs,
+    currentDialog: state.messagesPage.currentDialog,
   };
 };
 
 export default compose(
   WithAuthData,
   WithSignInRedirect,
-  connect(mapsStateToProps, {getDialogs, sendMessage}),
+  connect(mapsStateToProps, {getDialogs, sendMessage, selectDialog}),
 )(Messages);
