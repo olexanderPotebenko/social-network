@@ -29,10 +29,8 @@ class Messages extends React.Component {
     if (this.props.currentDialog &&
     !this.props.history.location.pathname.split('/').includes('dialog') ) {
       debugger;
-      console.log(this.props.history);
       this.props.history.push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
     }
-    console.log('CURRENT DIALOG :' + this.props.currentDialog);
     debugger;
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
@@ -48,13 +46,11 @@ class Messages extends React.Component {
         if(time.length === 1) time = time[0];
         else time = time[0] + ':' + time[1] + time[2].slice(-3);
 
-        console.log(this.props.dialog);
         let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
         if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
-        console.log(lastMessage);
         return <NavLink to={`dialog/${dialog.dialog_id}/`}
+          className={styles['item-dialog']}
           onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
-          <div className={styles['item-dialog']}>
             <div className={styles['container-left']} >
               <div className={styles.avatar}>
                 <img src={dialog.user_avatar} />
@@ -62,7 +58,11 @@ class Messages extends React.Component {
             </div>
             <div className={styles['container-middle']}>
               <div className={styles.name}>
+                <h3 style={ {
+                  'text-decoration': 'none',
+                  } }>
                 {dialog.user_name}
+                </h3>
               </div>
               <div className={styles['last-message']}>
                 <span>
@@ -75,7 +75,6 @@ class Messages extends React.Component {
                 {time}
               </div>
             </div>
-          </div>
         </NavLink>
       })
     }

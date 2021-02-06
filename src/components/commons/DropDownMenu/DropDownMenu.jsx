@@ -6,42 +6,41 @@ import styles from './DropDownMenu.module.css';
 
 class DropDownMenu extends React.Component {
 
-    state = {
-        editMode: false,
-    }
+  state = {
+    editMode: false,
+  }
 
-    toggleEditMode = () => {
-        this.setState({editMode: !this.state.editMode});
-    }
-    offEdditMode = () => {
-        this.setState({editMode: false});
-    }
+  toggleEditMode = () => {
+    this.setState({editMode: !this.state.editMode});
+  }
+  offEdditMode = () => {
+    this.setState({editMode: false});
+  }
 
-    render() {
+  render() {
 
-        let items = this.props.drop_down_menu_items_arr
-            .map(item => <div className={styles.item} 
-                onClick={item.onClick}>
-                {item.value}
-                </div>
-            );
+    let items = this.props.items
+      .map(item => <div className={styles.item} 
+        onClick={item.onClick}>
+        {item.value}
+      </div>
+      );
 
-        return (<div className={styles.wrp}
-            tabIndex={-1}// set autofocus
-            onClick={this.toggleEditMode} 
-            onBlur={this.offEdditMode} 
-        > 
-            {
-                this.state.editMode
-                    && <div className={styles['items-wrp']}>
-                        {items}
-                    </div>
-                    || <div className={styles.icon}>
-                        <img src={menu_white} />
-                    </div>
-            }
-        </div>);
-    }
+    return <div className={styles.wrp}> 
+      {
+        this.state.editMode
+          && <div className={styles['items-wrp']}>
+      {items}
+    </div>
+      }
+      <button className={styles['menu-button']}
+        tabIndex={-1}// set autofocus
+        onClick={this.toggleEditMode} 
+        onBlur={this.offEdditMode} >
+        <img src={menu_black} />
+      </button>
+      </div>;
+  }
 }
 
 export default DropDownMenu;

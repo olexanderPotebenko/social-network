@@ -117,51 +117,54 @@ class Profile extends React.Component {
 
     return <div className={'wrp'}>
       <div className={styles.header}>
-        <nav className={styles.horizontal_menu}>
-          <ul>
-            <li >
-              <NavLink className={posts_styles} 
-                onClick={() => selected = 'posts'}
-                to='posts' >
-                POSTS
-                {
-                  ` ${this.props.posts.length}`
-                }
-              </NavLink>
-            </li>
-            <li>
-              <NavLink  className={subscribers_styles} 
-                onClick={() => selected = 'subscribers'}
-                to='subscribers' >
-                SUBSCRIBERS
-                {
-                  ` ${this.props.subscribers.length}`
-                }
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={subscribed_styles} 
-                onClick={() => selected = 'subscribed'}
-                to='subscribed' >
-                SUBSRIBED 
-                {
-                  ` ${this.props.subscribed.length}`
-                }
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-        <div 
-          style={ {
-            position: 'absolute',
-            top: '5px', right: 40,
-          } } >
-          <DropDownMenu 
-            drop_down_menu_items_arr={drop_down_menu_items_arr}/>
-        </div>
         <div className={styles['profile-name']} >
-          {this.props.profile.name}
+          <h5>
+            {this.props.profile.name}
+          </h5>
         </div>
+
+        <div>
+          <nav className={styles.horizontal_menu}>
+            <ul>
+              <li >
+                <NavLink className={posts_styles} 
+                  onClick={() => selected = 'posts'}
+                  to='posts' >
+                  POSTS
+                  {
+                    ` ${this.props.posts.length}`
+                  }
+                </NavLink>
+              </li>
+              <li>
+                <NavLink  className={subscribers_styles} 
+                  onClick={() => selected = 'subscribers'}
+                  to='subscribers' >
+                  SUBSCRIBERS
+                  {
+                    ` ${this.props.subscribers.length}`
+                  }
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className={subscribed_styles} 
+                  onClick={() => selected = 'subscribed'}
+                  to='subscribed' >
+                  SUBSRIBED 
+                  {
+                    ` ${this.props.subscribed.length}`
+                  }
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div >
+          <DropDownMenu 
+            items={drop_down_menu_items_arr}/>
+        </div>
+
         {/*
                 <div className={styles['profile-info']} >
                     <a href='' className={styles['profile-more-info']}

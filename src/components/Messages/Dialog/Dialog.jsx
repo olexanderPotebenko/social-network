@@ -5,12 +5,12 @@ import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import WithAuthData from '../../../hocs/WithAuthData.jsx';
 
-import backImg from '../../../assets/images/back.png';
 
-import {selectDialog, getDialog, sendMessage} from '../../../reducers/messagesReducer.js';
+import {getDialog, sendMessage} from '../../../reducers/messagesReducer.js';
 
 import SendMessage from './SendMessage/SendMessage';
 import MessagesHistory from './MessagesHistory/MessagesHistory.jsx';
+import DialogInfo from './DialogInfo/DialogInfo.jsx';
 
 class Dialog extends React.Component {
 
@@ -53,16 +53,12 @@ class Dialog extends React.Component {
   render() {
 
     return <div className={styles.wrp}>
+      <div className={styles['dialog-info']}>
+        <DialogInfo history={this.props.history} />
+      </div>
       <div className={styles.history}>
         <MessagesHistory />
-        <button className={styles['back-button']}
-          onClick={() => {
-            this.props.history.goBack();
-            this.props.selectDialog('');
-          } } >
-          <img src={backImg} />
-        </button>
-      </div>
+              </div>
       <div className={styles['send-message-panel']}>
         <div></div>
         <SendMessage onSubmit={this.onSubmit} />
@@ -81,7 +77,6 @@ const mapsStateToProps = (state) => {
 }
 
 const mapsDispatchToProps = {
-  selectDialog,
   getDialog,
   sendMessage,
 };

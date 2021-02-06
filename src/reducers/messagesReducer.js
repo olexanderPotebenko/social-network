@@ -71,6 +71,8 @@ export const getDialog = options => dispatch => {
           dateLastModified: res.data.dateLastModified,
           user_id: res.data.user_id,
           messages: res.data.messages,
+          user_avatar: res.data.user_avatar,
+          user_name: res.data.user_name,
         };
         dispatch(setDialogActionCreator(dialog));
       } else {

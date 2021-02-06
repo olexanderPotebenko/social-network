@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reset, reduxForm} from 'redux-form';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import WithAuthData from '../../../../hocs/WithAuthData.jsx';
@@ -15,6 +15,7 @@ class SendMessage extends React.Component {
     // let {id, token, dialog_id} = options;
     }
 
+  
   render() {
 
 
@@ -49,7 +50,9 @@ const mapsDispatchToProps = {
 };
 
 export default compose(
-  reduxForm({form: 'sendMessage'}),
+  reduxForm({form: 'sendMessage',
+    onSubmitSuccess: (data, dispatch) => dispatch(reset('sendMessage')),
+  }),
   WithAuthData,
   connect(mapsStateToProps, mapsDispatchToProps),
 )(SendMessage);

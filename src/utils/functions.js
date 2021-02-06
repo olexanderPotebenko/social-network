@@ -1,5 +1,5 @@
-//const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-//const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const MONTHS2 = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const MONTHS1 = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const MONTHS = ["jan.", "feb.", "mar.", "apr.", "may", "june", "july", "aug.", "sep.", "oct.", "nov.", "dec."];
 
 export function getFormatedDate(date){
@@ -33,6 +33,25 @@ export function getFormatedDate(date){
     return str || hrs_mnt_sec + pm_or_am;
 
 }
+
+export function getHoursMinutes (date) {
+  date = new Date(date);
+  let minutes = date.getMinutes();
+  minutes = minutes > 9? minutes: '0' + minutes;
+  let hours = date.getHours();
+  hours = hours > 9? hours: '0' + hours;
+  return hours + ':' + minutes;
+}
+
+export function getDateMonth (date) {
+   date = new Date(date);
+  let day = date.getDate();
+  let month = MONTHS2[date.getMonth()];
+
+  return month + ' ' + day;
+}
+
+
 
 export function fitImage (e) {
         let img = new Image();
