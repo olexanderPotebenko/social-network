@@ -26,7 +26,7 @@ export function getFormatedDate(date){
     if(diff > (3600*1000*24*364)){
         str = 'over a year ago...';
     }else if(diff > 3600*24*1000){
-        str = `${MONTHS[date.getMonth()]} ${date.getDate()}`
+        str = `${MONTHS2[date.getMonth()]} ${date.getDate()}`
     };
 
     

@@ -85,6 +85,7 @@ export const sendMessage = options => dispatch => {
     .then(data => {
         debugger;
       if(data.result_code == 0){
+        dispatch(selectDialog(data.id));
         return dispatch(getDialogs(options));
       }else{
         return 1;

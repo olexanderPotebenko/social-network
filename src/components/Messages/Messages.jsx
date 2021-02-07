@@ -28,10 +28,8 @@ class Messages extends React.Component {
   render() {
     if (this.props.currentDialog &&
     !this.props.history.location.pathname.split('/').includes('dialog') ) {
-      debugger;
       this.props.history.push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
     }
-    debugger;
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
     let dialogs = this.props.dialogs;
@@ -40,9 +38,7 @@ class Messages extends React.Component {
     }else {
       dialogs = dialogs.map(dialog => {
         let time = getFormatedDate(dialog.dateLastModified);
-        debugger;
         time = time.split(':');    
-        debugger;
         if(time.length === 1) time = time[0];
         else time = time[0] + ':' + time[1] + time[2].slice(-3);
 
@@ -83,7 +79,9 @@ class Messages extends React.Component {
         {
           this.props.currentDialog ? 
             <Route component={Dialog} path={`/messages/:id/dialog/:dialog_id/`} /> :
-        dialogs
+            <div className={styles.scrollbar}>
+              {dialogs}
+            </div>
         }
       </div>
     );

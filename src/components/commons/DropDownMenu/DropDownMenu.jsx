@@ -20,23 +20,31 @@ class DropDownMenu extends React.Component {
   render() {
 
     let items = this.props.items
-      .map(item => <div className={styles.item} 
-        onClick={item.onClick}>
+      .map(item => {
+        console.log(item);
+        return <div className={styles.item} 
+        onClick={(e) => {
+          this.offEdditMode();
+          e.preventDefault();
+          item.onClick();
+        }}>
         {item.value}
       </div>
-      );
+      });
 
-    return <div className={styles.wrp}> 
+    return <div className={styles.wrp}
+    > 
       {
-        this.state.editMode
-          && <div className={styles['items-wrp']}>
-      {items}
+        this.state.editMode && <div className={styles['items-wrp']} >
+      <div className={styles.items}>
+        {items}
+      </div>
     </div>
       }
       <button className={styles['menu-button']}
         tabIndex={-1}// set autofocus
         onClick={this.toggleEditMode} 
-        onBlur={this.offEdditMode} >
+        onBlur={() => setTimeout(this.offEdditMode, 200)} >
         <img src={menu_black} />
       </button>
       </div>;

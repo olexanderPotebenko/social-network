@@ -1,10 +1,18 @@
+.wrp {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  position: relative;
+}
+
 .header {
     width: 100%;
     height: 100%;
     background-color: rgba(4, 3, 11, .1);
     position: relative;
     display: grid;
-    grid-template-columns:200px 1fr 90px;
+    grid-template-columns:1fr 90px;
     align-items: center;
 }
 
@@ -12,37 +20,27 @@
   position: relative;
 }
 
-.horizontal_menu {
-    z-index: 100;
-    display: inline-block;
+/*-------------------------*/
+
+.user-info {
+  width: 100%;
+  height: 100%;
 }
 
-.horizontal_menu ul {
-    margin: 0;
-    padding: 0;
-}
-
-.horizontal_menu li {
-    color: #000;
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-.menu_item {
-    text-decoration: none;
-    color: #eee;
-    box-sizing: border-box;
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 17px;
-    background-color: rgba(188, 166, 188, .2);
+.user-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  margin: 5px 10px;
+  float: left;
 }
 
 .profile-name {
-    padding: 3px 10px 3px 10px;
-    border-radius: 10px 10px 0px 10px;
-    font-size: 25px;
+  font-size: 22px;
+  color: #ddd;
 }
+
+/*-------------------------*/
 
 .profile-info {
     position: absolute;

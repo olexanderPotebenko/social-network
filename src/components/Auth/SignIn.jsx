@@ -22,6 +22,7 @@ class SignIn extends React.Component {
 
     render() {
         if(this.props.auth.is_auth)
+        //this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
         this.props.history.push(`/messages/${this.props.auth.id}/`);
         return <div className={cls.wrapper_container}>
             <h3>Authorization</h3>

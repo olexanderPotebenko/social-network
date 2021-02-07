@@ -56,9 +56,7 @@ class Dialog extends React.Component {
       <div className={styles['dialog-info']}>
         <DialogInfo history={this.props.history} />
       </div>
-      <div className={styles.history}>
-        <MessagesHistory />
-              </div>
+      <MessagesHistory />
       <div className={styles['send-message-panel']}>
         <div></div>
         <SendMessage onSubmit={this.onSubmit} />

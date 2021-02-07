@@ -19,6 +19,7 @@ class Modal extends React.Component {
     }
 
     render() {
+      alert();
         return <div className={styles.wrapper} >
             <div className={styles.color_filter}
             >

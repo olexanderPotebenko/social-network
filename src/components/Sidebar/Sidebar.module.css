@@ -1,41 +1,13 @@
 .sidebar {
-    grid-area: sdb;
-    max-height: 1000px;
-    box-shadow: inset 0px 2px 5px 0px rgba(122, 22, 222, .4);;
-    background-color: #212131;
-    box-sizing: border-box;
-    border-right: 3px solid #554466;
+  width: 100%;
+  height: 100%;
+  background-color: #212131;
+  box-sizing: border-box;
 }
 
 .menu_item{
-    display: grid;
-    grid-gap: 1px;
+  display: grid;
+  grid-gap: 1px;
 }
 
-.before_auth_position {
-    transform: translateY(-115px);
-}
 
-.after_unauth_position {
-    transform: translateY(-115px);
-    animation: success_unauthed_animation .0s linear;
-}
-
-.after_auth_position {
-    transform: translateY(0px);
-    animation: success_authed_animation .0s linear;
-}
-
-@keyframes success_authed_animation {
-    0% {transform: translateY(-115px); }
-    50% {transform: translateY(-47px); }
-    70% {transform: translateY(-33px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes success_unauthed_animation {
-    0% { transform: translateY(0px); }
-    50% {transform: translateY(-33px); }
-    70% {transform: translateY(-47px); }
-    100% {transform: translateY(-115px); }
-}

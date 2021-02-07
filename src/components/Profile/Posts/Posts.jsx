@@ -16,114 +16,111 @@ import {getPosts, createPost} from '../../../reducers/profileReducer';
 
 class Posts extends React.Component {
 
-    state = {
-        postedModal: false,
-    }
+  state = {
+    postedModal: false,
+  }
 
-    componentDidMount() {
+  componentDidMount() {
+
+    let options = {
+      user_id: this.props.profile.id, 
+    }
+    this.props.getPosts(options);
+  }
+
+  componentWillUpdate() {
+    if(this.props.profile !== null){
+      let route_profile = this.props.location.pathname
+        .split('/').filter(item => item !== '')[1];
+      let current_profile = this.props.profile.id;
+
+      if(route_profile !== current_profile) {
 
         let options = {
-            user_id: this.props.profile.id, 
+          user_id: route_profile, 
         }
+
         this.props.getPosts(options);
-    }
-
-    componentWillUpdate() {
-        if(this.props.profile !== null){
-            let route_profile = this.props.location.pathname
-                .split('/').filter(item => item !== '')[1];
-            let current_profile = this.props.profile.id;
-
-            if(route_profile !== current_profile) {
-
-                let options = {
-                    user_id: route_profile, 
-                }
-
-                this.props.getPosts(options);
-            };
-        };
-
-    }
-
-    onSubmit = (post) => {
-        this.changeVisibleModal(false);
-        let {id, token} = this.props.auth;
-        let fd = new FormData();
-        fd.append('text', post.create_post);
-        fd.append('image', post.picture);
-        let options = {
-            id, token,
-            post: fd,
-        }
-        this.props.createPost(options);
-
+      };
     };
 
+  }
 
-
-    changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
-
-    render() {
-
-        let scrollbar = React.createRef();
-        let posts = [];
-        if(this.props.posts){
-            posts = this.props.posts.map( (item) =>  {
-                return (
-                    <Post avatar={default_avatar} 
-                        posts={this.props.posts}
-                        post={item} auth={this.props.auth} 
-                        scrollbar={scrollbar}
-                        profile={this.props.profile}></Post>
-                ) 
-            }
-            );
-            posts.reverse();
-        }
-
-        
-        return (
-            <div ref={scrollbar} className={styles.posts + ' custom_scroll_bar'} >
-
-                <Anchor scrollbar={scrollbar} />
-                {
-                    this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
-                        changeVisibleModal={ this.changeVisibleModal }
-                        onSubmit={this.onSubmit} />
-
-                }
-                        {
-                            this.props.auth.id == this.props.profile.id &&
-                                <div className={styles.create_post_button_wrapper}>
-                                    <button className={styles.create_post_button}
-                                        onClick={() => {this.changeVisibleModal(true)}} >
-                                        CREATE NEW POST
-                                    </button>
-                                </div>
-                        }
-                                <div className=''>
-                                    {
-                                        posts.length > 0 && posts
-                                            || <ListIsEmpty />
-                                    }
-                                        </div>
-
-                                    </div>
-        );
+  onSubmit = (post) => {
+    this.changeVisibleModal(false);
+    let {id, token} = this.props.auth;
+    let fd = new FormData();
+    fd.append('text', post.create_post);
+    fd.append('image', post.picture);
+    let options = {
+      id, token,
+      post: fd,
     }
+    this.props.createPost(options);
+
+  };
+
+
+
+  changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
+
+  render() {
+
+    let scrollbar = React.createRef();
+    let posts = [];
+    if(this.props.posts){
+      posts = this.props.posts.map( (item) =>  {
+        return (
+          <Post avatar={default_avatar} 
+            posts={this.props.posts}
+            post={item} auth={this.props.auth} 
+            scrollbar={scrollbar}
+            profile={this.props.profile}></Post>
+        ) 
+      }
+      );
+      posts.reverse();
+    }
+
+    return (
+      <div className={styles.wrp} >
+        <Anchor scrollbar={scrollbar} />
+        {
+          this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
+        changeVisibleModal={ this.changeVisibleModal }
+        onSubmit={this.onSubmit} />
+        }
+      {
+        this.props.auth.id == this.props.profile.id &&
+          <div className={styles.create_post_button_wrapper}>
+            <button className={styles.create_post_button}
+              onClick={() => {this.changeVisibleModal(true)}} >
+              CREATE NEW POST
+            </button>
+          </div>
+      }
+      <div ref={scrollbar} className={styles.scrollbar}>
+
+        {
+          posts.length > 0 && posts
+            || <ListIsEmpty />
+        }
+      </div>
+      </div>
+    );
+  }
 };
 
 let mapsStateToProps = (state) => ({
-    textNewPost: state.profilePage.textNewPost,
-    profile: state.profilePage.profile,
-    posts: state.profilePage.posts,
-    auth: state.auth,
+  textNewPost: state.profilePage.textNewPost,
+  profile: state.profilePage.profile,
+  posts: state.profilePage.posts,
+  auth: state.auth,
 });
 
 let mapsDispatchToProps = {
-    getPosts,
-    createPost,
+  getPosts,
+  createPost,
 };
 
 

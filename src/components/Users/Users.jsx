@@ -10,75 +10,74 @@ import styles from './Users.module.css';
 import {userApi} from '../../api/api.js';
 
 class Users extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
+  };
+
+  componentDidMount() {
+
+    let options = {
+      page_current: this.props.page_current,
+      page_size: this.props.page_size,
+      id: this.props.auth.id,
+      token: this.props.auth.token,
     };
+    this.props.getUsers(options);
+  };
 
-    componentDidMount() {
+  render () {
 
-        let options = {
-            page_current: this.props.page_current,
-            page_size: this.props.page_size,
-            id: this.props.auth.id,
-            token: this.props.auth.token,
-        };
-        this.props.getUsers(options);
-    };
+    let users = this.props.users.map(item => {
 
-    render () {
+      let isFollowed = () => {
+        return item.subscribers.find(user => user.id == this.props.auth.id);
+      };
 
-        let users = this.props.users.map(item => {
+      return <UserItemWithData 
+        is_following_fetching={this.props.is_following_fetching}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
+        auth={this.props.auth}
+        followed={isFollowed()}
+        user={item} />
+    });
 
-            let isFollowed = () => {
-                return item.subscribers.find(user => user.id == this.props.auth.id);
-            };
+    return <div className={styles.wrp}>
 
-            return <UserItemWithData 
-                is_following_fetching={this.props.is_following_fetching}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                auth={this.props.auth}
-                followed={isFollowed()}
-                user={item} />
-        });
+      <div>
+        <Filter />
+        <PaginationBar />
+      </div>
 
-        return (
-            <div className={'wrp'}>
-
-                <div>
-                    <Filter />
-                    <PaginationBar />
-                </div>
-
-                <div className={'custom_scroll_bar list' }>
-                    {
-                        !this.props.is_fetching? 
-                        users:
-                        <Preloader />
-                    }
-                    </div>
-                </div>
-        );
-
-    };
+      <div style={ { position: 'relative', } }>
+        <div className={styles.scrollbar}>
+          {
+            !this.props.is_fetching? 
+              users:
+              <Preloader />
+          }
+        </div>
+      </div>
+    </div>
+  };
 };
 
 
 
 let mapsStateToProps = (state) => {
-    return {
-        users: state.usersPage.users,
-        page_size: state.usersPage.options.page_size,
-        page_current: state.usersPage.options.page_current,
-        is_fetching: state.usersPage.options.is_fetching,
-        is_following_fetching: state.usersPage.options.is_following_fetching,
-        auth: state.auth,
-    };
+  return {
+    users: state.usersPage.users,
+    page_size: state.usersPage.options.page_size,
+    page_current: state.usersPage.options.page_current,
+    is_fetching: state.usersPage.options.is_fetching,
+    is_following_fetching: state.usersPage.options.is_following_fetching,
+    auth: state.auth,
+  };
 };
 
 let mapsDispatchToProps = {
-    getUsers,
+  getUsers,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(Users);

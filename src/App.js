@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css';
+import './index.css';
+
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
@@ -69,28 +71,28 @@ class App extends React.Component {
 
     return (
       <BrowserRouter>
-        <div className='app'>
-          <div></div>
-          <div className='wrapper'>
+        <div className={styles.app} >
 
-            {/*<HeaderContainer />*/}
+          <div className={styles.wrp}>
+
+            <div>
             <Sidebar/> 
-
-            <div className='content_wrapper'>
-              <div className='content' >
-                <Route path='/' render={() => <Redirect to='/profile' /> } />
-                <Route component={Profile} path='/profile/:user_id?'/>
-                <Route component={Messages} path='/messages/:user_id?/' />
-                <Route component={Users} path='/users' />
-                <Route component={News} path='/news' />
-                <Route component={Music} path='/music' />
-                <Route component={Settings} path='/settings' />
-                <Route component={SignUp} path='/signup' />
-                <Route component={SignIn} path='/signin' />
-              </div>
             </div>
+
+            <div>
+              <Route path='/' render={() => <Redirect to='/profile' /> } />
+              <Route component={Profile} path='/profile/:user_id?'/>
+              <Route component={Messages} path='/messages/:user_id?/' />
+              <Route component={Users} path='/users' />
+              <Route component={News} path='/news' />
+              <Route component={Music} path='/music' />
+              <Route component={Settings} path='/settings' />
+              <Route component={SignUp} path='/signup' />
+              <Route component={SignIn} path='/signin' />
+            </div>
+
           </div>
-          <div></div>
+
         </div>
       </BrowserRouter>
     );

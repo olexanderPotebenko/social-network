@@ -61,7 +61,7 @@ class MessagesHistory extends React.Component {
         if (index ===  0 && now != date) {
           history.push(getDateComponent(getDateMonth(mess.date)));
           history.push(messages[index]);
-        } else if (date != new Date(arr[index - 1].date).getDate()){
+        } else if (arr.length === 1 || date != new Date(arr[index - 1].date).getDate()){
           if(date == now ) history.push(getDateComponent('Today'));
           else history.push(getDateComponent(getDateMonth(mess.date))); 
           history.push(messages[index]);
@@ -80,12 +80,10 @@ class MessagesHistory extends React.Component {
       if(scrollbar.current && !this.state.isRendered) this.scrollDown(scrollbar);
     }, 50);
 
-    return <div ref={scrollbar} className={' custom_scroll_bar'}
-      style={ {
-        height: '100%',
-        padding: '10px',
-      } }>
+    return <div className={styles.wrp}>
+        <div ref={scrollbar} className={styles.scrollbar}>
       {history}
+    </div>
     </div>
   }
 };

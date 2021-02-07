@@ -11,8 +11,7 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 
 //reducers
-import {sendMessage, getDialogs} from '../../reducers/messagesReducer';
-
+import {sendMessage, getDialogs, selectDialog} from '../../reducers/messagesReducer';
 
 //components
 import Preloader from '../commons/Preloader/Preloader.jsx';
@@ -22,6 +21,8 @@ import Subscribers from './Subscribers/Subscribers';
 import Subscribed from './Subscribed/Subscribed';
 import Modal from '../commons/Modal/Modal';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+
+import avatar from '../../assets/images/avatar_default.png';
 
 
 
@@ -49,53 +50,33 @@ class Profile extends React.Component {
     };
     let {status, name, photos, contacts, email} = this.props.profile;
 
-    let posts_styles = [styles.menu_item, styles.separator];
-    let subscribers_styles = [styles.menu_item, styles.separator];
-    let subscribed_styles = [styles.menu_item];
 
-    switch(selected) {
-      case 'posts':
-        posts_styles.push(styles.current_item);
-        break;
-      case 'subscribers':
-        subscribers_styles.push(styles.current_item);
-        break;
-      case 'subscribed':
-        subscribed_styles.push(styles.current_item);
-        break;
-    };
 
-    posts_styles = posts_styles.join(' ');
-    subscribers_styles = subscribers_styles.join(' ');
-    subscribed_styles = subscribed_styles.join(' ');
-
-    let drop_down_menu_items_arr = [
+    let menu_items = [
       {
         value: 'more info',
         onClick: ((e) => {
-          e.preventDefault();
           this.changeVisibleModal(true)
         }).bind(this),
       },
-      // {
-      //     value: 'follow',
-      //     onClick: () => alert('not implemented functionality'),
-      // },
-      // {
-      //     value: 'follow',
-      //     onClick: () => alert('not implemented functionality'),
-      // },
-      // {
-      //     value: 'follow',
-      //     onClick: () => alert('not implemented functionality'),
-      // },
-
+      {
+        value: 'subscribers',
+        onClick: (e => {
+          this.props.history.push(`/profile/${this.props.profile.id}/subscribers/`);
+        }).bind(this),
+      },
+      {
+        value: 'subscribed',
+        onClick: (e => {
+          this.props.history.push(`/profile/${this.props.profile.id}/subscribed/`);
+        }).bind(this),
+      },
     ];
+      console.log(menu_items);
     if(this.props.auth.id !== this.props.profile.id){
-      drop_down_menu_items_arr.push({
+      menu_items.push({
         value: 'send message',
         onClick: ((e) => {
-          e.preventDefault();
           debugger;
 
           let options = {
@@ -108,89 +89,47 @@ class Profile extends React.Component {
             },
           };
 
-          this.props.history.push(`/messages/${this.props.auth.id}/send/${this.props.profile.id}/`);
+          this.props.history.push(`/messages/${this.props.auth.id}/`);
+          this.props.selectDialog('');
           this.props.sendMessage(options);
           this.props.getDialogs(options);
         }).bind(this),
-      })
-    }
+      });
+    };
 
-    return <div className={'wrp'}>
+    return <div className={styles.wrp}>
       <div className={styles.header}>
-        <div className={styles['profile-name']} >
-          <h5>
-            {this.props.profile.name}
-          </h5>
+
+        <div className={styles['user-info']}>
+          <img src={this.props.profile.photos.small || avatar} />
+          <div className={styles['profile-name']} >
+            <h5>
+              {this.props.profile.name}
+            </h5>
+          </div>
         </div>
 
         <div>
-          <nav className={styles.horizontal_menu}>
-            <ul>
-              <li >
-                <NavLink className={posts_styles} 
-                  onClick={() => selected = 'posts'}
-                  to='posts' >
-                  POSTS
-                  {
-                    ` ${this.props.posts.length}`
-                  }
-                </NavLink>
-              </li>
-              <li>
-                <NavLink  className={subscribers_styles} 
-                  onClick={() => selected = 'subscribers'}
-                  to='subscribers' >
-                  SUBSCRIBERS
-                  {
-                    ` ${this.props.subscribers.length}`
-                  }
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className={subscribed_styles} 
-                  onClick={() => selected = 'subscribed'}
-                  to='subscribed' >
-                  SUBSRIBED 
-                  {
-                    ` ${this.props.subscribed.length}`
-                  }
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+          <div >
+            <DropDownMenu 
+              items={menu_items}/>
+          </div>
         </div>
 
-        <div >
-          <DropDownMenu 
-            items={drop_down_menu_items_arr}/>
-        </div>
-
-        {/*
-                <div className={styles['profile-info']} >
-                    <a href='' className={styles['profile-more-info']}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            this.changeVisibleModal(true)}
-                        } >
-                        more info
-                    </a>
-                </div>
-                */}
       </div>
-      {
-        this.state.postedModal && <Modal width={800} height={420} 
-      Component={ProfileInfo}
-      changeVisibleModal={ this.changeVisibleModal } />
 
-      }
-      <div style={ {overflow: 'hidden' } }>
+      <div>
         <Route component={Posts} path={'/profile/:user_id/posts'} />
         <Route component={Subscribers} path={'/profile/:user_id/subscribers'}  />
         <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
       </div>
+      {
+        this.state.postedModal && <Modal width={800} height={420} 
+      Component={ProfileInfo}
+      changeVisibleModal={this.changeVisibleModal} />
+      }
       </div>
   }
-
 };
 
 
@@ -246,7 +185,7 @@ let mapsStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapsStateToProps, {getProfile, sendMessage, getDialogs}),
+  connect(mapsStateToProps, {getProfile, sendMessage, getDialogs, selectDialog}),
   WithAuthData,
   WithSignInRedirect,
 )(withRouter(ProfileContainer));

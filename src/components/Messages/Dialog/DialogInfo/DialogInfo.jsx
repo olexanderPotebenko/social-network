@@ -1,18 +1,39 @@
 import React from 'react';
 import styles from './DialogInfo.module.css';
+import backImg from '../../../../assets/images/back.png';
+
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import WithAuthData from '../../../../hocs/WithAuthData.jsx';
-import backImg from '../../../../assets/images/back.png';
-import {selectDialog} from '../../../../reducers/messagesReducer.js';
 import {NavLink} from 'react-router-dom';
+
+import WithAuthData from '../../../../hocs/WithAuthData.jsx';
+
+import {selectDialog} from '../../../../reducers/messagesReducer.js';
+//components
 import BackButton from '../../../commons/BackButton/BackButton.jsx';
+import DropDownMenu from '../../../commons/DropDownMenu/DropDownMenu.jsx';
 
 class DialogInfo extends React.Component {
 
   render() {
     console.log(this.props);
 
+    let menu_items = [];
+    menu_items.push({
+      value: 'delete dialog',
+      onClick: () => {
+      },
+    });
+    menu_items.push({
+      value: 'delete dialog',
+      onClick: () => {
+      },
+    });
+    menu_items.push({
+      value: 'delete dialog',
+      onClick: () => {
+      },
+    });
     return <div className={styles.wrp}>
       <div>
         <BackButton func={this.props.selectDialog.bind(this, '')} />
@@ -25,7 +46,8 @@ class DialogInfo extends React.Component {
           </h3>
         </div>
       </NavLink>
-      <div>
+      <div className={styles['button-wrp']}>
+        <DropDownMenu items={menu_items} />
       </div>
 
     </div>

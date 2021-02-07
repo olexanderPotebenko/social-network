@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Subscribers.module.css';
 import {connect} from 'react-redux';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
 import UserItem from '../../commons/UserItem/UserItem';
@@ -6,26 +7,27 @@ import Anchor from '../../commons/Anchor/Anchor';
 
 class Subscribers extends React.Component {
 
-    render() {
+  render() {
 
-        let subscribers = this.props.subscribers.map(user => 
-            <UserItem user={user} /> );
-        
-        let scrollbar = React.createRef();
+    let subscribers = this.props.subscribers.map(user => 
+      <UserItem user={user} /> );
 
-        return <div ref={scrollbar} className={' custom_scroll_bar'}
-                style={ {width: '100%', height: '100%'} }>
+    let scrollbar = React.createRef();
 
-            <Anchor scrollbar={scrollbar} />
+    return <div className={styles.wrp}>
+      <div ref={scrollbar} className={styles.scrollbar}>
 
-            {
-                this.props.subscribers
-                && this.props.subscribers.length
-                && subscribers
-                || <ListIsEmpty />
-            }
-            </div>
-    }
+        <Anchor scrollbar={scrollbar} />
+
+        {
+          this.props.subscribers
+            && this.props.subscribers.length
+            && subscribers
+            || <ListIsEmpty />
+        }
+      </div>
+    </div>
+  }
 }
 
 let mapStateToProps = (state) => {
