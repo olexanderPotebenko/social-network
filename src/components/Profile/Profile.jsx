@@ -21,6 +21,7 @@ import Subscribers from './Subscribers/Subscribers';
 import Subscribed from './Subscribed/Subscribed';
 import Modal from '../commons/Modal/Modal';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import BackButtom from '../commons/BackButton/BackButton.jsx';
 
 import avatar from '../../assets/images/avatar_default.png';
 
@@ -43,14 +44,11 @@ class Profile extends React.Component {
 
 
   render() {
-    let selected = this.props.location.pathname.split('/').slice(-1)[0];
 
     if(!this.props.profile) {
       return <Preloader />;
     };
     let {status, name, photos, contacts, email} = this.props.profile;
-
-
 
     let menu_items = [
       {
@@ -72,7 +70,7 @@ class Profile extends React.Component {
         }).bind(this),
       },
     ];
-      console.log(menu_items);
+
     if(this.props.auth.id !== this.props.profile.id){
       menu_items.push({
         value: 'send message',
@@ -97,8 +95,23 @@ class Profile extends React.Component {
       });
     };
 
-    return <div className={styles.wrp}>
-      <div className={styles.header}>
+    return <div className={styles.wrp} >
+      <div className={styles.header}
+
+    style={ (() => {
+      debugger;
+      return !this.props.history.location.pathname.split('/').includes('posts')? 
+        {'grid-template-columns': '80px 1fr 90px'}: {}
+      })() } >
+
+        {
+          !this.props.history.location.pathname.split('/').includes('posts') &&
+            <div>
+            <BackButtom func={(()=>{
+        this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
+      }).bind(this)}/>
+      </div>
+        }
 
         <div className={styles['user-info']}>
           <img src={this.props.profile.photos.small || avatar} />

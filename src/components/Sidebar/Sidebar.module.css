@@ -1,8 +1,21 @@
-.sidebar {
+.wrp {
   width: 100%;
   height: 100%;
-  background-color: #212131;
   box-sizing: border-box;
+}
+
+.content {
+  width: 260px;
+  position: absolute;
+  top: 0; bottom: 0;
+  background-color: #212131;
+  z-index: 100;
+}
+
+.content > div {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .menu_item{
@@ -10,4 +23,26 @@
   grid-gap: 1px;
 }
 
+.toggle-edit-button {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  padding: 10px;
+  opacity: .4;
+  cursor: pointer;
 
+  outline: none;
+  border: none;
+}
+
+.toggle-edit-button:hover {
+  opacity: .9;
+}
+
+.toggle-edit-button img {
+  width: 100%;
+  height: 100%;
+}

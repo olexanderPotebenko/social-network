@@ -35,7 +35,7 @@ class MessagesHistory extends React.Component {
                 + ' ' + (isFinal && styles['message-right-with-arrow'])}>
               {mess.text}
               <div className={styles.time}>
-                {isFinal.toString() + ' ' + new Date(mess.date).getDate()}
+                {time}
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@ class MessagesHistory extends React.Component {
                 + ' ' + (isFinal && styles['message-left-with-arrow'])}>
               {mess.text}
               <div className={styles.time}>
-                {isFinal.toString() + ' ' + new Date(mess.date).getDate()}
+                {time}
               </div>
             </div>
           </div>

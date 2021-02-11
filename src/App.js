@@ -76,7 +76,7 @@ class App extends React.Component {
           <div className={styles.wrp}>
 
             <div>
-            <Sidebar/> 
+              { this.props.auth.is_auth && <Sidebar/> }
             </div>
 
             <div>

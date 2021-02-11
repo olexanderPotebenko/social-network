@@ -10,7 +10,6 @@ const BackButton = (props) => {
   return <button className={styles['back-button']}
     onClick={() => {
       debugger;
-      props.history.goBack();
       props.func();
     } } >
     <img src={backImg} />

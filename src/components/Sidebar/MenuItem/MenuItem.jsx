@@ -11,7 +11,8 @@ const MenuItem = (props) => {
     if(is_active) styles.push(cls.active);
     styles = styles.join(' ');
     return (
-            <NavLink className={styles} to={props.link}>
+      <NavLink className={styles} to={props.link} 
+        onClick={() => { props.setEditMode(false) } }>
                     {props.text}
             </NavLink>
     );

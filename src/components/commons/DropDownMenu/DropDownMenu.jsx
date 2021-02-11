@@ -21,7 +21,6 @@ class DropDownMenu extends React.Component {
 
     let items = this.props.items
       .map(item => {
-        console.log(item);
         return <div className={styles.item} 
         onClick={(e) => {
           this.offEdditMode();

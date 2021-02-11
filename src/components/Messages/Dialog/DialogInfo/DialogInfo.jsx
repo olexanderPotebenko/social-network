@@ -16,7 +16,6 @@ import DropDownMenu from '../../../commons/DropDownMenu/DropDownMenu.jsx';
 class DialogInfo extends React.Component {
 
   render() {
-    console.log(this.props);
 
     let menu_items = [];
     menu_items.push({
@@ -36,7 +35,9 @@ class DialogInfo extends React.Component {
     });
     return <div className={styles.wrp}>
       <div>
-        <BackButton func={this.props.selectDialog.bind(this, '')} />
+        <BackButton func={(() => {
+        this.props.selectDialog('');
+          }).bind(this) } />
       </div>
       <NavLink to={`/profile/${this.props.user_id}/posts`}>
         <img className={styles.avatar} src={this.props.user_avatar} />

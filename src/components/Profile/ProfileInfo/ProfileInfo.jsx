@@ -129,7 +129,6 @@ class ProfileInfoForm extends React.Component {
 
                         </li>
                 });
-        console.log(this.props.avatar_ref.current);
         if(this.props.avatar_ref.current){
             this.props.avatar_ref.current.innerHTML = `<img src="" />`;
         }
