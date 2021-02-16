@@ -27,7 +27,7 @@ class Messages extends React.Component {
 
   render() {
     if (this.props.currentDialog &&
-    !this.props.history.location.pathname.split('/').includes('dialog') ) {
+      !this.props.history.location.pathname.split('/').includes('dialog') ) {
       this.props.history.push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
     }
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
@@ -44,33 +44,33 @@ class Messages extends React.Component {
 
         let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
         if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
-        return <NavLink to={`dialog/${dialog.dialog_id}/`}
+        return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}
           className={styles['item-dialog']}
           onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
-            <div className={styles['container-left']} >
-              <div className={styles.avatar}>
-                <img src={dialog.user_avatar} />
-              </div>
+          <div className={styles['container-left']} >
+            <div className={styles.avatar}>
+              <img src={dialog.user_avatar} />
             </div>
-            <div className={styles['container-middle']}>
-              <div className={styles.name}>
-                <h3 style={ {
-                  'text-decoration': 'none',
-                  } }>
+          </div>
+          <div className={styles['container-middle']}>
+            <div className={styles.name}>
+              <h3 style={ {
+                'text-decoration': 'none',
+                } }>
                 {dialog.user_name}
-                </h3>
-              </div>
-              <div className={styles['last-message']}>
-                <span>
-                   {lastMessage}
-                </span>
-              </div>
+              </h3>
             </div>
-            <div className={styles['container-right']}>
-              <div className={styles.time}>
-                {time}
-              </div>
+            <div className={styles['last-message']}>
+              <span>
+                {lastMessage}
+              </span>
             </div>
+          </div>
+          <div className={styles['container-right']}>
+            <div className={styles.time}>
+              {time}
+            </div>
+          </div>
         </NavLink>
       })
     }

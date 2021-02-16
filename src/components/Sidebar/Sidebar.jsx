@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setAuthDataActionCreator, login} from '../../reducers/authReducer.js';
-import {setEditMode, setLeft, toggleEditMode} from '../../reducers/sidebarReducer.js';
+import {setEditMode, setLeft, toggleEditMode, setShadingDisplay} from '../../reducers/sidebarReducer.js';
 import styles from './Sidebar.module.css';
 import MenuItem from './MenuItem/MenuItem.jsx';
 import AuthInfo from './AuthInfo/AuthInfo.jsx';
@@ -44,9 +44,10 @@ class Sidebar extends React.Component {
 
     let content = React.createRef();
 
-    setTimeout( () => {
+      setTimeout( () => {
       let rubicon = -70;
       if(this.props.editMode && this.props.left !== 0) {
+        this.props.setShadingDisplay('block');
         if(this.props.left < -230) {
           this.props.setLeft(-230)
         } else if (this.props.left > -5) {
@@ -55,6 +56,7 @@ class Sidebar extends React.Component {
           this.props.setLeft(this.props.left + 15);
         }
       } else if (!this.props.editMode && this.props.left !== -260 ){
+        this.props.setShadingDisplay('none');
         if(this.props.left > -250) {
           this.props.setLeft(this.props.left - 15);
         } else {
@@ -63,8 +65,11 @@ class Sidebar extends React.Component {
       }
     }, 10 );
     return <div className={styles.wrp}> 
+      <div className={styles.shading}
+        onClick={ () => {this.props.setEditMode(false)}} 
+        style={ {display: this.props.shadingDisplay} }></div>
       <div ref={content} className={styles.content}
-        style={ { left: this.props.left } }>
+        style={ { left: this.props.left } } >
         <div>
           <AuthInfo setAuthData={this.props.setAuthData}/>
           <nav className={`${styles.menu_item} `}>
@@ -91,6 +96,7 @@ const mapsStateToProps = (state) => {
     photo: state.auth.photo,
     editMode: state.sidebar.editMode,
     left: state.sidebar.left,
+    shadingDisplay: state.sidebar.shadingDisplay,
   };
 };
 
@@ -100,6 +106,7 @@ const mapsDispatchToProps = {
   setEditMode,
   setLeft,
   toggleEditMode,
+  setShadingDisplay,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(withRouter(Sidebar));

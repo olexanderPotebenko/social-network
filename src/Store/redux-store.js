@@ -1,6 +1,10 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import messagesReducer from '../reducers/messagesReducer.js';
+
 import thunkMiddleware from 'redux-thunk';
+import wsMiddleware from '../middleware/ws.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+
 import {reducer as formReducer} from 'redux-form';
 import profileReducer from '../reducers/profileReducer.js';
 import sidebarReducer from '../reducers/sidebarReducer.js';
@@ -16,6 +20,6 @@ let reducers = combineReducers({
     form: formReducer,
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+let store = createStore(reducers, applyMiddleware(thunkMiddleware, authMiddleware, wsMiddleware));
 
 export default store;

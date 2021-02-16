@@ -139,6 +139,12 @@ export const messageApi = {
         headers: {authorize: token, id}
       }).then(res => res.data);
   },
+  deleteDialog (options) {
+    let {id, token, dialog_id} = options;
+    return instance.delete(`messages/${id}/dialog/${dialog_id}/`,{
+      headers: {authorize: token, id}
+    }).then(res => res.data);
+  },
   sendMessage (options) {
     let {id, token, user_id, message} = options;
     return instance.post(`messages/${id}/send/${user_id}`, 
@@ -147,6 +153,14 @@ export const messageApi = {
         headers: {authorize: token, id}
       }).then(res => res.data);
   },
+  readMessages (options) {
+    let {id, token, dialog_id, messages} = options;
+    return instance.put(`messages/${id}/read/${dialog_id}`,
+      {messages},
+      {
+        headers: {authorize: token, id}
+      }).then(res => res.data);
+  }
 
 };
 

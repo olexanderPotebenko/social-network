@@ -8,7 +8,7 @@ import {NavLink} from 'react-router-dom';
 
 import WithAuthData from '../../../../hocs/WithAuthData.jsx';
 
-import {selectDialog} from '../../../../reducers/messagesReducer.js';
+import {selectDialog, deleteDialog} from '../../../../reducers/messagesReducer.js';
 //components
 import BackButton from '../../../commons/BackButton/BackButton.jsx';
 import DropDownMenu from '../../../commons/DropDownMenu/DropDownMenu.jsx';
@@ -21,15 +21,22 @@ class DialogInfo extends React.Component {
     menu_items.push({
       value: 'delete dialog',
       onClick: () => {
+      //let {id, token, dialog_id} = options;
+        let options = {
+          id: this.props.auth.id,
+          token: this.props.auth.token,
+          dialog_id: this.props.currentDialog,
+        }
+        this.props.deleteDialog(options);
       },
     });
     menu_items.push({
-      value: 'delete dialog',
+      value: 'nothin',
       onClick: () => {
       },
     });
     menu_items.push({
-      value: 'delete dialog',
+      value: 'nothin',
       onClick: () => {
       },
     });
@@ -61,11 +68,13 @@ const mapsStateToProps = state => {
     user_avatar: state.messagesPage.dialog.user_avatar,
     user_name: state.messagesPage.dialog.user_name,
     dialog: state.messagesPage.dialog,
+    currentDialog: state.messagesPage.currentDialog,
   };
 };
 
 const mapsDispatchToProps = {
   selectDialog,
+  deleteDialog,
 };
 
 export default compose(

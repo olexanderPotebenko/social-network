@@ -1,86 +1,83 @@
-.wrp {
-  width: 100%;
-  height: 100%;
-  position: relative;
+import {SET_AUTH_DATA, setWsActionCreator} from '../reducers/authReducer.js';
+import {WS_MESSAGE} from '../reducers/messagesReducer.js';
+
+
+const ws = store => next => action => {
+  console.log(SET_AUTH_DATA);
+
+  let result = next(action);
+
+  let state = store.getState();
+
+  const startWebSocketConnection = () => {
+    let ws = new WebSocket('ws://127.0.0.1:8181');
+    ws.onopen = (e) => {
+      store.dispatch(setWsActionCreator(ws));
+      ws.send(JSON.stringify({
+        token: state.auth.token,
+        id: state.auth.id,
+        action: 'AUTH',
+      }));
+    };
+
+    ws.onmessage = (event) => {
+      console.log(event);
+      //alert(`[message] Данные получены с сервера: ${event.data}`);
+    };
+
+    ws.onclose = (event) => {
+      if (event.wasClean) {
+        alert(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+      } else {
+        // например, сервер убил процесс или сеть недоступна
+        // обычно в этом случае event.code 1006
+        //alert('[close] Соединение прервано');
+        setTimeout(startWebSocketConnection(), 2000);
+      }
+
+    };
+  };
+
+  switch(action.type) {
+    case SET_AUTH_DATA:
+      startWebSocketConnection();
+      break;
+    case WS_MESSAGE:
+
+      let data = JSON.stringify({
+        id: state.auth.id,
+        action: 'SEND-MESSAGE',
+        user_id: action.user_id,
+      });
+      state.auth.ws.send(data);
+      break;
+  }
+
+
+  return result;
 }
 
-.wrp:focus {
-    outline: none;
+export default ws;
+/*
+const SET_WS = 'SET-WS';
+
+const initial_state = {
+  ws: null,
 }
 
-.menu-button {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  padding: 10px;
-  box-sizing: border-box;
+const webSocket = (state = initial_state, action) => {
+  switch(action.type) {
+    case SET_WS:
+      return {
+        ...state,
+        2оооол
 
-  opacity: .4;
-  border-radius: 50%;
-  border: 0px;
-  outline: none;
-  background-color: rgba(200, 200, 250, .1);
-}
+    let startWebSocketConnection = () => {
+            };
 
-.menu-button:hover {
-  opacity: 1;
-}
-
-.menu-button:active {
-  outline: none;
-  border: 0px;
-}
-
-.menu-button img {
-  width: 100%;
-  height: 100%;
-}
-
-
-.wrp .items-wrp, .wrp .icon {
-  z-index: 100000;
-  border-radius: 6px;
-}
-
-.items-wrp {
-  width: 0; height: 0;
-  position: absolute;
-  top: -20px; right: 10px;
-}
-
-.items {
-  width: 200px;
-  position: absolute;
-  z-index: inherit;
-  max-width: 200px;
-  display: inline-block;
-  padding: 15px 5px;
-  border-radius: 3px;
-  background-color: rgba(55, 55, 77, .8);
-  box-sizing: content-box;
-  transform: translateX(-100%);
-
-}
-
-.item {
-    z-index: inherit;
-    display: inline-block;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 1px;
-    margin-top: 1px;
-    background-color: rgba(33, 33, 55, .7);
-    cursor: pointer;
-
-    color: bbb;
-    font-size: 17px;
-    text-align: center;
-    line-height: 0.5em;
-}
-
-.item:hover {
-    background-color: rgba(200, 200, 233, .9);
-}
+      ws.onerror = (error) => {
+        //alert(`[error] ${error.message}`);
+      };
+    };
+    startWebSocketConnection();
+    */

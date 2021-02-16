@@ -1,7 +1,7 @@
 import {authApi} from '../api/api.js';
 import {stopSubmit} from 'redux-form';
 
-const SET_AUTH_DATA = 'SET-AUTH-DATA';
+export const SET_AUTH_DATA = 'SET-AUTH-DATA';
 const SET_SERVER_ERROR = 'SET-SERVER-ERROR';
 const SET_IS_FETCHING = 'SET-IS-FETCHING';
 const SET_SUBSCRIBED = 'SET-SUBSCRIBED';

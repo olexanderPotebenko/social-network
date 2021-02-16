@@ -9,7 +9,6 @@ const BackButton = (props) => {
 
   return <button className={styles['back-button']}
     onClick={() => {
-      debugger;
       props.func();
     } } >
     <img src={backImg} />
