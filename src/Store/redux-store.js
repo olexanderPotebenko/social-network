@@ -10,6 +10,7 @@ import profileReducer from '../reducers/profileReducer.js';
 import sidebarReducer from '../reducers/sidebarReducer.js';
 import usersReducer from '../reducers/usersReducer.js';
 import authReducer from '../reducers/authReducer.js';
+import notifi from '../reducers/notifi.js';
 
 let reducers = combineReducers({
     messagesPage: messagesReducer,
@@ -18,6 +19,7 @@ let reducers = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,
+    notifi,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware, authMiddleware, wsMiddleware));

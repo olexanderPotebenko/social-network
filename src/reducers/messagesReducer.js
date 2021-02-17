@@ -76,7 +76,7 @@ export const getDialogs = options => dispatch => {
 }
 
 export const getDialog = options => dispatch => {
-  messageApi.getDialog(options)
+  return messageApi.getDialog(options)
     .then(res => {
       if(res.data.result_code === 0){
         let dialog = {

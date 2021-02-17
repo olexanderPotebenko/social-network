@@ -1,11 +1,11 @@
 import {SET_AUTH_DATA, setWsActionCreator} from '../reducers/authReducer.js';
 import {WS_MESSAGE, READ_MESSAGES, getDialog, getDialogs} from '../reducers/messagesReducer.js';
+import {SEND_YOU_MESSAGE, addNotificationActionCreator} from '../reducers/notifi.js';
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 
 const ws = store => next => action => {
-  console.log(SET_AUTH_DATA);
 
   let result = next(action);
 
@@ -40,6 +40,8 @@ const ws = store => next => action => {
       switch(data.action) {
         case SEND_MESSAGE:
 
+          debugger;
+
           console.log(state);
           let options = {
             id: state.auth.id,
@@ -47,19 +49,29 @@ const ws = store => next => action => {
           };
 
           if(state.messagesPage.dialogs.find(dialog => dialog.user_id == data.id)){
-            let dialog_id = state.messagesPage.dialogs
-              .find(dialog => dialog.user_id == data.id).dialog_id;
-            options.dialog_id = dialog_id;
-            store.dispatch(getDialog(options));
+            let url = document.location.href;
+            debugger;
+            if( Object.keys(state.messagesPage.dialog).length
+              && ~url.lastIndexOf(state.messagesPage.dialog.dialog_id)
+              && state.messagesPage.dialog.user_id === data.id ) {
+
+              let dialog_id = state.messagesPage.dialogs
+                .find(dialog => dialog.user_id == data.id).dialog_id;
+              options.dialog_id = dialog_id;
+              store.dispatch(getDialog(options));
+
+            } else {
+              store.dispatch(addNotificationActionCreator(data.id, SEND_YOU_MESSAGE));
+            }
+
           } else {
             store.dispatch(getDialogs(options))
               .then(res => {
+                debugger;
                 state = store.getState();
-                debugger;
                 let dialog_id = state.messagesPage.dialogs
-                  .find(dialog => dialog.user_id == data.user_id).dialog_id;
+                  .find(dialog => dialog.user_id == data.id).dialog_id;
                 options.dialog_id = dialog_id;
-                debugger;
                 store.dispatch(getDialog(options));
               });
           }
@@ -83,6 +95,7 @@ const ws = store => next => action => {
 
   switch(action.type) {
     case SET_AUTH_DATA:
+      console.log(SET_AUTH_DATA);
       startWebSocketConnection();
       break;
     case WS_MESSAGE:

@@ -21,6 +21,7 @@ import Settings from './components/Settings/Settings.jsx';
 import Users from './components/Users/Users.jsx';
 import SignUp from './components/Auth/SignUp.jsx';
 import SignIn from './components/Auth/SignIn.jsx';
+import Notification from './components/Notification/Notification.jsx';
 let arr = [];
 
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
             </div>
 
             <div>
+              <Notification />
               <Route path='/' render={() => <Redirect to='/profile' /> } />
               <Route component={Profile} path='/profile/:user_id?'/>
               <Route component={Messages} path='/messages/:user_id?/' />
