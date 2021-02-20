@@ -13,7 +13,7 @@ class Notification extends React.Component {
 
   componentDidMount () {
 
-    alert('Create component');
+    //alert('Create component');
     let interval = setInterval(() => {
       console.log(interval + ' interval');
       setTimeout(() => {
@@ -23,7 +23,6 @@ class Notification extends React.Component {
           let rest = (end - now)/(end - item.date);
           rest = rest < 0? 0: rest;
           console.log(rest);
-          debugger;
           if(now > end) this.props.removeNotification(item.id);
           else if (rest < .8) this.props.setOpacity(item.id, rest);
         });
@@ -53,7 +52,6 @@ class Notification extends React.Component {
       </div>
     );
 
-    debugger;
 
     return <div className={styles.wrp}
       style={ {bottom: 80*this.props.notifications.length} }>

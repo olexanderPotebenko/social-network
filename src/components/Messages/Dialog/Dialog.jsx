@@ -50,16 +50,23 @@ class Dialog extends React.Component {
 
   }
 
+  state = {
+    wrp: React.createRef(),
+  }
+
   render() {
 
-    return <div className={styles.wrp}>
+    return <div ref={this.state.wrp} className={styles.wrp}
+      style={ {
+        'grid-template-rows': '80px 1fr 120px',
+      } }>
       <div className={styles['dialog-info']}>
         <DialogInfo history={this.props.history} />
       </div>
       <MessagesHistory />
       <div className={styles['send-message-panel']}>
         <div></div>
-        <SendMessage onSubmit={this.onSubmit} />
+        <SendMessage onSubmit={this.onSubmit} wrp={this.state.wrp} />
         <div></div>
       </div>
     </div>
