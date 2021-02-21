@@ -26,7 +26,6 @@ import BackButtom from '../commons/BackButton/BackButton.jsx';
 import avatar from '../../assets/images/avatar_default.png';
 
 
-
 class Profile extends React.Component {
 
   state = {
@@ -75,7 +74,6 @@ class Profile extends React.Component {
       menu_items.push({
         value: 'send message',
         onClick: ((e) => {
-          debugger;
 
           let options = {
             id: this.props.auth.id,
@@ -99,7 +97,6 @@ class Profile extends React.Component {
       <div className={styles.header}
 
     style={ (() => {
-      debugger;
       return !this.props.history.location.pathname.split('/').includes('posts')? 
         {'grid-template-columns': '80px 1fr 90px'}: {}
       })() } >
@@ -111,6 +108,7 @@ class Profile extends React.Component {
         this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
       }).bind(this)}/>
       </div>
+          || <div></div>
         }
 
         <div className={styles['user-info']}>

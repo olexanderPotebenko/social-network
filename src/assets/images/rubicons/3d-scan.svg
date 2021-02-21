@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons 3d-scan" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M4 14v2.796L12 21l7.94-4.204L20 14" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.01 3"></path>
+  <path d="M19.94 13.067V7.204L11.97 3 4 7.204v5.863" stroke-linecap="round"></path>
+  <path d="M4 7.204l7.97 4.203 7.97-4.203M11.97 13.067v-1.66" stroke-linecap="round"></path>
+  <path d="M12.029 18L12 12" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.01 3"></path>
+  <path d="M3 14h18" stroke-linecap="round"></path>
+</svg>

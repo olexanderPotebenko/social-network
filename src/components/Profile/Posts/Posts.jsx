@@ -60,8 +60,6 @@ class Posts extends React.Component {
 
   };
 
-
-
   changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
 
   render() {

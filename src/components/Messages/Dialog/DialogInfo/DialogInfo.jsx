@@ -46,6 +46,7 @@ class DialogInfo extends React.Component {
         this.props.selectDialog('');
           }).bind(this) } />
       </div>
+      <div className={styles.center}>
       <NavLink to={`/profile/${this.props.user_id}/posts`}>
         <img className={styles.avatar} src={this.props.user_avatar} />
         <div className={styles.name} >
@@ -54,6 +55,7 @@ class DialogInfo extends React.Component {
           </h3>
         </div>
       </NavLink>
+      </div>
       <div className={styles['button-wrp']}>
         <DropDownMenu items={menu_items} />
       </div>

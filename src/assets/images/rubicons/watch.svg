@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons watch" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M9 6.5L9.5 2h5l.5 4.5m-6 11l.5 4.5h5l.5-4.5" stroke-linecap="round"></path>
+  <circle cx="12" cy="12" r="6"></circle>
+  <path d="M12 9v3l3 1" stroke-linecap="round"></path>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons resize-alt-reverse" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M21 15V3H9v12h12z" stroke-miterlimit="10" stroke-linecap="round"></path>
+  <path d="M12 21h9v-6M3 12V3h6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.01 3"></path>
+  <path d="M9 15l-6 6m0 0h6m-6 0v-6" stroke-linecap="round"></path>
+</svg>

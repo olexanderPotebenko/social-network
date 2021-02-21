@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons map-pin-location" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M17.625 17c2.0576.5155 3.375 1.3062 3.375 2.1923C21 20.7433 16.9703 22 12 22s-9-1.2567-9-2.8077C3 18.3062 4.3174 17.5144 6.375 17" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 10c1.1046 0 2-.8954 2-2s-.8954-2-2-2-2 .8954-2 2 .8954 2 2 2z" stroke-linecap="round"></path>
+  <path d="M18 8.2222C18 13.5556 12 18 12 18s-6-4.4444-6-9.7778C6 4.7858 8.6863 2 12 2s6 2.7858 6 6.2222z"></path>
+</svg>

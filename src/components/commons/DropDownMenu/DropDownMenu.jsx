@@ -26,12 +26,15 @@ class DropDownMenu extends React.Component {
           this.offEdditMode();
           e.preventDefault();
           item.onClick();
-        }}>
-        {item.value}
-      </div>
+          }}>
+          {item.svg}
+          <div className={styles.text}>
+            {item.value}
+          </div>
+        </div>
       });
 
-    return <div className={styles.wrp}
+    return <nav className={styles.wrp}
     > 
       {
         this.state.editMode && <div className={styles['items-wrp']} >
@@ -46,7 +49,7 @@ class DropDownMenu extends React.Component {
         onBlur={() => setTimeout(this.offEdditMode, 200)} >
         <img src={menu_black} />
       </button>
-      </div>;
+      </nav>;
   }
 }
 

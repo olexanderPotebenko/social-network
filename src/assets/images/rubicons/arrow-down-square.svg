@@ -1,0 +1,5 @@
+<svg fill="none" class="rubicons arrow-down-square" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5">
+  <path d="M8 12l4 4 4-4" stroke-linecap="round"></path>
+  <path d="M12 3v13" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M16 3h5v18H3V3h5" stroke-linecap="round"></path>
+</svg>

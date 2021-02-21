@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons wifi-disabled" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M5 12.55a10.9998 10.9998 0 015.7121-2.4674M19.08 12.55A10.999 10.999 0 0015 10.4079M1.42 9a15.999 15.999 0 016.2045-3.3875M12 5.0027A16 16 0 0122.58 9M8.53 16.11a5.9996 5.9996 0 015.588-.7244" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 15v5" stroke-linecap="round" stroke-dasharray="0.01 4"></path>
+  <path d="M6 3l12 18" stroke-linecap="round"></path>
+</svg>

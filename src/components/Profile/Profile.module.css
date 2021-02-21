@@ -2,18 +2,19 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 80px 1fr;
   position: relative;
 }
 
 .header {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(4, 3, 11, .1);
-    position: relative;
-    display: grid;
-    grid-template-columns:1fr 90px;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: grid;
+  align-items: center;
+  background-color: rgba(200, 200, 250, .1);
+  display: inline-grid;
+  grid-template-columns: 90px 1fr 80px;
 }
 
 .header > div {
@@ -29,46 +30,47 @@
 }
 
 .user-info img {
-  width: 90px;
-  height: 90px;
-  border-radius: 45px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   margin: 5px 10px;
   float: left;
 }
 
 .profile-name {
   font-size: 22px;
-  color: #ddd;
+  color: #bbb;
+  line-height: .0em;
 }
 
 /*-------------------------*/
 
 .profile-info {
-    position: absolute;
-    top: 10px; right: 45px;
-    height: 100%;
-    display: inline-block;
-    float: right;
+  position: absolute;
+  top: 10px; right: 45px;
+  height: 100%;
+  display: inline-block;
+  float: right;
 }
 
 .profile-more-info {
-    padding: 0px 10px 3px 10px;
-    border-radius: 0px 0px 10px 10px;
-    text-decoration: none;
-    float: right;
+  padding: 0px 10px 3px 10px;
+  border-radius: 0px 0px 10px 10px;
+  text-decoration: none;
+  float: right;
 }
 
 
 
 .menu_item:hover {
-    background-color: rgba(188, 166, 188, .9);
-    color: #fff;
+  background-color: rgba(188, 166, 188, .9);
+  color: #fff;
 }
 
 .current_item {
-    background-color: rgba(188, 166, 188, .7);
+  background-color: rgba(188, 166, 188, .7);
 }
 
 .separator {
-    border-right: 2px solid rgba(144, 133, 144, .4);
+  border-right: 2px solid rgba(144, 133, 144, .4);
 }

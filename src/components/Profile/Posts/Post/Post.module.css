@@ -1,7 +1,6 @@
 .wrapper {
-    max-width: 70%;
-    margin: auto;
-    margin-top: 55px;
+    max-width: 700px;
+    margin: 40px auto;
     position: relative;
     text-align: center;
     background-color: rgba(22, 22, 33, .9);
@@ -45,6 +44,22 @@
     font-size: 15px;
 }
 
+.full-size {
+  position: absolute;
+  bottom: 5px; right: 5px;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  padding: 0;
+  border: 0;
+  font-size: 21px;
+  opacity: .6;
+  border-radius: 50%;
+  color: #444;
+  z-index: 10;
+}
+
+
 .likes {
     position: absolute;
     bottom: 9px; right: 9px;
@@ -52,7 +67,7 @@
     border-radius: 17px;
     height: 30px;
     overflow: hidden;
-    background-color: rgba(220, 220, 250, .8);
+    background-color: rgba(220, 220, 250, .9);
 
     color: #444;
     font-weight: bold;
@@ -118,28 +133,72 @@
     border-radius: 15px;
 }
 
+.likers-wrp {
+  width: 500px;
+}
+
+@media (max-height: 900px) and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 700px !important;
+  }
+}
+
+@media (max-height: 800px) and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 600px !important;
+  }
+}
+
+@media (max-height: 700px) and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 500px !important;
+  }
+}
+
+@media (max-height: 600px) and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 380px;
+  }
+}
+
+@media (max-height: 500px)  and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 300px;
+  }
+}
+
+@media (max-height: 400px)  and (orientation: portrait) {
+  .likers-wrp {
+    max-height: 250px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .likers-wrp {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .likers-wrp {
+    width: 300px;
+  }
+}
+
+@media (max-width: 320px) {
+  .likers-wrp {
+    width: 280px;
+  }
+}
+
+
+/*-------------------------*/
 .criss_cross {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 9px; right: 9px;
-    padding: 2px;
-    background-color: #556;
-    box-sizing: border-box;
-    border-radius: 20px;
-
-    margin: auto;
-}
-
-.criss_cross:hover{
-    background-color: #99d;
-    color: white;
-}
-
-.criss_cross img {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 9px; right: 9px;
 }
 
 .post_picture_wrp {

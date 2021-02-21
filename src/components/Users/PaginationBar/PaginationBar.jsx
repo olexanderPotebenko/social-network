@@ -23,7 +23,6 @@ class PaginationBar extends React.Component {
             ); 
         max_i = Math.ceil(max_i);
 
-        debugger;
         for (i; i <= Math.ceil(this.props.page_count) && i <=  max_i; i++){
             let classes = styles.page_number;
             if(i == this.props.page_current)
@@ -39,7 +38,6 @@ class PaginationBar extends React.Component {
             value = '' + value;
             if(value.slice(-3) == '...') str = '...';
             let onClick = num => e => {
-                debugger;
                 onPageChanged(num);
             };
             onClick = onClick(num);

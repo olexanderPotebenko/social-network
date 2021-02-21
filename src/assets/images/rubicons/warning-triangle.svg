@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons warning-triangle" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M21 21H3l9-17 9 17z" stroke-miterlimit="10" stroke-linecap="round"></path>
+  <path d="M12 10v5" stroke-linecap="round"></path>
+  <path d="M12 18v-3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.01 3"></path>
+</svg>

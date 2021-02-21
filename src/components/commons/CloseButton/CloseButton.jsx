@@ -9,8 +9,10 @@ let CloseButton = (props) => {
             (e) => {
                 e.preventDefault();
                 props.close();
-            } }>
-            <img src={criss_cross} />
+          } }>
+          <svg xmlns="http://www.w3.org/2000/svg" class="rubicons x" width="25" height="25" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none">
+            <path d="M18 6L6 18M18 18L6 6" stroke-linecap="round"></path>
+          </svg>
         </a>
     </div>
 }

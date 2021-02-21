@@ -11,7 +11,7 @@ export const READ_MESSAGES = 'READ-MESSAGES';
 
 let initial_state = {
   isFetching: true,
-  currentDialog: '602d63c8db8c9f1314fae6ce',
+  currentDialog: '60315a3d8a6c576ffffbbaaf',
   newMessage: 0,
   dialogs: [],
   dialog: {},

@@ -3,7 +3,7 @@ import Filter from './Filter/Filter.jsx';
 import {connect} from 'react-redux';
 import * as axios from 'axios';
 import {getUsers, follow, unfollow, followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../reducers/usersReducer.js';
-import UserItemWithData from '../commons/UserItem/UserItemWithData.jsx';
+import UserItemWithData from '../commons/UserItem/UserItem.jsx';
 import PaginationBar from './PaginationBar/PaginationBar.jsx';
 import Preloader from '../commons/Preloader/Preloader.jsx';
 import styles from './Users.module.css';
@@ -45,7 +45,9 @@ class Users extends React.Component {
 
     return <div className={styles.wrp}>
 
-      <div>
+      <div className={styles.header}>
+        <div>
+        </div>
         <Filter />
         <PaginationBar />
       </div>

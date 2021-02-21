@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons pen-tool" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M5 13l7-10 7 10c-3 2-3 5-3 5H8s0-3-3-5zM8 18h8v3H8v-3z"></path>
+  <path d="M12 3v8" stroke-linecap="round"></path>
+  <circle cx="12" cy="13" r="2"></circle>
+</svg>

@@ -1,0 +1,5 @@
+<svg fill="none" class="rubicons life-float" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5">
+  <circle cx="12" cy="12" r="9"></circle>
+  <circle cx="12" cy="12" r="4"></circle>
+  <path d="M18.364 5.636l-3.5356 3.5356M5.636 18.364l3.5356-3.5356M18.364 18.364l-3.5356-3.5356M5.636 5.636l3.5356 3.5356" stroke-linecap="round"></path>
+</svg>

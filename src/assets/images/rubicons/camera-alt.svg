@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons camera-alt" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M21 5H3v15h18V5z"></path>
+  <path d="M12 17c1.933 0 3.5-1.567 3.5-3.5S13.933 10 12 10s-3.5 1.567-3.5 3.5S10.067 17 12 17z"></path>
+  <path d="M16 8h2" stroke-linecap="round"></path>
+  <path d="M6 4h2" stroke-linecap="square"></path>
+</svg>

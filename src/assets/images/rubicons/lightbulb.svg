@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons lightbulb" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M9 21h6" stroke-linecap="round"></path>
+  <path d="M12 3c-3.454 0-6.87 3-5.8 7.767A25.847 25.847 0 007.706 14c.7046 1.2069.781 2 .781 4h7.026c0-2 .0764-2.7931.781-4a25.8555 25.8555 0 001.506-3.233C18.87 6 15.454 3 12 3z" stroke-miterlimit="10"></path>
+  <path d="M15 10a3.2 3.2 0 00-3-4" stroke-miterlimit="10" stroke-linecap="round"></path>
+</svg>

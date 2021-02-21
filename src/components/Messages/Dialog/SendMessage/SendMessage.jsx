@@ -9,9 +9,21 @@ import styles from './SendMessage.module.css';
 import {Button} from '../../../commons/FormsControls/FormsControls.jsx';
 import {getDialog} from '../../../../reducers/messagesReducer.js';
 
+let svg = [
+  <svg fill="none" class="rubicons send-alt" xmlns="http://www.w3.org/2000/svg" 
+    width="36" height="36" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor" stroke-width="1.5">
+    <path d="M20 12L4 4l3.556 8L4 20l16-8zM7.556 12H20" stroke-linecap="round"></path>
+  </svg>,
+];
+
+
+const maxlength = 1001;
+
 const TextArea2 = ({input, meta, ...props}) => {
   return <div className={styles['input-wrp']}>
-    <textarea ref={props.propsRef} maxlength='1500' {...input} {...props} />
+    <textarea ref={props.propsRef} {...input} {...props} />
   </div>
 };
 
@@ -52,14 +64,18 @@ class SendMessage extends React.Component {
                   ['input-height']: inputHeight,
                   ['wrp-grid-template-rows']: newWrpStyle, 
                 }
-              });
+              })
             }
-          };
+          }
         }
 
         if(textarea.current && input.current) {
           if(text != textarea.current.innerHTML) {
-            this.setState({text: textarea.current.innerHTML});
+            let newText = textarea.current.innerHTML;
+            newText.slice(0, maxlength - 1000);
+            textarea.current.value = newText;
+            debugger;
+            this.setState({text: newText});
           }
         }
 
@@ -84,7 +100,8 @@ class SendMessage extends React.Component {
       this.state.wrp.current.style.gridTemplateRows = this.state.styles['wrp-grid-template-rows'];
     }
     let button = React.createRef();
-    return <div>
+    return <div className={styles.wrp}>
+      <div></div>
       <form className={styles['form-wrp']} onSubmit={this.props.handleSubmit}>
 
         <div className={styles['send-message-wrp']}>
@@ -93,7 +110,12 @@ class SendMessage extends React.Component {
               'max-width': this.state.styles['input-max-width'],
               'max-height': this.state.styles['input-max-height'],
             } }> 
-            <div ref={this.state.input} contenteditable='true' >
+            <div ref={this.state.input} contenteditable='true'
+              onChange={e => {
+                debugger;
+              }
+              }
+            >
               {this.state.text}
             </div>
             <Field ref={this.state.field} name='send-message'
@@ -102,8 +124,8 @@ class SendMessage extends React.Component {
               validate={[]} placeholder='enter text message...'
               component={TextArea2} 
               propsRef={this.state.textarea}
+              normalize={ value => value.slice(0, maxlength) }
               onChange={(e) => {
-                debugger;
                 if(e.nativeEvent.inputType === 'insertLineBreak') {
                   e.preventDefault();
                   this.props.handleSubmit();
@@ -114,17 +136,13 @@ class SendMessage extends React.Component {
 
         <div className={styles['submit-button-wrp']}>
           <button >
-            <svg fill="none" class="rubicons send-alt" xmlns="http://www.w3.org/2000/svg" 
-              width="36" height="36" 
-              viewBox="0 0 24 24" 
-              stroke="#ccc" stroke-width="1.5">
-              <path d="M20 12L4 4l3.556 8L4 20l16-8zM7.556 12H20" stroke-linecap="round"></path>
-            </svg>
+            {svg[0]}
           </button>
         </div>
         <div>
         </div>
       </form>
+      <div></div>
     </div>
   }
 }

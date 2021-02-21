@@ -13,12 +13,14 @@ import FullSizeToggle from '../../../commons/FullSizeToggle/FullSizeToggle';
 import FullSizeImage from '../../../commons/FullSizeImage/FullSizeImage';
 import Modal from '../../../commons/Modal/Modal';
 import UserItem from '../../../commons/UserItem/UserItem.jsx';
+import CloseButton from '../../../commons/CloseButton/CloseButton.jsx';
 
 import {profileApi} from '../../../../api/api.js';
 
 class Post extends React.Component {
 
   state = {
+    image: React.createRef(),
     widthMax: 900,
     widthMin: 700,
     heightMax: 400,
@@ -31,7 +33,7 @@ class Post extends React.Component {
 
   fitImage (e) {
     let img = new Image();
-    img.src = e.target.currentSrc;
+    img.src = e.currentTarget.currentSrc;
     let width, height;
     if(true){
       width = e.currentTarget.parentElement.clientWidth;
@@ -99,8 +101,8 @@ class Post extends React.Component {
         {
           this.props.auth.id === this.props.profile.id 
             && <a href='' onClick={(e) => { e.preventDefault() } }>
-        <div className={styles.criss_cross} onClick={this.onDelete.bind(this)}>
-          <img src={criss_cross} />
+        <div className={styles.criss_cross} >
+          <CloseButton close={this.onDelete.bind(this)} />
         </div>
       </a>
         }
@@ -110,8 +112,11 @@ class Post extends React.Component {
         <div className={styles.post}>
           <div className={styles.post_picture_wrp}
             style={ {'max-height': this.state.heightMax} }>
+            <div className={styles['full-size']}>
             <FullSizeToggle 
+              isFullSize={this.state.isFullSize}
               fullSizeToggle={this.fullSizeToggle.bind(this)}/>
+            </div>
             <img src={this.props.post.picture} className={styles.post_picture}
               onLoad={this.fitImage.bind(this)} 
               style={{
@@ -121,7 +126,7 @@ class Post extends React.Component {
             <div style={ {
               'background-image': `url("${this.props.post.picture}")`,
               'background-repeat': 'no-repeat',
-              'background-size': 'cover',
+              'background-size': 'contain',
               'background-position': 'center',
               position: 'relative',
               width: this.state.width,
@@ -167,6 +172,7 @@ class Post extends React.Component {
         picture={this.props.post.picture}
         width={this.state.width}
         height={this.state.height}
+        isFullSize={this.state.isFullSize}
         />
         }
       {
@@ -219,21 +225,22 @@ class WhoLikedModal extends React.Component {
 
     let height = users.length > 4? 570: users.length * 130 + 50; // 130 * n + 50
     console.log(this.props);
-    return <div className={'custom_scroll_bar'}
-      style={ {
-        width: '100%',
-        height, 
-      } }>
-      {
-        users.length
-          && users
-          || <span style={ {
-            width: '100%',
-            height: '100%',
-      } }>
-      list is empty
-    </span>
-      }
+    return <div className={styles['likers-wrp']}>
+      <div className={'custom_scroll_bar'}
+        style={ {
+          width: '100%',
+        } }>
+        {
+          users.length
+            && users
+            || <span style={ {
+              width: '100%',
+              height: '100%',
+        } }>
+        list is empty
+      </span>
+        }
+    </div>
         </div>
   }
 }

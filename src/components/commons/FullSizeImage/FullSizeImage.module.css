@@ -1,19 +1,13 @@
 .wrp {
     position: fixed;
     top: 0; bottom: 0; left: 0; right: 0;
-    background-color: black;
+    background-color: rgba(20, 20, 30, 8);
     opacity: 1;
     z-index: 100;
     overflow: hidden;
 }
 
 .container {
-    /*
-    position: absolute;
-    top: -1px; bottom: -1px;
-    left: -1px; right: -1px; 
-    */
-    
 }
 
 .wrp img {
@@ -24,7 +18,13 @@
 .toggle-panel-wrp {
     z-index: 1000;
     position: fixed;
-    bottom: 10px; left: 0; right: 0;
+    bottom: 0px; left: 0; right: 0;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+.toggle-panel-wrp:hover {
+  opacity: 1;
 }
 
 .toggle-panel {
@@ -33,23 +33,30 @@
     margin: auto;
 }
 
-.next-button, .back-button {
+.next-button, .back-button, .full-size {
     display: block;
     float: left;
-    width: 120px;
+    width: 40px;
     height: 40px;
     margin: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
+    padding: 0;
+    border: 0;
     font-size: 21px;
     opacity: .6;
-    border-radius: 6px;
+    border-radius: 50%;
+    color: #444;
 }
 
 .next-button:not([disabled]):hover, .back-button:not([disabled]):hover {
     opacity: .9;
     cursor: pointer;
 }
+
+.next-button:focus, .back-button:focus {
+    border: 0;
+    outline: none;
+}
+
 .next-button:disabled, .back-button:disabled {
     opacity: .4;
 }

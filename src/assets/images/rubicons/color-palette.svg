@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons color-palette" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M3 3h6v15a3 3 0 01-6 0V3z" stroke-linecap="square"></path>
+  <path d="M9 10.882l6.243-6.367 4.242 4.242L9 20" stroke-linecap="round"></path>
+  <path d="M14 15h7v6H6" stroke-linecap="round"></path>
+  <path d="M6 18v3" stroke-linecap="round" stroke-dasharray="0.01 3"></path>
+</svg>

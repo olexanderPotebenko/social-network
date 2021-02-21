@@ -17,10 +17,8 @@
   background-color: rgba(200, 200, 250, .05);
 }
 
-.send-message-panel {
+.send-message {
   background-color: rgba(200, 200, 250, .1);
-  display: inline-grid;
-  grid-template-columns: 50px 1fr 50px;
 }
 
 .send-message-panel-left {

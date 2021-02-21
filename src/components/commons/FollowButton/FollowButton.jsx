@@ -6,84 +6,88 @@ import {setSubscribed} from '../../../reducers/authReducer';
 
 class FollowButton extends React.Component {
 
-    state = {
-        isFetching: false,
-    }
+  state = {
+    isFetching: false,
+  }
 
-    componentDidMount() {
+  componentDidMount() {
 
-        let followed = this.props.subscribed.map(user => user.id).includes(this.props.user.id);
-        this.setState({ followed });
-    }
+    let followed = this.props.subscribed.map(user => user.id).includes(this.props.user.id);
+    this.setState({ followed });
+  }
 
-    async onFollow () {
-        let options = {
-            id: this.props.auth.id,
-            user_id: this.props.user.id,
-            token: this.props.auth.token,
-        };
-        this.setState({isFetching: true});
-        followApi.follow(options)
-            .then(data => {
-                if(data.result_code === 0){
+  async onFollow () {
+    let options = {
+      id: this.props.auth.id,
+      user_id: this.props.user.id,
+      token: this.props.auth.token,
+    };
+    this.setState({isFetching: true});
+    followApi.follow(options)
+      .then(data => {
+        if(data.result_code === 0){
 
-                this.props.setSubscribed(this.props.user);
-                this.setState({isFetching: false})
-                this.setState({followed: true})
-                }else{
+          this.props.setSubscribed(this.props.user);
+          this.setState({isFetching: false})
+          this.setState({followed: true})
+        }else{
 
-                this.setState({isFetching: false})
-                }
-            });
+          this.setState({isFetching: false})
+        }
+      });
+  };
+
+  onUnfollow () {
+    let options = {
+      id: this.props.auth.id,
+      user_id: this.props.user.id,
+      token: this.props.auth.token,
     };
 
-    onUnfollow () {
-        let options = {
-            id: this.props.auth.id,
-            user_id: this.props.user.id,
-            token: this.props.auth.token,
-        };
+    this.setState({isFetching: true});
+    followApi.unfollow(options)
+      .then(data => {
+        if(data.result_code === 0){
 
-        this.setState({isFetching: true});
-        followApi.unfollow(options)
-            .then(data => {
-                if(data.result_code === 0){
+          this.props.setSubscribed(this.props.user);
+          this.setState({followed: false})
+          this.setState({isFetching: false})
+        }else{
 
-                this.props.setSubscribed(this.props.user);
-                this.setState({followed: false})
-                this.setState({isFetching: false})
-                }else{
+          this.setState({isFetching: false})
+        }
+      });
+  };
 
-                this.setState({isFetching: false})
-                }
-            });
-    };
+  isDisabled () {
+    return this.state.isFetching;
+  };
 
-    isDisabled () {
-        return this.state.isFetching;
-    };
+  render() {
 
-    render() {
-            
-        return (
-            <div className={styles.wrp}>
-                <div className={styles.container}>
-                    <button className={this.state.followed && styles.followed || styles.follow}
-                        disabled={this.isDisabled()}
-                        onClick={ this.state.followed ? this.onUnfollow.bind(this): this.onFollow.bind(this) }>
-                        {this.state.followed && 'FOLLOWED' || 'FOLLOW'}
-                    </button>
-                </div>
-            </div>
-        );
-    }
+    let stylesArr = ['commons-modal-button'];
+    stylesArr.push(this.state.followed? styles.followed: styles.follow);
+    
+    return (
+      <div className={styles.wrp}>
+        <div className={styles.container}>
+          <button className={stylesArr.join(' ')}
+            disabled={this.isDisabled()}
+            onClick={ this.state.followed ? 
+                this.onUnfollow.bind(this): this.onFollow.bind(this) }>
+            {this.state.followed && 'FOLLOWED' || 'FOLLOW'}
+          </button>
+        </div>
+      </div>
+    );
+  }
 };
 
 let mapStateToProps = (state) => {
-    return {
-        auth: state.auth,
-        subscribed: state.auth.subscribed_to,
-    }
+  return {
+    auth: state.auth,
+    subscribed: state.auth.subscribed_to,
+  }
 };
 
 export default connect(mapStateToProps, {setSubscribed})(FollowButton);

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons qr-code" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M3 3h6M12 12h9M18 18h3v3h-6M15 18v-3h3M6 9V6h3v6M6 12H3V9M21 3h-6v6h6V3zM12 3v6M3 21h6v-6H3v6zM12 21v-6" stroke-linecap="round"></path>
+  <path d="M21 15h-3M3 6h3" stroke-linecap="round" stroke-dasharray="0.01 3"></path>
+</svg>

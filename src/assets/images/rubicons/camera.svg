@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="rubicons camera" width="36" height="36" viewBox="0 0 24 24" stroke="rgb(230, 150, 72)" stroke-width="1.5" fill="none">
+  <path d="M7 7l2-3h6l2 3h4v13H3V7h4z" stroke-linecap="round"></path>
+  <path d="M12 17c2.2091 0 4-1.7909 4-4 0-2.2091-1.7909-4-4-4-2.2091 0-4 1.7909-4 4 0 2.2091 1.7909 4 4 4z" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M18 10h3" stroke-linecap="round" stroke-dasharray="0.01 3"></path>
+</svg>

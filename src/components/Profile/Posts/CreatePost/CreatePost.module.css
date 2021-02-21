@@ -1,66 +1,117 @@
-.wrapper {
+.form {
+  width: 500px;
+  height: 300px;
+  position: relative;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 1fr 55px 30px;
+  align-items: end;
 }
 
+
 .input_wrapper {
-    width: 100%;
-    height: 70%;
+  width: 100%;
+  height: 100%;
 }
-.input-text-wrp {
-    width: 100%;
+
+@media (max-height: 900px) and (orientation: portrait) {
+  .form {
+    height: 700px !important;
+  }
+}
+
+@media (max-height: 800px) and (orientation: portrait) {
+  .form {
+    height: 600px !important;
+  }
+}
+
+@media (max-height: 700px) and (orientation: portrait) {
+  .form {
+    height: 500px !important;
+  }
+}
+
+@media (max-height: 600px) and (orientation: portrait) {
+  .form {
+    height: 380px;
+  }
+}
+
+@media (max-height: 500px)  and (orientation: portrait) {
+  .form {
+    height: 300px;
+  }
+}
+
+@media (max-height: 400px)  and (orientation: portrait) {
+  .form {
     height: 250px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .form {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .form {
+    width: 300px;
+  }
+}
+
+@media (max-width: 320px) {
+  .form {
+    width: 280px;
+  }
+}
+
+.input-text-wrp {
+  width: 100%;
+  height: 100%;
 }
 
 .input-text-wrp textarea {
-    background-color: #efefff;
+  background-color: #efefff;
 }
 
 .input-text-wrp textarea:focus {
-    background-color: white;
+  background-color: white;
 }
 
-.choose-photo-button-wrp {
-    width: 100%;
-    height: 40px;
-    margin-top: 15px;
+.choose-button-wrp {
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
 }
 
-.choose-photo-button-wrp button {
-    width: 120px;
-    height: 100%;
-    border-radius: 4px;
+.choose-button {
     float: left;
+    background-color: rgba(0, 0, 0, .0);
+    border: none;
+    display: block;
+}
+
+.choose-button svg {
+  color: #99a;
+}
+
+.choose-button:hover svg {
+  color: #fff;
 }
 
 .choosed-file-name {
-    width: 550px;
-    float: left;
-    height: 40px;
-    position: relative;
-    overflow: hidden;
-}
-
-.choosed-file-name .choosed-file-name-wrp {
-    position: absolute;
-    bottom: 0;
-}
-
-.choosed-file-name .choosed-file-name-wrp span {
-    display: inline-block;
     margin-left: 15px;
+    float: left;
+    display: block;
 }
 
 .create-post-button {
-    position: absolute;
-    bottom: 15px; right: 15px;
-}
-
-.button_wrapper button:focus {
-    border-width: 10px;
-    box-shadow: none;
-    outline:none;
-}
-
-.button_wrapper button:active {
-    outline: 2px solid #9999ff;
+  float: right;
+  font-size: 16px;
 }
 
