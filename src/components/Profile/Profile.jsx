@@ -94,11 +94,13 @@ class Profile extends React.Component {
     };
 
     return <div className={styles.wrp} >
+
+      <div className={styles['header-wrp']}>
       <div className={styles.header}
 
     style={ (() => {
       return !this.props.history.location.pathname.split('/').includes('posts')? 
-        {'grid-template-columns': '80px 1fr 90px'}: {}
+        {'grid-template-columns': '80px 1fr 90px'}: {'grid-template-columns': '1fr 90px'}
       })() } >
 
         {
@@ -108,7 +110,6 @@ class Profile extends React.Component {
         this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
       }).bind(this)}/>
       </div>
-          || <div></div>
         }
 
         <div className={styles['user-info']}>
@@ -127,6 +128,7 @@ class Profile extends React.Component {
           </div>
         </div>
 
+      </div>
       </div>
 
       <div>

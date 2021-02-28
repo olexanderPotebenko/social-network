@@ -7,6 +7,14 @@
     border-radius: 10px;
 }
 
+.scrollbar {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 70px;
+}
+
 .post {
     max-width: 100%;
     color: white;
@@ -135,44 +143,46 @@
 
 .likers-wrp {
   width: 500px;
+  overflow: hidden;
+  position: relative;
+  height: 700px;
 }
 
-@media (max-height: 900px) and (orientation: portrait) {
+@media (max-height: 800px) {
   .likers-wrp {
-    max-height: 700px !important;
+    height: 650px;
   }
 }
 
-@media (max-height: 800px) and (orientation: portrait) {
+@media (max-height: 700px) {
   .likers-wrp {
-    max-height: 600px !important;
+    height: 550px;
   }
 }
 
-@media (max-height: 700px) and (orientation: portrait) {
+@media (max-height: 600px) {
   .likers-wrp {
-    max-height: 500px !important;
+    height: 450px;
   }
 }
 
-@media (max-height: 600px) and (orientation: portrait) {
+@media (max-height: 500px) {
   .likers-wrp {
-    max-height: 380px;
+    height: 350px;
   }
 }
 
-@media (max-height: 500px)  and (orientation: portrait) {
+@media (max-height: 400px) {
   .likers-wrp {
-    max-height: 300px;
+    height: 250px;
   }
 }
 
-@media (max-height: 400px)  and (orientation: portrait) {
+@media (max-height: 300px) {
   .likers-wrp {
-    max-height: 250px;
+    height: 150px;
   }
 }
-
 
 @media (max-width: 500px) {
   .likers-wrp {
@@ -204,6 +214,8 @@
 .post_picture_wrp {
     overflow: hidden;
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .post_picture {

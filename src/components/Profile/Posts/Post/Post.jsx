@@ -19,8 +19,29 @@ import {profileApi} from '../../../../api/api.js';
 
 class Post extends React.Component {
 
+  componentDidMount() {
+    if(!this.state.interval){
+      let interval = setInterval(() => {
+        console.log(this.state.interval);
+        if(this.state.imageWrp.current 
+          && this.state.imageWrp.current.clientWidth != this.state.widthMax) {
+          console.log(this.state.widthMax);
+          this.setState({widthMax: this.state.imageWrp.current.clientWidth});
+          this.fitImage();
+        }
+      }, 500);
+      this.setState({interval});
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
+  }
+
   state = {
-    image: React.createRef(),
+    interval: undefined,
+    imageWrp: React.createRef(),
+    img: undefined,
     widthMax: 900,
     widthMin: 700,
     heightMax: 400,
@@ -32,25 +53,12 @@ class Post extends React.Component {
   }
 
   fitImage (e) {
-    let img = new Image();
-    img.src = e.currentTarget.currentSrc;
     let width, height;
-    if(true){
-      width = e.currentTarget.parentElement.clientWidth;
-      height = width * img.height/ img.width;
-    }else if(img.width < this.state.widthMin){
-      width = this.state.widthMin;
-      height = this.state.widthMin * img.height / img.width;
-    }else if(img.width < this.state.widthMax){
-      width = img.width;
-      height = img.height;
-    }else{
+    width = this.state.imageWrp.current.clientWidth;
+    // width = e.currentTarget.parentElement.clientWidth;
+    height = width * this.state.img.height/ this.state.img.width;
 
-      width = this.state.widthMax;
-      height = this.state.widthMax * img.height / img.width;
-    };
-
-    this.setState({ width, height });
+    this.setState({width, height });
   };
 
   async onLikes (e) {
@@ -110,7 +118,7 @@ class Post extends React.Component {
           {getFormatedDate(this.props.post.date)}
         </div>
         <div className={styles.post}>
-          <div className={styles.post_picture_wrp}
+          <div ref={this.state.imageWrp} className={styles.post_picture_wrp}
             style={ {'max-height': this.state.heightMax} }>
             <div className={styles['full-size']}>
             <FullSizeToggle 
@@ -118,7 +126,12 @@ class Post extends React.Component {
               fullSizeToggle={this.fullSizeToggle.bind(this)}/>
             </div>
             <img src={this.props.post.picture} className={styles.post_picture}
-              onLoad={this.fitImage.bind(this)} 
+              onLoad={(e) => {
+                let img = new Image();
+                img.src = e.currentTarget.currentSrc;
+                this.setState({img});
+                setTimeout(() => this.fitImage(e));
+              } } 
               style={{
                 width: 0, height: 0,
               }}
@@ -177,7 +190,7 @@ class Post extends React.Component {
         }
       {
         this.state.showWhoLikedModal 
-          && <Modal width={800} 
+          && <Modal 
             changeVisibleModal={this.showWhoLikedModalToggle.bind(this)}
             scrollbar={this.props.scrollbar}
             likes={this.props.post.likes}
@@ -223,13 +236,8 @@ class WhoLikedModal extends React.Component {
       />
     });
 
-    let height = users.length > 4? 570: users.length * 130 + 50; // 130 * n + 50
-    console.log(this.props);
     return <div className={styles['likers-wrp']}>
-      <div className={'custom_scroll_bar'}
-        style={ {
-          width: '100%',
-        } }>
+      <div className={styles.scrollbar} >
         {
           users.length
             && users

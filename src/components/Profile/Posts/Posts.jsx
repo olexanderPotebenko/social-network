@@ -71,7 +71,8 @@ class Posts extends React.Component {
         return (
           <Post avatar={default_avatar} 
             posts={this.props.posts}
-            post={item} auth={this.props.auth} 
+            post={item} 
+            auth={this.props.auth} 
             scrollbar={scrollbar}
             profile={this.props.profile}></Post>
         ) 

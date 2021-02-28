@@ -9,7 +9,13 @@
 .header {
   background-color: rgba(200, 200, 250, .1);
   display: inline-grid;
-  grid-template-columns: 90px 1fr 80px;
+  grid-template-columns: 80px 1fr 80px;
+}
+
+@media (max-width: 700px) {
+  .header {
+    grid-template-columns: 0px 1fr 0px;
+  }
 }
 
 .scrollbar {

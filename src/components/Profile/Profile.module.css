@@ -6,15 +6,21 @@
   position: relative;
 }
 
+.header-wrp {
+  background-color: rgba(200, 200, 250, .1);
+  position: relative;
+  display: grid;
+}
+
 .header {
   width: 100%;
   height: 100%;
-  position: relative;
+  max-width: 900px;
   display: grid;
   align-items: center;
-  background-color: rgba(200, 200, 250, .1);
   display: inline-grid;
   grid-template-columns: 90px 1fr 80px;
+  margin: auto;
 }
 
 .header > div {
@@ -27,6 +33,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  max-height: 80px;
 }
 
 .user-info img {
@@ -41,6 +48,8 @@
   font-size: 22px;
   color: #bbb;
   line-height: .0em;
+  margin: 10px;
+  float: left;
 }
 
 /*-------------------------*/
