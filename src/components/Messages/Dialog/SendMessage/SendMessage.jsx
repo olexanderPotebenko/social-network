@@ -22,6 +22,12 @@ let svg = [
 const maxlength = 1001;
 
 const TextArea2 = ({input, meta, ...props}) => {
+  if(props.propsRef.current) {
+    setTimeout(() => {
+      if(props.propsRef.current)
+        props.propsRef.current.focus();
+    }, 100);
+  }
   return <div className={styles['input-wrp']}>
     <textarea ref={props.propsRef} {...input} {...props} />
   </div>
@@ -74,7 +80,6 @@ class SendMessage extends React.Component {
             let newText = textarea.current.innerHTML;
             newText.slice(0, maxlength - 1000);
             textarea.current.value = newText;
-            debugger;
             this.setState({text: newText});
           }
         }
@@ -112,7 +117,6 @@ class SendMessage extends React.Component {
             } }> 
             <div ref={this.state.input} contenteditable='true'
               onChange={e => {
-                debugger;
               }
               }
             >
@@ -120,6 +124,8 @@ class SendMessage extends React.Component {
             </div>
             <Field ref={this.state.field} name='send-message'
               autoFocus={true}
+              disabled={this.props.dialogIsFetching}
+              dialogIsFetching={this.props.dialogIsFetching}
               style={ {height: '15px', 'overflow': 'hidden' } }
               validate={[]} placeholder='enter text message...'
               component={TextArea2} 
@@ -150,6 +156,7 @@ class SendMessage extends React.Component {
 const mapsStateToProps = state => {
   return {
     currentDialog: state.messagesPage.currentDialog,
+    dialogIsFetching: state.messagesPage.dialogIsFetching,
   }
 };
 

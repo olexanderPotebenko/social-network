@@ -3,9 +3,9 @@ import Filter from './Filter/Filter.jsx';
 import {connect} from 'react-redux';
 import * as axios from 'axios';
 import {getUsers, follow, unfollow, followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../reducers/usersReducer.js';
-import UserItemWithData from '../commons/UserItem/UserItem.jsx';
+import UserItem from '../commons/UserItem/UserItem.jsx';
 import PaginationBar from './PaginationBar/PaginationBar.jsx';
-import Preloader from '../commons/Preloader/Preloader.jsx';
+import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
 import styles from './Users.module.css';
 import {userApi} from '../../api/api.js';
 
@@ -34,7 +34,7 @@ class Users extends React.Component {
         return item.subscribers.find(user => user.id == this.props.auth.id);
       };
 
-      return <UserItemWithData 
+      return <UserItem 
         is_following_fetching={this.props.is_following_fetching}
         follow={this.props.follow}
         unfollow={this.props.unfollow}
@@ -57,11 +57,13 @@ class Users extends React.Component {
           {
             !this.props.is_fetching? 
               users:
-              <Preloader />
-          }
+              <div className={styles.fetching}>
+          <FetchingToggle width={40} height={40} />
         </div>
+        }
       </div>
     </div>
+      </div>
   };
 };
 

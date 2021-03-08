@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './Messages.module.css';
+import avatar_default from '../../assets/images/avatar_default.png';
+
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Route, NavLink} from 'react-router-dom';
@@ -8,6 +10,7 @@ import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
 //components
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle';
+import ListIsEmpty from '../commons/ListIsEmpty/ListIsEmpty.jsx';
 import Dialog from './Dialog/Dialog'
 //reducers
 import {getDialogs, sendMessage, selectDialog} from '../../reducers/messagesReducer';
@@ -33,64 +36,106 @@ class Messages extends React.Component {
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
     let dialogs = this.props.dialogs;
-    if(dialogs.length === 0) {
-      dialogs = 'Dialogs list is empty'
-    }else {
-      dialogs = dialogs.map(dialog => {
-        let time = getFormatedDate(dialog.dateLastModified);
-        time = time.split(':');    
-        if(time.length === 1) time = time[0];
-        else time = time[0] + ':' + time[1] + time[2].slice(-3);
-
-        let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
-        if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
-        return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}
-          className={styles['item-dialog']}
-          onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
-          <div className={styles['container-left']} >
-            <div className={styles.avatar}>
-              <img src={dialog.user_avatar} />
-            </div>
-          </div>
-          <div className={styles['container-middle']}>
-            <div className={styles.name}>
-              <h3 style={ {
-                'text-decoration': 'none',
-                } }>
-                {dialog.user_name}
-              </h3>
-            </div>
-            <div className={styles['last-message']}>
-              <span>
-                {lastMessage}
-              </span>
-            </div>
-          </div>
-          <div className={styles['container-right']}>
-            <div className={styles.time}>
-              {time}
-            </div>
-          </div>
-        </NavLink>
-      })
+    if(dialogs.length > 0) {
+      dialogs = dialogs.map(dialog => 
+        <UserItem dialog={dialog} auth={this.props.auth} 
+        selectDialog={this.props.selectDialog.bind(this)}/>)
     }
     return (
       <div className={styles.wrp}>
         {
           this.props.currentDialog ? 
             <Route component={Dialog} path={`/messages/:id/dialog/:dialog_id/`} /> :
+          this.props.dialogsIsFetching
+          && <div className={styles.fetching}>
+            <FetchingToggle />
+          </div>
+          || (dialogs.length?
             <div className={styles.scrollbar}>
               {dialogs}
-            </div>
+            </div>:
+              <ListIsEmpty />
+          )
+
         }
       </div>
     );
   };
 };
 
+class UserItem extends React.Component {
+
+  state = {
+    id: this.props.dialog.user_id,
+    photo: this.props.dialog.user_avatar,
+    load: false,
+  }
+
+  componentDidMount() {
+    let dialog = this.props.dialog;
+  }
+
+  onError = () => {
+    this.setState({photo: avatar_default});
+    this.setState({load: true});
+  }
+
+  onLoad = () => {
+    this.setState({load: true});
+  }
+
+  render() {
+    let dialog = this.props.dialog;
+
+    let time = getFormatedDate(dialog.dateLastModified);
+    time = time.split(':');    
+    if(time.length === 1) time = time[0];
+    else time = time[0] + ':' + time[1] + time[2].slice(-3);
+
+    let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
+    if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
+    return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}
+      className={styles['item-dialog']}
+      onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
+      <div className={styles['container-left']} >
+        <div className={styles.avatar}>
+          { !this.state.load
+              && <div className={styles.fetching}>
+          <FetchingToggle />
+        </div>
+        }
+        <img src={this.state.photo} 
+          onLoad={this.onLoad}
+          onError={this.onError} />
+      </div>
+
+    </div>
+      <div className={styles['container-middle']}>
+        <div className={styles.name}>
+          <h3 style={ {
+            'text-decoration': 'none',
+            } }>
+            {dialog.user_name}
+          </h3>
+        </div>
+        <div className={styles['last-message']}>
+          <span>
+            {lastMessage}
+          </span>
+        </div>
+      </div>
+      <div className={styles['container-right']}>
+        <div className={styles.time}>
+          {time}
+        </div>
+      </div>
+      </NavLink>
+  }
+}
+
 let mapsStateToProps = state => {
   return {
-    isFetching: state.messagesPage.isFetching,
+    dialogsIsFetching: state.messagesPage.dialogsIsFetching,
     dialogs: state.messagesPage.dialogs,
     currentDialog: state.messagesPage.currentDialog,
   };

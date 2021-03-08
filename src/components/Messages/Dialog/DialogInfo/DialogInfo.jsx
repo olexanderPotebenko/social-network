@@ -12,6 +12,7 @@ import {selectDialog, deleteDialog} from '../../../../reducers/messagesReducer.j
 //components
 import BackButton from '../../../commons/BackButton/BackButton.jsx';
 import DropDownMenu from '../../../commons/DropDownMenu/DropDownMenu.jsx';
+import Avatar from '../../../commons/Avatar/Avatar.jsx';
 
 class DialogInfo extends React.Component {
 
@@ -48,7 +49,9 @@ class DialogInfo extends React.Component {
       </div>
       <div className={styles.center}>
       <NavLink to={`/profile/${this.props.user_id}/posts`}>
-        <img className={styles.avatar} src={this.props.user_avatar} />
+        <div className={styles.avatar}>
+        <Avatar id={ this.props.user_id } />
+      </div>
         <div className={styles.name} >
           <h3>
             {this.props.user_name}

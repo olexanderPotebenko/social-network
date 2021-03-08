@@ -6,16 +6,16 @@ import {connect} from 'react-redux';
 import WithAuthData from '../../../hocs/WithAuthData.jsx';
 
 
-import {getDialog, sendMessage} from '../../../reducers/messagesReducer.js';
+import {getDialog, sendMessage, setDialogIsFetching} from '../../../reducers/messagesReducer.js';
 
 import SendMessage from './SendMessage/SendMessage';
 import MessagesHistory from './MessagesHistory/MessagesHistory.jsx';
 import DialogInfo from './DialogInfo/DialogInfo.jsx';
+import FetchingToggle from '../../commons/FetchingToggle/FetchingToggle.jsx';
 
 class Dialog extends React.Component {
 
   componentDidMount () {
-    // let {id, token, dialog_id} = options;
    
   let options = {
       id: this.props.auth.id,
@@ -23,7 +23,9 @@ class Dialog extends React.Component {
       dialog_id: this.props.currentDialog,
     };
 
-    this.props.getDialog(options);
+    this.props.setDialogIsFetching(true);
+    this.props.getDialog(options)
+      .then(res => this.props.setDialogIsFetching(false));
   }
 
   onSubmit = (formData) => {
@@ -45,7 +47,7 @@ class Dialog extends React.Component {
         dialog_id: this.props.currentDialog,
       };
 
-      this.props.getDialog(options2);
+      this.props.getDialog(options2)
     });
 
   }
@@ -56,18 +58,29 @@ class Dialog extends React.Component {
 
   render() {
 
-    return <div ref={this.state.wrp} className={styles.wrp}
-      style={ {
-        'grid-template-rows': '80px 1fr 120px',
-      } }>
-      <div className={styles['dialog-info']}>
-        <DialogInfo history={this.props.history} />
-      </div>
-      <MessagesHistory />
-      <div className={styles['send-message']}>
-        <SendMessage onSubmit={this.onSubmit} wrp={this.state.wrp} />
+    return <>
+      {
+        this.props.dialogIsFetching
+          && <div className={styles['fetching-wrp']}>
+      <div className={styles['fetching']}>
+        <FetchingToggle width={50} height={50}/>
       </div>
     </div>
+      || 
+      <div ref={this.state.wrp} className={styles.wrp}
+        style={ {
+          'grid-template-rows': '80px 1fr 120px',
+        } }>
+        <div className={styles['dialog-info']}>
+          <DialogInfo history={this.props.history} />
+        </div>
+        <MessagesHistory />
+        <div className={styles['send-message']}>
+          <SendMessage onSubmit={this.onSubmit} wrp={this.state.wrp} />
+        </div>
+      </div>
+      }
+      </>
   }
 
 }
@@ -76,12 +89,14 @@ const mapsStateToProps = (state) => {
   return {
     currentDialog: state.messagesPage.currentDialog,
     messagesPage: state.messagesPage,
+    dialogIsFetching: state.messagesPage.dialogIsFetching,
   };
 }
 
 const mapsDispatchToProps = {
   getDialog,
   sendMessage,
+  setDialogIsFetching,
 };
 
 export default compose (

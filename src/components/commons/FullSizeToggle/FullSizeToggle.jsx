@@ -14,12 +14,12 @@ let svg = [
 
 const FullSizeToggle = props => {
 
-    return <div className={styles.container}
-        onClick={() => {
-            props.fullSizeToggle();
-        } }>
-      {props.isFullSize? svg[1]: svg[0]}
-    </div>
+  return <div className={styles.container}
+    onClick={() => {
+      props.fullSizeToggle();
+    } }>
+    {props.isFullSize? svg[1]: svg[0]}
+  </div>
 }
 
 export default FullSizeToggle;

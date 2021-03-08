@@ -15,9 +15,10 @@ class Subscribers extends React.Component {
     let scrollbar = React.createRef();
 
     return <div className={styles.wrp}>
-      <div ref={scrollbar} className={styles.scrollbar}>
-
+      <div style={ {position: 'absolute', bottom: 0, right: 30} }>
         <Anchor scrollbar={scrollbar} />
+      </div>
+      <div ref={scrollbar} className={styles.scrollbar}>
 
         {
           this.props.subscribers
@@ -31,9 +32,9 @@ class Subscribers extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    return {
-        subscribers: state.profilePage.profile.subscribers,
-    };
+  return {
+    subscribers: state.profilePage.profile.subscribers,
+  };
 };
 
 export default connect(mapStateToProps, {})(Subscribers);

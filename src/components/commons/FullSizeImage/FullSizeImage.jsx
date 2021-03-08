@@ -19,6 +19,9 @@ class FullSizeImage extends React.Component {
   }
 
   componentDidMount () {
+    setTimeout( () => {
+      this.setState({render: true})
+    }, 100);
     let itemPhoto = this.props.posts.findIndex(
       post => post.picture == this.props.picture);
     this.setState({
@@ -37,7 +40,7 @@ class FullSizeImage extends React.Component {
   }
 
   state = {
-    itemPhoto: 0,
+    itemPhoto: this.props.posts.length - 1,
   }
 
   nextPhoto = () => {
@@ -85,8 +88,7 @@ class FullSizeImage extends React.Component {
         </div>
         );
       });
-
-
+    photos = photos.reverse();
 
     return <div className={styles.wrp}
       ref={wrp_ref}
@@ -99,7 +101,8 @@ class FullSizeImage extends React.Component {
         width: document.body.clientWidth * this.props.posts.length,
         position: 'absolute',
         top: 0, bottom: 0,
-        left: -document.body.clientWidth * this.state.itemPhoto,
+        transition: this.state.render && 'right .3s ease',
+        right: -document.body.clientWidth * (this.state.itemPhoto),
         display: 'inline-block',
         } }>
         {photos}
@@ -114,7 +117,7 @@ class FullSizeImage extends React.Component {
           </button>
           <div className={styles['full-size']}>
             <FullSizeToggle fullSizeToggle={this.props.fullSizeToggle} 
-            isFullSize={this.props.isFullSize} />
+              isFullSize={this.props.isFullSize} />
           </div>
           <button className={styles['next-button']}
             disabled={this.state.itemPhoto <= 0}

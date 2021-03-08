@@ -13,9 +13,13 @@ const SignInForm = (props) => {
     <form className={styles.items_container} onSubmit={handleSubmit}>
       {
         props.auth.is_fetching 
-          && <div style={ {width: '40px', height: '40px' } }>
-      <FetchingToggle />
+          && <div>
+          <div className={styles['fetching-wrp']}>
+      <div className={styles['fetching']}>
+        <FetchingToggle width={50} height={50}/>
+      </div>
     </div>
+  </div>
       || props.server_error && <ErrorForm message={props.server_error} /> 
       || <div> </div>
       }

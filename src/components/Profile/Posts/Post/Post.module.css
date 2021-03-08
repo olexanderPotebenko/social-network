@@ -219,6 +219,13 @@
 }
 
 .post_picture {
+    position: relative;
     display: block;
     margin: auto;
+}
+
+.fetching {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
 }

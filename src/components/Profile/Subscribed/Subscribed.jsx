@@ -16,8 +16,10 @@ class Subscribed extends React.Component {
 
         let scrollbar = React.createRef();
       return <div className={styles.wrp}>
+        <div style={ {position: 'absolute', bottom: 0, right: 30} }>
+          <Anchor scrollbar={scrollbar} />
+        </div>
         <div ref={scrollbar} className={styles.scrollbar}>
-                <Anchor scrollbar={scrollbar} />
                 <div>
                 {
                     this.props.subscribed

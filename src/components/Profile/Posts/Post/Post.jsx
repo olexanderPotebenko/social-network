@@ -22,13 +22,14 @@ class Post extends React.Component {
   componentDidMount() {
     if(!this.state.interval){
       let interval = setInterval(() => {
-        console.log(this.state.interval);
+        // console.log(this.state.interval);
         if(this.state.imageWrp.current 
           && this.state.imageWrp.current.clientWidth != this.state.widthMax) {
-          console.log(this.state.widthMax);
+          // console.log(this.state.widthMax);
           this.setState({widthMax: this.state.imageWrp.current.clientWidth});
-          this.fitImage();
         }
+        if(this.state.img)
+          this.fitImage();
       }, 500);
       this.setState({interval});
     }
@@ -42,11 +43,13 @@ class Post extends React.Component {
     interval: undefined,
     imageWrp: React.createRef(),
     img: undefined,
-    widthMax: 900,
-    widthMin: 700,
+    widthMax: 0,
     heightMax: 400,
     width: 0,
     height: 0,
+    withPicture: !!this.props.post.picture,
+    isLoadPicture: false, 
+
     like_fetching: false,
     isFullSize: false,
     showWhoLikedModal: false,
@@ -129,11 +132,11 @@ class Post extends React.Component {
               onLoad={(e) => {
                 let img = new Image();
                 img.src = e.currentTarget.currentSrc;
-                this.setState({img});
-                setTimeout(() => this.fitImage(e));
+                this.setState({img, isLoadPicture: true});
+                //setTimeout(() => this.fitImage(e));
               } } 
               style={{
-                width: 0, height: 0,
+                width: '100%', height: this.state.isLoadPicture? 0:200,
               }}
             />
             <div style={ {
@@ -145,7 +148,12 @@ class Post extends React.Component {
               width: this.state.width,
               height: this.state.height,
               }}>
+          </div>
+              { !this.state.isLoadPicture
+                  && <div className={styles.fetching}>
+              <FetchingToggle />
             </div>
+            }
           </div>
 
           <div className={styles.text}>
@@ -213,7 +221,7 @@ class WhoLikedModal extends React.Component {
     profileApi.getLikersPost(options)
       .then(data => {
         if(data.result_code == 0){
-          console.log('res' + data.users);
+          // console.log('res' + data.users);
           this.setState({likers: data.users});
         }else{
         }

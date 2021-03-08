@@ -2,16 +2,18 @@ import {messageApi} from '../api/api';
 
 export const ADD_NEW_TEXT_MESSAGE = 'ADD-NEW-TEXT-MESSAGE';
 export const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
-export const SET_IS_FETCHING = 'SET-IS-FETCHING';
 export const SET_DIALOGS = 'SET-DIALOGS';
 export const SET_DIALOG = 'SET-DIALOG';
 export const SELECT_DIALOG = 'SELECT-DIALOG';
 export const WS_MESSAGE = 'WS-MESSAGE';
 export const READ_MESSAGES = 'READ-MESSAGES';
+const SET_DIALOGS_IS_FETCHING = 'SET-DIALOGS-IS-FETCHING';
+const SET_DIALOG_IS_FETCHING = 'SET-DIALOG-IS-FETCHING';
 
 let initial_state = {
-  isFetching: true,
-  currentDialog: '60315a3d8a6c576ffffbbaaf',
+  dialogsIsFetching: true,
+  dialogIsFetching: true,
+  currentDialog: '',
   newMessage: 0,
   dialogs: [],
   dialog: {},
@@ -19,10 +21,15 @@ let initial_state = {
 
 let messagesReducer = (state = initial_state, action) => {
   switch (action.type) {
-    case SET_IS_FETCHING: 
+    case SET_DIALOGS_IS_FETCHING: 
       return {
         ...state, 
-        isFetching: action.isFetching,
+        dialogsIsFetching: action.dialogsIsFetching,
+      };
+    case SET_DIALOG_IS_FETCHING: 
+      return {
+        ...state, 
+        dialogIsFetching: action.dialogIsFetching,
       };
     case SET_DIALOGS: 
       return {
@@ -53,7 +60,8 @@ let messagesReducer = (state = initial_state, action) => {
   };
 };
 
-const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
+const setDialogsIsFetching = dialogsIsFetching => ({type: SET_DIALOGS_IS_FETCHING, dialogsIsFetching});
+export const setDialogIsFetching = dialogIsFetching => ({type: SET_DIALOG_IS_FETCHING, dialogIsFetching});
 
 const setDialogsActionCreator = dialogs => ({type: SET_DIALOGS, dialogs});
 
@@ -64,14 +72,14 @@ const readMessagesActionCreator = messages => ({type: READ_MESSAGES, messages});
 export const selectDialog = dialog_id => ({type: SELECT_DIALOG, dialog_id});
 
 export const getDialogs = options => dispatch => {
-  dispatch(setIsFetching(true));
+  dispatch(setDialogsIsFetching(true));
   return messageApi.getDialogs(options)
     .then(res => {
+      dispatch(setDialogsIsFetching(false));
       if(res.data.result_code == 0){
         return dispatch(setDialogsActionCreator(res.data.dialogs) );
       }else{
       };
-      dispatch(setIsFetching(false));
     });
 }
 
@@ -88,7 +96,7 @@ export const getDialog = options => dispatch => {
           user_name: res.data.user_name,
           dialog_id: res.data.dialog_id,
         };
-        dispatch(setDialogActionCreator(dialog));
+        return dispatch(setDialogActionCreator(dialog))
       } else {
       }
     });
@@ -120,8 +128,8 @@ export const readMessages = options => dispatch => {
   messageApi.readMessages(options)
     .then(data => {
       if(data.data.result_code === 0){
-      console.log('readMessages');
-      console.log(data);
+        console.log('readMessages');
+        console.log(data);
         dispatch(readMessagesActionCreator(options.messages));
         //dispatch(getDialog(options));
       }

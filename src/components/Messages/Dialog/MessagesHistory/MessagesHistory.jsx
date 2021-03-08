@@ -5,6 +5,7 @@ import {compose} from 'redux';
 import WithAuthData from '../../../../hocs/WithAuthData.jsx';
 import {getHoursMinutes, getDateMonth} from '../../../../utils/functions.js';
 import {readMessages} from '../../../../reducers/messagesReducer.js';
+import Anchor from '../../../commons/Anchor/Anchor.jsx';
 
 class MessagesHistory extends React.Component {
 
@@ -66,7 +67,7 @@ class MessagesHistory extends React.Component {
         return elem;
       });
 
-     history = []; 
+      history = []; 
       let now = new Date().getDate();
       this.props.messages.forEach((mess, index, arr) => {
         let date = new Date(mess.date).getDate();
@@ -110,12 +111,15 @@ class MessagesHistory extends React.Component {
         //alert(options.messages.length);
         this.props.readMessages(options);
       }
-  }
+    }
 
     return <div className={styles.wrp}>
-        <div ref={scrollbar} className={styles.scrollbar}>
-      {history}
-    </div>
+      <div style={ {position: 'absolute', bottom: 0, right: 30} }>
+        <Anchor scrollbar={scrollbar} direction={'down'} />
+      </div>
+      <div ref={scrollbar} className={styles.scrollbar}>
+        {history}
+      </div>
     </div>
   }
 };

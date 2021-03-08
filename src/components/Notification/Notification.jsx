@@ -15,14 +15,14 @@ class Notification extends React.Component {
 
     //alert('Create component');
     let interval = setInterval(() => {
-      console.log(interval + ' interval');
+      // console.log(interval + ' interval');
       setTimeout(() => {
         this.props.notifications.forEach(item => {
           let now = new Date().getTime();
           let end = item.date + 2 * 1000;
           let rest = (end - now)/(end - item.date);
           rest = rest < 0? 0: rest;
-          console.log(rest);
+          // console.log(rest);
           if(now > end) this.props.removeNotification(item.id);
           else if (rest < .8) this.props.setOpacity(item.id, rest);
         });

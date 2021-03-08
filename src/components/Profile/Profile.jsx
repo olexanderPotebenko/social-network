@@ -22,6 +22,8 @@ import Subscribed from './Subscribed/Subscribed';
 import Modal from '../commons/Modal/Modal';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import BackButtom from '../commons/BackButton/BackButton.jsx';
+import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
+import Avatar from '../commons/Avatar/Avatar.jsx';
 
 import avatar from '../../assets/images/avatar_default.png';
 
@@ -31,6 +33,7 @@ class Profile extends React.Component {
   state = {
     postedModal: false,
     scrollTop: 0,
+    load: false,
   }
 
   componentDidMount() {
@@ -41,6 +44,12 @@ class Profile extends React.Component {
 
   changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
 
+  onLoad = () => {
+    this.setState({load: true});
+  }
+  onError = () => {
+    this.setState({load: true, photo: avatar});
+  }
 
   render() {
 
@@ -96,37 +105,40 @@ class Profile extends React.Component {
     return <div className={styles.wrp} >
 
       <div className={styles['header-wrp']}>
-      <div className={styles.header}
+        <div className={styles.header}
 
-    style={ (() => {
-      return !this.props.history.location.pathname.split('/').includes('posts')? 
-        {'grid-template-columns': '80px 1fr 90px'}: {'grid-template-columns': '1fr 90px'}
-      })() } >
+          style={ (() => {
+            return !this.props.history.location.pathname.split('/').includes('posts')? 
+              {'grid-template-columns': '80px 1fr 90px'}: {'grid-template-columns': '1fr 90px'}
+          })() } >
 
-        {
-          !this.props.history.location.pathname.split('/').includes('posts') &&
-            <div>
-            <BackButtom func={(()=>{
-        this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
-      }).bind(this)}/>
+          {
+            !this.props.history.location.pathname.split('/').includes('posts') &&
+              <div>
+              <BackButtom func={(()=>{
+                this.props.history.push(`/profile/${this.props.profile.id}/posts/`);
+          }).bind(this)}/>
+        </div>
+      }
+
+      <div className={styles['user-info']}>
+        <div className={styles.avatar}>
+          <Avatar id={this.props.profile.id} />
+       </div>
+
+        <div className={styles['profile-name']} >
+          <h5>
+            {this.props.profile.name}
+          </h5>
+        </div>
       </div>
-        }
 
-        <div className={styles['user-info']}>
-          <img src={this.props.profile.photos.small || avatar} />
-          <div className={styles['profile-name']} >
-            <h5>
-              {this.props.profile.name}
-            </h5>
-          </div>
+      <div>
+        <div >
+          <DropDownMenu 
+            items={menu_items}/>
         </div>
-
-        <div>
-          <div >
-            <DropDownMenu 
-              items={menu_items}/>
-          </div>
-        </div>
+      </div>
 
       </div>
       </div>
@@ -138,9 +150,18 @@ class Profile extends React.Component {
       </div>
       {
         this.state.postedModal && <Modal width={800} height={420} 
-      Component={ProfileInfo}
-      changeVisibleModal={this.changeVisibleModal} />
+          Component={ProfileInfo}
+          changeVisibleModal={this.changeVisibleModal} />
       }
+    {
+      this.props.profileIsFetching
+        && 
+          <div className={styles['fetching-wrp']}>
+            <div className={styles['fetching']}>
+              <FetchingToggle width={50} height={50}/>
+            </div>
+          </div>
+    }
       </div>
   }
 };
@@ -190,7 +211,10 @@ class ProfileContainer extends React.Component {
 
 let mapsStateToProps = (state) => {
   return {
+    profileIsFetching: state.profilePage.profileIsFetching,
+    postsIsFetching: state.profilePage.postsIsFetching,
     profile: state.profilePage.profile,
+    id: state.profilePage.profile && state.profilePage.profile.id,
     posts: state.profilePage.posts,
     subscribers: state.profilePage.profile && state.profilePage.profile.subscribers || [],
     subscribed: state.profilePage.profile && state.profilePage.profile.subscribed_to || [],

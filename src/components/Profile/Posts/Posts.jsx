@@ -4,14 +4,16 @@ import {reduxForm, Field} from 'redux-form';
 
 import styles from './Posts.module.css';
 import default_avatar from '../../../assets/images/avatar_default.png';
+
+import {getPosts, createPost} from '../../../reducers/profileReducer';
 import Post from './Post/Post.jsx';
-import CreatePost from './CreatePost/CreatePost';
 
 import {TextArea, Button} from '../../commons/FormsControls/FormsControls';
 import Anchor from '../../commons/Anchor/Anchor';
 import Modal from '../../commons/Modal/Modal';
 import ListIsEmpty from '../../commons/ListIsEmpty/ListIsEmpty';
-import {getPosts, createPost} from '../../../reducers/profileReducer';
+import CreatePost from './CreatePost/CreatePost';
+import FetchingToggle from '../../commons/FetchingToggle/FetchingToggle.jsx';
 
 
 class Posts extends React.Component {
@@ -83,7 +85,9 @@ class Posts extends React.Component {
 
     return (
       <div className={styles.wrp} >
-        <Anchor scrollbar={scrollbar} />
+        <div style={ {position: 'absolute', bottom: 0, right: 30} }>
+          <Anchor scrollbar={scrollbar} />
+        </div>
         {
           this.state.postedModal && <Modal width={700} height={500} Component={CreatePost}
         changeVisibleModal={ this.changeVisibleModal }
@@ -101,8 +105,15 @@ class Posts extends React.Component {
       <div ref={scrollbar} className={styles.scrollbar}>
 
         {
-          posts.length > 0 && posts
-            || <ListIsEmpty />
+          this.props.postsIsFetching? 
+
+            <div className={styles['fetching-wrp']}>
+        <div className={styles['fetching']}>
+          <FetchingToggle width={50} height={50}/>
+        </div>
+      </div>
+          : posts.length > 0 && posts
+          || <ListIsEmpty />
         }
       </div>
       </div>
@@ -111,6 +122,7 @@ class Posts extends React.Component {
 };
 
 let mapsStateToProps = (state) => ({
+  postsIsFetching: state.profilePage.postsIsFetching,
   textNewPost: state.profilePage.textNewPost,
   profile: state.profilePage.profile,
   posts: state.profilePage.posts,

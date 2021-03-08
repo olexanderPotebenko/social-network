@@ -84,7 +84,7 @@ class Sidebar extends React.Component {
       <div ref={content} className={styles.content}
         style={ { left: this.props.left } } >
         <div>
-          <AuthInfo setAuthData={this.props.setAuthData}/>
+          <AuthInfo setAuthData={this.props.setAuthData} setEditMode={this.props.setEditMode} />
           <nav className={`${styles.menu_item} `}>
             <MenuItem {...this.props} link={`/profile/${this.props.auth.id}/posts`} text='Profile' 
               img={svg[0]}/>
