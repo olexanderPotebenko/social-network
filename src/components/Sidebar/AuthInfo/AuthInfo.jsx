@@ -1,8 +1,11 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import styles from './AuthInfo.module.css';
+import {NavLink} from 'react-router-dom';
 import default_avatar from '../../../assets/images/avatar_default.png';
+
 import WithAuthData from '../../../hocs/WithAuthData.jsx';
+
+import Avatar from '../../commons/Avatar/Avatar.jsx';
 
 let AuthInfo = (props) => {
 
@@ -28,7 +31,9 @@ let AuthInfo = (props) => {
       <NavLink to={`/profile/${props.auth.id}/posts`}
         onClick={() => { props.setEditMode(false) } }>
         <div className={styles.avatar_wrapper}>
-          <img className={styles.avatar} src={avatar} />
+          <div className={styles.avatar}>
+            <Avatar id={props.auth.id} />
+          </div>
           <div className={styles.indicator} 
             style={ {
               'background-color': indicator_styles,

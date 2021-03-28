@@ -202,6 +202,9 @@
   }
 }
 
+.likers-wrp .fetching {
+  top: 25%;
+}
 
 /*-------------------------*/
 .criss_cross {

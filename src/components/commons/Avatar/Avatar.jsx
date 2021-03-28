@@ -34,13 +34,16 @@ class Avatar extends React.Component {
 
   render() {
 
-    return <div className={styles.avatar}>
+    return <div className={styles.avatar}
+        style={this.props.styles && this.props.styles.wrp}
+    >
       { !this.state.load
           && <div className={styles.fetching}>
       <FetchingToggle />
     </div>
       }
       <img src={this.state.photo} 
+        style={this.props.styles && this.props.styles.img}
         onLoad={this.onLoad}
         onError={this.onError} />
       </div>

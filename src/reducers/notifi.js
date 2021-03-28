@@ -1,11 +1,14 @@
 import {v4} from 'uuid';
+import {profileApi} from '../api/api.js';
 
 export const ADD_NOTIFICATIONS = 'ADD-NOTIFICATIONS';
 export const REMOVE_NOTIFICATION = 'REMOVE-NOTIFICATION';
 export const SET_OPACITY = 'SET-OPACITY';
 
 export const SEND_YOU_MESSAGE = 'send you message';
-export const SUBSCRIBED_TO_YOU = 'subscribed to you';
+export const FOLLOW_YOU = 'subscribed to you';
+
+export const LIKE_YOUR_POST = 'liked your post';
 
 let initial_state = {
   notifications: [],
@@ -22,9 +25,8 @@ let notifi = (state = initial_state, action) => {
           date: new Date().getTime(),
           user: action.user,
           description: action.description,
-        }),
+        }).slice(-4),
       }
-      debugger;
       return newState;
     case REMOVE_NOTIFICATION:
       return {
@@ -47,6 +49,17 @@ export const addNotificationActionCreator = (user, description) =>
 export const removeNotification = id => ({type: REMOVE_NOTIFICATION, id});
 
 export const setOpacity = (id, opacity) => ({type: SET_OPACITY, id, opacity});
+
+export const addNotification = (options, description) => dispatch => {
+  profileApi.getProfile(options)
+    .then(res => {
+      let user = {
+        id: options.user_id,
+        name: res.data.name,
+      };
+      dispatch(addNotificationActionCreator(user, description));
+    });
+}
 
 export default notifi;
 

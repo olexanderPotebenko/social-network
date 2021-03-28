@@ -51,6 +51,13 @@ export function getDateMonth (date) {
   return month + ' ' + day;
 }
 
+export function getHoursMinutesSeconds (date) {
+  date = new Date(date);
+  let seconds = date.getSeconds();
+  seconds = seconds > 9? seconds: '0' + seconds;
+  return getHoursMinutes(date) + ':' + seconds;
+}
+
 
 
 export function fitImage (e) {

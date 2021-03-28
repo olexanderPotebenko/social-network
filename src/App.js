@@ -2,10 +2,10 @@ import React from 'react';
 import styles from './App.module.css';
 import './index.css';
 
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
+import {withRouter, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-
+import {CSSTransition} from 'react-transition-group';
 //hocs
 import WithAuthData from './hocs/WithAuthData';
 //action creators
@@ -22,7 +22,6 @@ import Users from './components/Users/Users.jsx';
 import SignUp from './components/Auth/SignUp.jsx';
 import SignIn from './components/Auth/SignIn.jsx';
 import Notification from './components/Notification/Notification.jsx';
-let arr = [];
 
 class App extends React.Component {
   componentDidMount() {
@@ -31,34 +30,53 @@ class App extends React.Component {
 
   render() {
 
-    return (
-      <BrowserRouter>
-        <div className={styles.app} >
+    // if(!this.props.auth.is_auth && this.props.location.pathname != '/signin') {
+    //   this.props.history.push('/signin');
+    // }
 
-          <div className={styles.wrp}>
+    //{ path: '/', name: 'Home', Component: Home },
+    let routeObjs = [
+      { path: '/', render: () => <Redirect to='/signin' /> },
+      { path: '/profile/:user_id?/', name: 'Profile', render: () => <Profile /> },
+      { path: '/messages/:user_id?/', name: 'Messages', render: () => <Messages /> },
+      { path: '/users', name: 'Users', render: () => <Users /> },
+      { path: '/signup', name: 'SignUp', render: () => <SignUp /> },
+      { path: '/signin', name: 'SignIn', render: () => <SignIn /> },
+    ];
 
-            <div>
-              { this.props.auth.is_auth && <Sidebar/> }
-            </div>
+    let wrp = React.createRef();
 
-            <div>
-              <Notification />
-              <Route path='/' render={() => <Redirect to='/profile' /> } />
-              <Route component={Profile} path='/profile/:user_id?'/>
-              <Route component={Messages} path='/messages/:user_id?/' />
-              <Route component={Users} path='/users' />
-              <Route component={News} path='/news' />
-              <Route component={Music} path='/music' />
-              <Route component={Settings} path='/settings' />
-              <Route component={SignUp} path='/signup' />
-              <Route component={SignIn} path='/signin' />
-            </div>
+    return <div className={styles.app} >
 
-          </div>
+      <div className={styles.wrp}>
 
+        <div>
+          { this.props.auth.is_auth && <Sidebar/> }
         </div>
-      </BrowserRouter>
-    );
+
+        <div ref={wrp}>
+          <Notification />
+          { routeObjs.map(({ path, render}) => {
+            return <Route key={path} path={path}>
+          {({ match }) => (
+              <CSSTransition
+              in={match != null}
+          timeout={200}
+          classNames='page'
+          unmountOnExit >
+          <div className='page'>
+            {render()}
+          </div>
+        </CSSTransition>
+          )}
+      </Route>
+          })
+          }
+    </div>
+
+    </div>
+
+      </div>
   }
 }
 
@@ -66,4 +84,4 @@ class App extends React.Component {
 export default compose(
   connect(() => {}, {setWsActionCreator}),
   WithAuthData)
-(App);
+(withRouter(App));

@@ -23,7 +23,6 @@ class Posts extends React.Component {
   }
 
   componentDidMount() {
-
     let options = {
       user_id: this.props.profile.id, 
     }
@@ -45,7 +44,6 @@ class Posts extends React.Component {
         this.props.getPosts(options);
       };
     };
-
   }
 
   onSubmit = (post) => {
@@ -59,7 +57,6 @@ class Posts extends React.Component {
       post: fd,
     }
     this.props.createPost(options);
-
   };
 
   changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);

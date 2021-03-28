@@ -45,6 +45,8 @@ class DialogInfo extends React.Component {
       <div>
         <BackButton func={(() => {
         this.props.selectDialog('');
+          debugger;
+          this.props.history.goBack();
           }).bind(this) } />
       </div>
       <div className={styles.center}>

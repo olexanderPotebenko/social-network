@@ -112,7 +112,7 @@ export const InputImage = ({
       onChange={adaptFileEventToValue(onChange)}
       onBlur={adaptFileEventToValue(onBlur)}
       type="file"
-      accept='.jpg, .png, .jpeg'
+      accept='image/*'
       {...props.input}
       {...props}
       style={ {position: 'absolute', opacity: 0, width: 0, height: 0} }
@@ -144,17 +144,23 @@ export const InputImage2 = ({
     if(choosed_file_name.current)
       choosed_file_name.current.innerText = e.target.files[0].name;
 
-    debugger;
     return delegate(e.target.files[0]);
+  };
+
+  const onSelectImage= e => {
+    const maxSize = 500000; //2MB
+    let file = e.currentTarget.files[0];
+    if(file.size > maxSize)
+      return;
+    adaptFileEventToValue(onChange)(e);
   };
 
   return <div className={styles['input-image2-wrp']}>
     <input 
       ref={input}
-      onChange={adaptFileEventToValue(onChange)}
+      onChange={onSelectImage}
       onBlur={adaptFileEventToValue(onBlur)}
-      type="file"
-      accept='.jpg, .png, .jpeg'
+      type="image"
       {...props.input}
       {...props}
       style={ {position: 'absolute', opacity: 0, width: 0, height: 0} }

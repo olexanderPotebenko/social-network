@@ -4,7 +4,7 @@ import avatar_default from '../../assets/images/avatar_default.png';
 
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {Route, NavLink} from 'react-router-dom';
+import {withRouter, Route, NavLink} from 'react-router-dom';
 //hoocs
 import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
@@ -30,8 +30,10 @@ class Messages extends React.Component {
 
   render() {
     if (this.props.currentDialog &&
+      this.props.history.location.pathname.split('/').filter(rout => rout != '')[0] == 'messages' &&
       !this.props.history.location.pathname.split('/').includes('dialog') ) {
-      this.props.history.push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
+      this.props.history
+        .push(this.props.history.location.pathname + `dialog/${this.props.currentDialog}/`);
     }
     // в компонене Messages будут отображаться только существующие диалоги, создать новый невозможно
 
@@ -56,7 +58,6 @@ class Messages extends React.Component {
             </div>:
               <ListIsEmpty />
           )
-
         }
       </div>
     );
@@ -145,4 +146,4 @@ export default compose(
   WithAuthData,
   WithSignInRedirect,
   connect(mapsStateToProps, {getDialogs, sendMessage, selectDialog}),
-)(Messages);
+)(withRouter(Messages));

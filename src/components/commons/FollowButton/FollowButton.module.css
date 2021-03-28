@@ -27,3 +27,12 @@
   color: #fff;
   background-color: #f66;
 }
+
+.me {
+  color: white;
+  cursor: default;
+}
+
+.me:hover {
+  border: none !important;
+}

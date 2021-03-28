@@ -1,6 +1,7 @@
-import {SET_AUTH_DATA, setWsActionCreator} from '../reducers/authReducer.js';
+import {SET_AUTH_DATA, WS_FOLLOW, setWsActionCreator} from '../reducers/authReducer.js';
 import {WS_MESSAGE, READ_MESSAGES, getDialog, getDialogs} from '../reducers/messagesReducer.js';
-import {SEND_YOU_MESSAGE, addNotificationActionCreator} from '../reducers/notifi.js';
+import {SEND_YOU_MESSAGE, FOLLOW_YOU, LIKE_YOUR_POST, addNotification} from '../reducers/notifi.js';
+import {SET_LIKES_POST} from '../reducers/profileReducer.js';
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
@@ -37,20 +38,18 @@ const ws = store => next => action => {
       console.log(data);
       //let {id, token, dialog_id} = options;
       //alert(`[message] Данные получены с сервера: ${event.data}`);
+      let options = {};
       switch(data.action) {
         case SEND_MESSAGE:
 
-          debugger;
-
           console.log(state);
-          let options = {
+          options = {
             id: state.auth.id,
             token: state.auth.token,
           };
 
           if(state.messagesPage.dialogs.find(dialog => dialog.user_id == data.id)){
             let url = document.location.href;
-            debugger;
             if( Object.keys(state.messagesPage.dialog).length
               && ~url.lastIndexOf(state.messagesPage.dialog.dialog_id)
               && state.messagesPage.dialog.user_id === data.id ) {
@@ -61,13 +60,18 @@ const ws = store => next => action => {
               store.dispatch(getDialog(options));
 
             } else {
-              store.dispatch(addNotificationActionCreator(data.id, SEND_YOU_MESSAGE));
+              //let {id, token, user_id} = options;
+              //data.id, SEND_YOU_MESSAGE
+              options = {
+                id: state.auth.id,
+                token: state.auth.token,
+                user_id: data.id,
+              };
+              store.dispatch(addNotification(options, SEND_YOU_MESSAGE));
             }
-
           } else {
             store.dispatch(getDialogs(options))
               .then(res => {
-                debugger;
                 state = store.getState();
                 let dialog_id = state.messagesPage.dialogs
                   .find(dialog => dialog.user_id == data.id).dialog_id;
@@ -79,7 +83,7 @@ const ws = store => next => action => {
         case READ_MESSAGES:
           //alert('new mess');
           if(state.messagesPage.dialog.dialog_id === data.dialog_id) {
-            let options = {
+            options = {
               id: state.auth.id,
               token: state.auth.token,
               dialog_id: data.dialog_id,
@@ -87,11 +91,31 @@ const ws = store => next => action => {
             store.dispatch(getDialog(options));
           };
           break;
+        case WS_FOLLOW:
+          options = {
+            id: state.auth.id,
+            token: state.auth.token,
+            user_id: data.id,
+          };
+          store.dispatch(addNotification(options, FOLLOW_YOU));
+
+          break;
+        case SET_LIKES_POST:
+          options = {
+            id: state.auth.id,
+            token: state.auth.token,
+            user_id: data.id,
+          };
+          store.dispatch(addNotification(options, LIKE_YOUR_POST));
+
+          break;
+
       };
     };
   }
 
   let data = '';
+  let user_id = '';
 
   switch(action.type) {
     case SET_AUTH_DATA:
@@ -114,6 +138,27 @@ const ws = store => next => action => {
         dialog_id: state.messagesPage.currentDialog,
       });
       state.auth.ws.send(data);
+      break;
+    case WS_FOLLOW:
+      data = JSON.stringify({
+        id: state.auth.id,
+        action: action.type,
+        user_id: action.user_id,
+      });
+      state.auth.ws.send(data);
+      break;
+    case SET_LIKES_POST:
+      let routs = action.post.picture.split('/').filter(rout => rout != '');
+      user_id = routs[routs.indexOf('profile') + 1];
+      if(user_id != state.auth.id && action.post.likes.includes(state.auth.id)) {
+        data = JSON.stringify({
+          id: state.auth.id,
+          action: action.type,
+          user_id,
+          post_id: action.post.id,
+        });
+        state.auth.ws.send(data);
+      }
       break;
   }
 

@@ -174,7 +174,8 @@ class ProfileContainer extends React.Component {
 
   componentDidMount () {
 
-    let user_id = this.props.match.params.user_id;
+    // let user_id = this.props.match.params.user_id;
+    let user_id = this.props.auth.id;
     user_id = user_id;
     let options = {
       user_id,

@@ -11,6 +11,7 @@ import {InputImage, Button, ErrorForm} from '../../commons/FormsControls/FormsCo
 import poster from '../../../assets/images/space.jpg';
 import default_avatar from '../../../assets/images/avatar_default.png';
 import FetchingToggle from '../../commons/FetchingToggle/FetchingToggle';
+import Avatar from '../../commons/Avatar/Avatar.jsx';
 
 let svg = [
   <svg xmlns="http://www.w3.org/2000/svg" class="rubicons pencil-write" width="36" height="36" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none">
@@ -94,10 +95,19 @@ class ProfileInfo extends React.Component {
     let save_button = React.createRef();
     let avatar_ref = React.createRef();
     let change_photo_button = React.createRef();
+    let avatarStyles = {
+      wrp: {
+        width: '200px',
+        height: '200px',
+      },
+      img: {
+        'border-radius': 5,
+      },
+    };
     return (
       <div className={styles.wrapper}>
         <div className={styles.avatar}>
-          <img ref={avatar_ref} src={avatar_img} />
+          <Avatar id={this.props.profile.id} styles={avatarStyles} />
           {
             this.state.editMode && <div className={styles['change-photo-button']} >
           <button ref={change_photo_button} >

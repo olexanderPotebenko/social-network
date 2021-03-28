@@ -21,11 +21,13 @@ let svg = [
 
 const maxlength = 1001;
 
-const TextArea2 = ({input, meta, ...props}) => {
+const TextArea2 = ({input, meta, textareaIsFocused, toggleTextareaFocused, ...props}) => {
   if(props.propsRef.current) {
     setTimeout(() => {
-      if(props.propsRef.current)
+      if(props.propsRef.current && !textareaIsFocused) {
+        toggleTextareaFocused();
         props.propsRef.current.focus();
+      }
     }, 100);
   }
   return <div className={styles['input-wrp']}>
@@ -92,11 +94,16 @@ class SendMessage extends React.Component {
   state = {
     field: React.createRef(),
     textarea: React.createRef(),
+    textareaIsFocused: false,
     wrp: this.props.wrp,
     input: React.createRef(),
     interval: false,
     styles: {},
     text: '',
+  }
+
+  toggleTextareaFocused = () => {
+    this.setState({textareaIsFocused: true});
   }
 
   render() {
@@ -126,6 +133,8 @@ class SendMessage extends React.Component {
               autoFocus={true}
               disabled={this.props.dialogIsFetching}
               dialogIsFetching={this.props.dialogIsFetching}
+              textareaIsFocused={this.state.textareaIsFocused}
+              toggleTextareaFocused={this.toggleTextareaFocused.bind(this)}
               style={ {height: '15px', 'overflow': 'hidden' } }
               validate={[]} placeholder='enter text message...'
               component={TextArea2} 

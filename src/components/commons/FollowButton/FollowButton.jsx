@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './FollowButton.module.css';
 import {connect} from 'react-redux';
 import {followApi} from '../../../api/api';
-import {setSubscribed} from '../../../reducers/authReducer';
+import {setSubscribed, follow, unfollow} from '../../../reducers/authReducer';
 
 class FollowButton extends React.Component {
 
   state = {
     isFetching: false,
+    followed: undefined,
   }
 
   componentDidMount() {
@@ -16,25 +17,24 @@ class FollowButton extends React.Component {
     this.setState({ followed });
   }
 
-  async onFollow () {
+  setIsFetching = isFetching => {
+    this.setState({isFetching})
+  }
+  setIsFollow = isFollow => {
+    this.setState({followed: isFollow});
+  }
+
+
+  onFollow () {
     let options = {
       id: this.props.auth.id,
       user_id: this.props.user.id,
       token: this.props.auth.token,
     };
     this.setState({isFetching: true});
-    followApi.follow(options)
-      .then(data => {
-        if(data.result_code === 0){
-
-          this.props.setSubscribed(this.props.user);
-          this.setState({isFetching: false})
-          this.setState({followed: true})
-        }else{
-
-          this.setState({isFetching: false})
-        }
-      });
+    this.props.follow(
+      options, this.props.user, this.setIsFetching.bind(this), this.setIsFollow.bind(this)
+    );
   };
 
   onUnfollow () {
@@ -43,20 +43,10 @@ class FollowButton extends React.Component {
       user_id: this.props.user.id,
       token: this.props.auth.token,
     };
-
     this.setState({isFetching: true});
-    followApi.unfollow(options)
-      .then(data => {
-        if(data.result_code === 0){
-
-          this.props.setSubscribed(this.props.user);
-          this.setState({followed: false})
-          this.setState({isFetching: false})
-        }else{
-
-          this.setState({isFetching: false})
-        }
-      });
+    this.props.unfollow(
+      options, this.props.user, this.setIsFetching.bind(this), this.setIsFollow.bind(this)
+    );
   };
 
   isDisabled () {
@@ -67,17 +57,23 @@ class FollowButton extends React.Component {
 
     let stylesArr = ['commons-modal-button'];
     stylesArr.push(this.state.followed? styles.followed: styles.follow);
-    
+
     return (
       <div className={styles.wrp}>
         <div className={styles.container}>
-          <button className={stylesArr.join(' ')}
+          { this.props.user.id == this.props.auth.id
+              && <button className={'commons-modal-button ' + styles.me}
+          disabled={true}>
+          ME
+        </button>
+          || <button className={stylesArr.join(' ')}
             disabled={this.isDisabled()}
             onClick={ this.state.followed ? 
                 this.onUnfollow.bind(this): this.onFollow.bind(this) }>
             {this.state.followed && 'FOLLOWED' || 'FOLLOW'}
           </button>
-        </div>
+          }
+      </div>
       </div>
     );
   }
@@ -90,4 +86,4 @@ let mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, {setSubscribed})(FollowButton);
+export default connect(mapStateToProps, {setSubscribed, follow, unfollow})(FollowButton);

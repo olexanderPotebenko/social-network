@@ -5,9 +5,12 @@ import {NavLink} from 'react-router-dom';
 import WithAuthData from '../../hocs/WithAuthData.jsx';
 import {removeNotification, setOpacity} from '../../reducers/notifi.js';
 import CloseButton from '../commons/CloseButton/CloseButton.jsx';
+import Avatar from '../commons/Avatar/Avatar.jsx';
 
 import styles from './Notification.module.css';
 import avatar from '../../assets/images/avatar_default.png';
+
+import {getHoursMinutesSeconds} from '../../utils/functions.js';
 
 class Notification extends React.Component {
 
@@ -19,7 +22,7 @@ class Notification extends React.Component {
       setTimeout(() => {
         this.props.notifications.forEach(item => {
           let now = new Date().getTime();
-          let end = item.date + 2 * 1000;
+          let end = item.date + 7 * 1000;
           let rest = (end - now)/(end - item.date);
           rest = rest < 0? 0: rest;
           // console.log(rest);
@@ -32,17 +35,26 @@ class Notification extends React.Component {
 
   render() {
 
+    let avatarStyles = {
+      wrp: {
+        width: 50,
+        height: 50,
+      },
+      avatar: {
+      },
+    };
+
     let notifications = this.props.notifications.map(item => 
       <div className={styles['item-wrp']}>
         <div className={styles.item} 
           style={ {opacity: item.opacity} }>
-          <img className={styles.avatar} src={avatar} />
+          <Avatar id={item.user.id} styles={avatarStyles}/>
           <div>
             <div className={styles.name}>
-              Fsfsaf Fadfjsd
+              {item.user.name}
             </div>
             <div className={styles.description}>
-              {item.description}
+              {item.description + ' ' + getHoursMinutesSeconds(item.date)}
             </div>
           </div>
           <div className={styles.close}>

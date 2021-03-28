@@ -14,6 +14,7 @@ import FullSizeImage from '../../../commons/FullSizeImage/FullSizeImage';
 import Modal from '../../../commons/Modal/Modal';
 import UserItem from '../../../commons/UserItem/UserItem.jsx';
 import CloseButton from '../../../commons/CloseButton/CloseButton.jsx';
+import ListIsEmpty from '../../../commons/ListIsEmpty/ListIsEmpty.jsx';
 
 import {profileApi} from '../../../../api/api.js';
 
@@ -179,7 +180,7 @@ class Post extends React.Component {
                 {
                   !this.state.like_fetching 
                     && <img src={this.isLiked()} />
-              || <FetchingToggle />
+              || <FetchingToggle width={22} height={22}/>
               }
               </div>
             </a>
@@ -247,17 +248,16 @@ class WhoLikedModal extends React.Component {
     return <div className={styles['likers-wrp']}>
       <div className={styles.scrollbar} >
         {
-          users.length
-            && users
-            || <span style={ {
-              width: '100%',
-              height: '100%',
-        } }>
-        list is empty
-      </span>
-        }
+          this.state.isFetching
+            && <div className={styles.fetching}>
+        <FetchingToggle />
+      </div>
+      ||( users.length
+      && users
+      || <ListIsEmpty />)
+      }
     </div>
-        </div>
+      </div>
   }
 }
 
