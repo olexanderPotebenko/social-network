@@ -21,7 +21,7 @@ export const Input = ({input, meta, ...props}) => {
               .split('')
               .map(item => item == '_'? ' ': item)}
         </div>
-        <input className={input_styles} {...input} {...props}/>
+        <input className={input_styles} {...input} {...props} ref={props.reference}/>
         {error_heandler && <ErrorField error={meta.error} />}
       </div>
     </div>

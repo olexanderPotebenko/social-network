@@ -1,59 +1,62 @@
 .wrapper_container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .wrapper_container > h3 {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 0;
-    inline-height: 0;
-    color: white;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 0;
+  inline-height: 0;
+  color: white;
 }
 
 .items_container {
-    width: 450px;
-    margin: auto;
-    margin-top: 30px;
-    display: grid;
-    grid-gap: 25px;
-    grid-template-rows: 20px;
-    grid-auto-rows: 80px;
-    text-align: center;
-    color: white;
+  max-width: 450px;
+  margin: auto;
+  margin-top: 30px;
+  display: grid;
+  grid-gap: 25px;
+  grid-template-rows: 20px;
+  grid-auto-rows: 80px;
+  text-align: center;
+  color: white;
 }
 
 .items_container input {
-    width: 100%;
-    height: 60%;
-    margin: auto;
+  width: 100%;
+  height: 60%;
+  margin: auto;
 }
 
 /* button */
 .button_wrapper {
-    width: 100%;
-    height: 40px;;
-    margin: auto;
+  width: 100%;
+  height: 48px;;
+  margin: auto;
 }
 
 .button_wrapper  button {
-    width: 100%;
-    box-sizing: border-content;
-    border-radius: 4px;
-    border: 0;
-    background-color: white;
-    color: #333;
-    font-size: 14px;
+  width: 100%;
+  box-sizing: border-content;
+  border-radius: 4px;
+  border: 0;
+  background-color: white;
+  color: #333;
+  font-size: 19px;
 }
 
 .button_wrapper button:focus {
-    border-width: 10px;
-    box-shadow: none;
-    outline:none;
+  border-width: 10px;
+  box-shadow: none;
+  outline:none;
 }
 
 .button_wrapper button:active {
-    outline: 2px solid #9999ff;
+  outline: 2px solid #9999ff;
 }
 
 .fetching {
@@ -67,4 +70,15 @@
   top: 0; bottom: 0; left: 0; right: 0;
   background-color: rgba(21, 21, 31, .8);
   z-index: 100;
+}
+
+a {
+  display: inline-block;
+  float: right;
+  text-decoration: none;
+  color: #bbb;
+}
+
+a:hover {
+  color: #fff;
 }

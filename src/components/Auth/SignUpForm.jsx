@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field,Fields, reduxForm} from 'redux-form';
+import {NavLink} from 'react-router-dom';
 import {requiredFields, matchPasswords, minLengthCreator, 
   maxLengthCreator, emailValidate, onlyLetters} 
 from '../../utils/validators.js';
@@ -68,6 +69,9 @@ class SignUpForm extends React.Component {
           <Button error={this.props.error} name={'Sign Up'} type='submit' 
             disabled={this.props.auth.is_fetching}/>
         </div>
+        <NavLink to='/signin'>
+          Or authorization
+        </NavLink>
 
     </form>
                                         </div>
