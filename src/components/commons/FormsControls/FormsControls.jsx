@@ -21,16 +21,13 @@ export const Input = ({input, meta, ...props}) => {
               .split('')
               .map(item => item == '_'? ' ': item)}
         </div>
-        <input className={input_styles} {...input} {...props} ref={props.reference}/>
+        <input className={input_styles} {...input} {...props} 
+        ref={props.reference}/>
         {error_heandler && <ErrorField error={meta.error} />}
       </div>
     </div>
   </>
 };
-
-
-
-
 
 export const Button = ({type, name, disabled}) => {
 
@@ -99,7 +96,7 @@ export const InputImage = ({
     let fr = new FileReader();
 
     fr.addEventListener("load", function (e) {
-      props.avatar_ref.current.src = fr.result;
+      if(props.avatar_ref.current) props.avatar_ref.current.src = fr.result;
     }, false);
 
     if(e.target.files.length) fr.readAsDataURL(e.target.files[0]);

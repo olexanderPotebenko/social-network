@@ -2,7 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Field, reduxForm} from 'redux-form';
-import {requiredFields, maxLengthCreator, minLengthOrNothingCreator, emailValidate, phoneNumberValidate} from '../../../utils/validators.js';
+import {requiredFields, maxLengthCreator, minLengthOrNothingCreator, 
+  emailValidate, phoneNumberValidate} from '../../../utils/validators.js';
+import {nameNor, phoneNumberNor} from '../../../utils/fieldNormalizators.js';
 import styles from './ProfileInfo.module.css';
 import WithAuthData from '../../../hocs/WithAuthData';
 import {updateProfile, getProfile} from '../../../reducers/profileReducer';
@@ -55,14 +57,14 @@ class ProfileInfo extends React.Component {
     this.setState({isFetching: !this.state.isFetching});
   }
 
-  onSubmit = async ({phone, address, age, picture}) => {
+  onSubmit = async ({phone, address, DOB, picture}) => {
     let formData = new FormData();
     if(phone)
       formData.append('phone', phone);
     if(address)
       formData.append('address', address);
-    if(age)
-      formData.append('age', age);
+    if(DOB)
+      formData.append('DOB', DOB);
     if(picture)
       formData.append('image', picture);
 
@@ -86,12 +88,13 @@ class ProfileInfo extends React.Component {
           id: this.props.auth? this.props.auth.id: '',
           token: this.props.auth? this.props.auth.token: '',
         };
+        debugger;
         this.props.getProfile(options);
       });
   }
 
   render () {
-    let avatar_img = this.props.profile.photos.small || default_avatar;
+    let avatar_img = this.props.photo || default_avatar;
     let save_button = React.createRef();
     let avatar_ref = React.createRef();
     let change_photo_button = React.createRef();
@@ -134,30 +137,57 @@ class ProfileInfoForm extends React.Component {
 
   render() {
 
+    const getFormatDate = () => {
+      let date = new Date();
+      console.log(date);
+      let result = `${date.getFullYear()}-${1 + +date.getMonth()}-${date.getDate()}`.replace(/-(\d)-/g, '-0$1-');
+      console.log(result);
+      return result;
+    };
     this.props.editMode || this.props.reset();
     let info = [
-      ['name', 'Enter your name', [requiredFields]],
-      ['email', 'Enter your email', [requiredFields, emailValidate]],
-      ['phone', 'Enter your phone number', [phoneNumberValidate]],
-      ['address', 'Enter your address'],
-      ['age', 'Enter your age'],
+      {
+        name: 'name', placeholder: 'Enter your name', 
+        validate: [requiredFields], normalize: undefined, 
+        type: 'text'
+      },
+      {
+        name: 'email', placeholder: 'Enter your email', 
+        validate: [requiredFields, emailValidate], normalize: undefined, 
+        type: 'text'
+      },
+      {
+        name: 'phone', placeholder: 'Enter your phone number', 
+        validate: [], phoneNumberNor, 
+        type: 'text'
+      },
+      {
+        name: 'address', placeholder: 'Enter your address', 
+        validate: [], nameNor, 
+        type: 'text'
+      },
+      {
+        name: 'DOB', placeholder: 'Enter your age', 
+        validate: [], normalize: undefined, 
+        type: 'date', max: getFormatDate(),
+      },
     ];
 
     info = info
       .filter(item => 
-        this.props.editMode || Object.keys(this.props.initialValues).includes(item[0]))
+        this.props.editMode || Object.keys(this.props.initialValues).includes(item.name))
         .map((item, i) => {
           return <li>
             <span className={styles['item-field']}>
-              {item[0] + ': '}
+              {item.name + ': '}
             </span>
             <div className={styles['item-data']}>
 
-              <Field name={item[0]} autoFocus={i === 2} 
-                validate={item[2]}
-                editMode={ item[0] === 'name' || item[0] === 'email'? false: this.props.editMode}
+              <Field {...item}
+                autoFocus={i === 2} 
+                editMode={ ['name', 'email'].includes(item.name)? undefined: this.props.editMode}
                 component={Input2} 
-                placeholder={item[1]} />
+                placeholder={item.placeholder} />
             </div>
 
           </li>
@@ -198,10 +228,13 @@ class ProfileInfoForm extends React.Component {
       }
       {
         this.props.state.isFetching
-          && <div  style={ {float: 'left', 
+          && 
+          <div  style={ {
+            float: 'left', 
             height: '35px', width: '35px',
             padding: '5px', 'box-sizing': 'border-box',
-            'margin-right': '10px'} } >
+            'margin-right': '10px'
+      } } >
       <FetchingToggle background={true} />
                                     </div>
       }
@@ -237,6 +270,7 @@ let ProfileInfoReduxForm = compose(
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
+    photo: state.profilePage.profile.photos? state.profilePage.profile.photos.small: '',
   }
 };
 

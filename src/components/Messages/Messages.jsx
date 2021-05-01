@@ -40,7 +40,7 @@ class Messages extends React.Component {
     let dialogs = this.props.dialogs;
     if(dialogs.length > 0) {
       dialogs = dialogs.map(dialog => 
-        <UserItem dialog={dialog} auth={this.props.auth} 
+        <DialogItem dialog={dialog} auth={this.props.auth} 
         selectDialog={this.props.selectDialog.bind(this)}/>)
     }
     return (
@@ -64,7 +64,7 @@ class Messages extends React.Component {
   };
 };
 
-class UserItem extends React.Component {
+class DialogItem extends React.Component {
 
   state = {
     id: this.props.dialog.user_id,
@@ -94,7 +94,7 @@ class UserItem extends React.Component {
     else time = time[0] + ':' + time[1] + time[2].slice(-3);
 
     let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
-    if(lastMessage.length > 30) lastMessage = '...' + lastMessage.slice(-30);
+    if(lastMessage.length > 50) lastMessage = lastMessage.slice(0, 50) + '...';
     return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}
       className={styles['item-dialog']}
       onClick={() => {this.props.selectDialog(dialog.dialog_id);} }>
@@ -111,7 +111,12 @@ class UserItem extends React.Component {
       </div>
 
     </div>
-      <div className={styles['container-middle']}>
+      <div className={styles['container-right']}>
+        <div>
+          <div className={styles.time}>
+            {time}
+          </div>
+        </div>
         <div className={styles.name}>
           <h3 style={ {
             'text-decoration': 'none',
@@ -123,11 +128,6 @@ class UserItem extends React.Component {
           <span>
             {lastMessage}
           </span>
-        </div>
-      </div>
-      <div className={styles['container-right']}>
-        <div className={styles.time}>
-          {time}
         </div>
       </div>
       </NavLink>

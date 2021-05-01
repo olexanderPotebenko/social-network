@@ -2,8 +2,8 @@ import React from 'react';
 import {Field,Fields, reduxForm} from 'redux-form';
 import {NavLink} from 'react-router-dom';
 import {requiredFields, matchPasswords, minLengthCreator, 
-  maxLengthCreator, emailValidate, onlyLetters} 
-from '../../utils/validators.js';
+  maxLengthCreator, emailValidate, onlyLetters, complexPassword} from '../../utils/validators.js';
+import {nameNor, } from '../../utils/fieldNormalizators.js';
 import {Input, Button, ErrorForm, } from '../commons/FormsControls/FormsControls.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
 import styles from './Auth.module.css';
@@ -35,13 +35,15 @@ class SignUpForm extends React.Component {
         <div>
           <Field name='first_name' autoFocus={true}
             validate={[requiredFields, maxLength20, onlyLetters]}
+            normalize={nameNor}
             component={Input}
             placeholder=' Enter your first name' />
         </div>
 
         <div>
-          <Field name='last_name' validate={[requiredFields, 
-              maxLength20, onlyLetters]}
+          <Field name='last_name' 
+            validate={[requiredFields, maxLength20, onlyLetters]}
+            normalize={nameNor}
             component={Input}
             placeholder=' Enter your last name' />
         </div>
@@ -53,7 +55,7 @@ class SignUpForm extends React.Component {
         </div>
         <div>
           <Field name='password' validate={[requiredFields, 
-              maxLength20, minLength6]}
+              maxLength20, minLength6, complexPassword]}
             component={Input}
             type='password'
             placeholder=' Create your password' />

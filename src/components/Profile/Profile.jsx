@@ -31,7 +31,7 @@ import avatar from '../../assets/images/avatar_default.png';
 class Profile extends React.Component {
 
   state = {
-    postedModal: false,
+    profInfoViewMode: false,
     scrollTop: 0,
     load: false,
   }
@@ -42,7 +42,7 @@ class Profile extends React.Component {
   componentWillUpdate() {
   }
 
-  changeVisibleModal = ((bool) => this.setState({postedModal: bool})).bind(this);
+  changeVisibleModal = ((bool) => this.setState({profInfoViewMode: bool})).bind(this);
 
   onLoad = () => {
     this.setState({load: true});
@@ -109,7 +109,7 @@ class Profile extends React.Component {
 
           style={ (() => {
             return !this.props.history.location.pathname.split('/').includes('posts')? 
-              {'grid-template-columns': '80px 1fr 90px'}: {'grid-template-columns': '1fr 90px'}
+              {'grid-template-columns': '80px 1fr 80px'}: {'grid-template-columns': '1fr 80px'}
           })() } >
 
           {
@@ -149,7 +149,7 @@ class Profile extends React.Component {
         <Route component={Subscribed} path={'/profile/:user_id/subscribed'}  />
       </div>
       {
-        this.state.postedModal && <Modal width={800} height={420} 
+        this.state.profInfoViewMode && <Modal width={800} height={420} 
           Component={ProfileInfo}
           changeVisibleModal={this.changeVisibleModal} />
       }
@@ -165,7 +165,6 @@ class Profile extends React.Component {
       </div>
   }
 };
-
 
 class ProfileContainer extends React.Component {
   constructor(props) {

@@ -28,17 +28,17 @@ let AuthInfo = (props) => {
 
   return <div className={styles.wrapper}>
     <div>
-      <NavLink to={`/profile/${props.auth.id}/posts`}
+      <NavLink  className={styles.avatar_wrapper} to={`/profile/${props.auth.id}/posts`}
         onClick={() => { props.setEditMode(false) } }>
-        <div className={styles.avatar_wrapper}>
+        <div>
           <div className={styles.avatar}>
             <Avatar id={props.auth.id} />
-          </div>
           <div className={styles.indicator} 
             style={ {
               'background-color': indicator_styles,
               'box-shadow': `0 0 5px ${indicator_styles}`,
             } }>
+          </div>
           </div>
         </div>
       </NavLink>

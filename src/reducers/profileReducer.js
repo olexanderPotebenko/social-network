@@ -85,8 +85,11 @@ function addNewText (state, text) {
 };
 
 function setUserProfile (state, profile) {
+  debugger;
   let state_copy = {...state};
+  debugger;
   state_copy.profile = profile;
+  debugger;
   return state_copy;
 };
 
@@ -96,6 +99,7 @@ export const getProfile = options => dispatch => {
     .then(data => {
       dispatch(setProfileFetchingAC(false));
       if(data.data.result_code === 0){
+        debugger;
         dispatch(setUserProfileActionCreator(data.data));
       }
     });

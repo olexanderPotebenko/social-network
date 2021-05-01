@@ -49,8 +49,8 @@ class DialogInfo extends React.Component {
           this.props.history.goBack();
           }).bind(this) } />
       </div>
-      <div className={styles.center}>
-      <NavLink to={`/profile/${this.props.user_id}/posts`}>
+      <div>
+      <NavLink  className={styles.center} to={`/profile/${this.props.user_id}/posts`}>
         <div className={styles.avatar}>
         <Avatar id={ this.props.user_id } />
       </div>

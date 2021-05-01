@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Auth.module.css';
-import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {change, reset, Field, reduxForm, formValueSelector} from 'redux-form';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
@@ -8,7 +8,6 @@ import {compose} from 'redux';
 import {requiredFields, maxLengthCreator, } from '../../utils/validators.js';
 import {Input, Button, ErrorForm} from '../commons/FormsControls/FormsControls.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
-import {loadPassword as loadAccount} from '../../reducers/account.js';
 
 const accounts = [
   {
@@ -34,14 +33,17 @@ class SignInForm extends React.Component {
   }
 
   componentDidMount () {
-    setTimeout(() => 
-      alert('Нажмите на поле ввода адреса почты и выберите один из предложенных вариантов'), 1000);
+    setTimeout(() => {
+      if(!this.props.auth.is_auth) {
+        alert('Нажмите на поле ввода адреса почты и выберите один из предложенных вариантов')
+      }
+    }, 1000);
   }
 
   componentWillUpdate (nextProps) {
-    if(nextProps.email != this.props.email) {
-      debugger;
-      this.props.load(accounts, nextProps.email);
+    if(nextProps.email != this.props.email || nextProps.password != this.props.password) {
+      const acc = accounts.find(acc => acc.email === nextProps.email);
+      if(acc) this.props.change('password', acc.password);
     }
   }
 
@@ -77,8 +79,8 @@ class SignInForm extends React.Component {
         </div>
         <div>
           <Field name='password' component={Input} 
-            validate={[requiredFields, maxLength30, ]} 
             type='password'
+            validate={[requiredFields, maxLength30, ]} 
             reference={this.state.emailInput}
             placeholder=' Enter your password' />
         </div>
@@ -100,12 +102,11 @@ const selector = formValueSelector('signin');
 
 export default compose(
   connect(
-    state => ({
-      initialValues: state.account.data,
-      email: selector(state, 'email'),
-      password: selector(state, 'password'),
-    }),
-    {load: loadAccount}
+    state => {
+      const {email, password} = selector(state, 'email', 'password');
+      return {email, password}
+    },
   ),
-  reduxForm({form: 'signin'})
+  reduxForm({form: 'signin',
+  })
 )(SignInForm);

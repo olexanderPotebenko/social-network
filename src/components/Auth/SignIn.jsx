@@ -1,16 +1,19 @@
 import React from 'react';
+import cls from './Auth.module.css';
+
 import {compose} from 'redux';
-import WithAuthData from '../../hocs/WithAuthData.jsx';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+
 import {login, setServerErrorActionCreator} from '../../reducers/authReducer.js';
+
 import SignInForm from './SignInForm.jsx';
-import cls from './Auth.module.css';
+import WithAuthData from '../../hocs/WithAuthData.jsx';
 
 class SignIn extends React.Component {
 
   componentDidMount(){
-    //this.props.login({email: 'alina.lukianenko@gmail.com', password: '111111'})
+    this.props.login({email: 'alina.lukianenko@gmail.com', password: '111111'})
   }
   componentWillUnmount(){
     this.props.setServerError(undefined);
@@ -42,7 +45,7 @@ const mapsStateToProps = (state) => {
 
 const mapsDispatchToProps = {
   login,
-  setServerError: setServerErrorActionCreator
+  setServerError: setServerErrorActionCreator,
 };
 
 export default compose(

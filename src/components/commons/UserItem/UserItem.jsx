@@ -31,8 +31,9 @@ class UserItem extends React.Component {
 
     return <div className={styles.wrp}>
       <div className={styles.container} >
-        <div className={styles.avatar}>
-          <NavLink to={`/profile/${this.props.user.id}/posts`}
+        <div >
+          <NavLink className={styles.avatar} 
+            to={`/profile/${this.props.user.id}/posts`}
             onClick={this.props.changeVisibleModal}>
             { !this.state.load
                 && <div className={styles.fetching}>
