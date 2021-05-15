@@ -76,11 +76,13 @@
 }
 
 .input-text-wrp textarea {
-  background-color: #efefff;
+  background-color: rgba(0, 0, 20, .2);
+  opacity: .8;
 }
 
 .input-text-wrp textarea:focus {
-  background-color: white;
+  background-color: rgba(0, 0, 20, .3);
+  opacity: 1;
 }
 
 .choose-button-wrp {

@@ -67,8 +67,7 @@ h3 {
 
 html {
   font-family: Arial, Verdana, Helvetica, sans-serif;
-  font: 400 16px Arial;
-  font-size: 100%;
+  font: 400 14px Arial;
   color: #eee;
   background-color: #191925;
   /*-ms-overflow-style: none;  /* IE 10+ */
@@ -79,7 +78,7 @@ html {
 /*   border: 1px red solid; */
 /* } */
 nav {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: #fff;
 }

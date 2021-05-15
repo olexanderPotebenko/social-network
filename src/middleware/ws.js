@@ -1,5 +1,5 @@
 import {SET_AUTH_DATA, WS_FOLLOW, setWsActionCreator} from '../reducers/authReducer.js';
-import {WS_MESSAGE, READ_MESSAGES, getDialog, getDialogs} from '../reducers/messagesReducer.js';
+import {WS_MESSAGE, READ_MESSAGES, getDialog, getDialogs, getDialogsWithoutToggle} from '../reducers/messagesReducer.js';
 import {SEND_YOU_MESSAGE, FOLLOW_YOU, LIKE_YOUR_POST, addNotification} from '../reducers/notifi.js';
 import {SET_LIKES_POST} from '../reducers/profileReducer.js';
 
@@ -33,20 +33,22 @@ const ws = store => next => action => {
 
     ws.onmessage = (event) => {
       state = store.getState();
-      console.log(event);
+      //console.log(event);
       let data = JSON.parse(event.data);
-      console.log(data);
+      //console.log(data);
       //let {id, token, dialog_id} = options;
       //alert(`[message] Данные получены с сервера: ${event.data}`);
       let options = {};
       switch(data.action) {
         case SEND_MESSAGE:
 
-          console.log(state);
+          //console.log(state);
           options = {
             id: state.auth.id,
             token: state.auth.token,
           };
+
+          //aaaa
 
           if(state.messagesPage.dialogs.find(dialog => dialog.user_id == data.id)){
             let url = document.location.href;
@@ -69,6 +71,7 @@ const ws = store => next => action => {
               };
               store.dispatch(addNotification(options, SEND_YOU_MESSAGE));
             }
+            store.dispatch(getDialogsWithoutToggle(options))
           } else {
             store.dispatch(getDialogs(options))
               .then(res => {
@@ -119,7 +122,7 @@ const ws = store => next => action => {
 
   switch(action.type) {
     case SET_AUTH_DATA:
-      console.log(SET_AUTH_DATA);
+      //console.log(SET_AUTH_DATA);
       startWebSocketConnection();
       break;
     case WS_MESSAGE:

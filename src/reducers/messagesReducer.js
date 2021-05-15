@@ -82,6 +82,15 @@ export const getDialogs = options => dispatch => {
       };
     });
 }
+export const getDialogsWithoutToggle = options => dispatch => {
+  return messageApi.getDialogs(options)
+    .then(res => {
+      if(res.data.result_code == 0){
+        return dispatch(setDialogsActionCreator(res.data.dialogs) );
+      }else{
+      };
+    });
+}
 
 export const getDialog = options => dispatch => {
   return messageApi.getDialog(options)
@@ -119,6 +128,7 @@ export const sendMessage = options => dispatch => {
       if(data.result_code == 0){
         dispatch(selectDialog(data.id));
         dispatch({type: WS_MESSAGE, user_id: data.user_id});
+        dispatch(getDialogsWithoutToggle(options));
       }
     });
 };

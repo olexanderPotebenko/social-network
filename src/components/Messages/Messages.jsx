@@ -39,9 +39,10 @@ class Messages extends React.Component {
 
     let dialogs = this.props.dialogs;
     if(dialogs.length > 0) {
-      dialogs = dialogs.map(dialog => 
-        <DialogItem dialog={dialog} auth={this.props.auth} 
-        selectDialog={this.props.selectDialog.bind(this)}/>)
+      dialogs = dialogs.sort( (d1, d2) => d2.dateLastModified - d1.dateLastModified)
+        .map(dialog => 
+          <DialogItem dialog={dialog} auth={this.props.auth} 
+            selectDialog={this.props.selectDialog.bind(this)}/>);
     }
     return (
       <div className={styles.wrp}>
@@ -75,6 +76,11 @@ class DialogItem extends React.Component {
   componentDidMount() {
     let dialog = this.props.dialog;
   }
+  componentDidUpdate(prevProps) {
+    if(prevProps.dialog.user_avatar != this.props.dialog.user_avatar) {
+      this.setState({photo: this.props.dialog.user_avatar});
+    };
+  }
 
   onError = () => {
     this.setState({photo: avatar_default});
@@ -93,6 +99,7 @@ class DialogItem extends React.Component {
     if(time.length === 1) time = time[0];
     else time = time[0] + ':' + time[1] + time[2].slice(-3);
 
+    debugger;
     let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
     if(lastMessage.length > 50) lastMessage = lastMessage.slice(0, 50) + '...';
     return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}
@@ -125,10 +132,18 @@ class DialogItem extends React.Component {
           </h3>
         </div>
         <div className={styles['last-message']}>
-          <span>
+          {
+            dialog.lastMessage && !dialog.lastMessage.read && 
+              dialog.lastMessage.userId != this.props.auth.id
+              &&
+              <span className={styles['unread']}>
+          {lastMessage}
+        </span>
+          || <span>
             {lastMessage}
           </span>
-        </div>
+          }
+      </div>
       </div>
       </NavLink>
   }

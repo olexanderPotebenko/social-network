@@ -23,7 +23,7 @@ import Modal from '../commons/Modal/Modal';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import BackButtom from '../commons/BackButton/BackButton.jsx';
 import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
-import Avatar from '../commons/Avatar/Avatar.jsx';
+import AvatarByPath from '../commons/AvatarByPath/AvatarByPath.jsx';
 
 import avatar from '../../assets/images/avatar_default.png';
 
@@ -102,6 +102,7 @@ class Profile extends React.Component {
       });
     };
 
+    let photoSmall = this.props.profile ? this.props.profile.photos.small: avatar;
     return <div className={styles.wrp} >
 
       <div className={styles['header-wrp']}>
@@ -123,7 +124,7 @@ class Profile extends React.Component {
 
       <div className={styles['user-info']}>
         <div className={styles.avatar}>
-          <Avatar id={this.props.profile.id} />
+          <AvatarByPath id={this.props.profile.id} photo={photoSmall} />
        </div>
 
         <div className={styles['profile-name']} >

@@ -13,7 +13,7 @@ import {InputImage, Button, ErrorForm} from '../../commons/FormsControls/FormsCo
 import poster from '../../../assets/images/space.jpg';
 import default_avatar from '../../../assets/images/avatar_default.png';
 import FetchingToggle from '../../commons/FetchingToggle/FetchingToggle';
-import Avatar from '../../commons/Avatar/Avatar.jsx';
+import AvatarByPath from '../../commons/AvatarByPath/AvatarByPath.jsx';
 
 let svg = [
   <svg xmlns="http://www.w3.org/2000/svg" class="rubicons pencil-write" width="36" height="36" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none">
@@ -88,7 +88,6 @@ class ProfileInfo extends React.Component {
           id: this.props.auth? this.props.auth.id: '',
           token: this.props.auth? this.props.auth.token: '',
         };
-        debugger;
         this.props.getProfile(options);
       });
   }
@@ -110,7 +109,7 @@ class ProfileInfo extends React.Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.avatar}>
-          <Avatar id={this.props.profile.id} styles={avatarStyles} />
+          <AvatarByPath id={this.props.profile.id} photo={this.props.profile.photos.small} styles={avatarStyles} />
           {
             this.state.editMode && <div className={styles['change-photo-button']} >
           <button ref={change_photo_button} >
@@ -139,9 +138,7 @@ class ProfileInfoForm extends React.Component {
 
     const getFormatDate = () => {
       let date = new Date();
-      console.log(date);
       let result = `${date.getFullYear()}-${1 + +date.getMonth()}-${date.getDate()}`.replace(/-(\d)-/g, '-0$1-');
-      console.log(result);
       return result;
     };
     this.props.editMode || this.props.reset();

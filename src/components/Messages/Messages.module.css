@@ -73,6 +73,10 @@
   color: rgba(255, 255, 255, .4);
 }
 
+.unread {
+  color: rgba(150, 150, 255, .9) !important;
+  font-weight: 500 !important;
+}
 /* -------------------------*/
 .container-right {
   display: grid;

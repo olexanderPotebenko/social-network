@@ -5,7 +5,7 @@ import default_avatar from '../../../assets/images/avatar_default.png';
 
 import WithAuthData from '../../../hocs/WithAuthData.jsx';
 
-import Avatar from '../../commons/Avatar/Avatar.jsx';
+import AvatarByPath from '../../commons/AvatarByPath/AvatarByPath.jsx';
 
 let AuthInfo = (props) => {
 
@@ -32,7 +32,7 @@ let AuthInfo = (props) => {
         onClick={() => { props.setEditMode(false) } }>
         <div>
           <div className={styles.avatar}>
-            <Avatar id={props.auth.id} />
+            <AvatarByPath id={props.auth.id} photo={props.auth.photo}/>
           <div className={styles.indicator} 
             style={ {
               'background-color': indicator_styles,
@@ -51,7 +51,6 @@ let AuthInfo = (props) => {
     <div>
       <NavLink className={styles.logout_button} to='/signin' 
         onClick={()=>{
-          debugger;
           props.setEditMode(false);
           setTimeout(() => props.setAuthData({is_auth: false}));
         }}>
