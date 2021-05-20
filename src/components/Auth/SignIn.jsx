@@ -13,7 +13,7 @@ import WithAuthData from '../../hocs/WithAuthData.jsx';
 class SignIn extends React.Component {
 
   componentDidMount(){
-    this.props.login({email: 'alina.lukianenko@gmail.com', password: '111111'})
+    // this.props.login({email: 'alina.lukianenko@gmail.com', password: '111111'})
   }
   componentWillUnmount(){
     this.props.setServerError(undefined);
@@ -26,8 +26,8 @@ class SignIn extends React.Component {
   render() {
     if(this.props.auth.is_auth && !!~this.props.location.pathname.indexOf('signin')) {
       //this.props.history.push(`/profile/${this.props.auth.id}/subscribers/`);
-      // this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
-    this.props.history.push(`/messages/${this.props.auth.id}/`);
+      this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
+    // this.props.history.push(`/messages/${this.props.auth.id}/`);
     //this.props.history.push(`/users/`);
     }
     return <div className={cls.wrapper_container}>
