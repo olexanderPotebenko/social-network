@@ -1,0 +1,20 @@
+.avatar {
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius:78px;
+  background-color: rgba(200, 200, 230, .2);
+}
+
+.fetching {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
