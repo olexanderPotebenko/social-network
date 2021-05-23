@@ -49,7 +49,6 @@ class PaginationBar extends React.Component {
     };
     pages = pages.slice(-7);
     if(str != '...') {
-      debugger;
       pages = pages.slice(-6);
     }
 

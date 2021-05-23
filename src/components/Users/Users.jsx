@@ -1,6 +1,10 @@
 import React from 'react';
-import Filter from './Filter/Filter.jsx';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
+import WithSignInRedirect from '../../hocs/WithSignInRedirect.jsx';
+import WithAuthData from '../../hocs/WithAuthData.jsx';
+
+import Filter from './Filter/Filter.jsx';
 import * as axios from 'axios';
 import {getUsers, follow, unfollow, followedActionCreator, unfollowedActionCreator, setUsersActionCreator, setUsersCountActionCreator, setPageCurrentActionCreator, setIsFetchingActionCreator} from '../../reducers/usersReducer.js';
 import UserItem from '../commons/UserItem/UserItem.jsx';
@@ -84,4 +88,8 @@ let mapsDispatchToProps = {
   getUsers,
 };
 
-export default connect(mapsStateToProps, mapsDispatchToProps)(Users);
+export default compose (
+  WithAuthData,
+  WithSignInRedirect,
+  connect(mapsStateToProps, mapsDispatchToProps)
+)(Users);

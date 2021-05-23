@@ -99,7 +99,6 @@ class DialogItem extends React.Component {
     if(time.length === 1) time = time[0];
     else time = time[0] + ':' + time[1] + time[2].slice(-3);
 
-    debugger;
     let lastMessage = dialog.lastMessage? dialog.lastMessage.text: 'massage list is empty..';
     if(lastMessage.length > 50) lastMessage = lastMessage.slice(0, 50) + '...';
     return <NavLink to={`/messages/${this.props.auth.id}/dialog/${dialog.dialog_id}/`}

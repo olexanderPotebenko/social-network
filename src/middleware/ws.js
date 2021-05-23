@@ -2,6 +2,7 @@ import {SET_AUTH_DATA, WS_FOLLOW, setWsActionCreator} from '../reducers/authRedu
 import {WS_MESSAGE, READ_MESSAGES, getDialog, getDialogs, getDialogsWithoutToggle} from '../reducers/messagesReducer.js';
 import {SEND_YOU_MESSAGE, FOLLOW_YOU, LIKE_YOUR_POST, addNotification} from '../reducers/notifi.js';
 import {SET_LIKES_POST} from '../reducers/profileReducer.js';
+import {host} from '../api/api.js';
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
@@ -13,7 +14,7 @@ const ws = store => next => action => {
   let state = store.getState();
 
   const startWebSocketConnection = () => {
-    let ws = new WebSocket('ws://127.0.0.1:8181');
+    let ws = new WebSocket(`ws://${host}:8181`);
     ws.onopen = (e) => {
       store.dispatch(setWsActionCreator(ws));
       ws.send(JSON.stringify({
@@ -33,22 +34,15 @@ const ws = store => next => action => {
 
     ws.onmessage = (event) => {
       state = store.getState();
-      //console.log(event);
       let data = JSON.parse(event.data);
-      //console.log(data);
-      //let {id, token, dialog_id} = options;
-      //alert(`[message] Данные получены с сервера: ${event.data}`);
       let options = {};
       switch(data.action) {
         case SEND_MESSAGE:
 
-          //console.log(state);
           options = {
             id: state.auth.id,
             token: state.auth.token,
           };
-
-          //aaaa
 
           if(state.messagesPage.dialogs.find(dialog => dialog.user_id == data.id)){
             let url = document.location.href;
@@ -62,8 +56,6 @@ const ws = store => next => action => {
               store.dispatch(getDialog(options));
 
             } else {
-              //let {id, token, user_id} = options;
-              //data.id, SEND_YOU_MESSAGE
               options = {
                 id: state.auth.id,
                 token: state.auth.token,
@@ -84,7 +76,6 @@ const ws = store => next => action => {
           }
           break;
         case READ_MESSAGES:
-          //alert('new mess');
           if(state.messagesPage.dialog.dialog_id === data.dialog_id) {
             options = {
               id: state.auth.id,
@@ -122,7 +113,6 @@ const ws = store => next => action => {
 
   switch(action.type) {
     case SET_AUTH_DATA:
-      //console.log(SET_AUTH_DATA);
       startWebSocketConnection();
       break;
     case WS_MESSAGE:

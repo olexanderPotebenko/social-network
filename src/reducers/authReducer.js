@@ -102,6 +102,7 @@ export const signUp = (data) => (dispatch) => {
         console.log('User successfuly registered!');
         dispatch(setServerErrorActionCreator(res.message));
         dispatch(stopSubmit('signup', {_error: res.message}));
+        dispatch(login({email: data.email, password: data.password})); 
       }else{
         dispatch(setServerErrorActionCreator(res.message));
       };

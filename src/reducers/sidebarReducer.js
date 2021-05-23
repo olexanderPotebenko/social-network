@@ -4,7 +4,7 @@ const SET_LEFT = 'SET-LEFT';
 const SET_SHADING_DISPLAY = 'SET-SHADING-DISPLAY';
 
 let initial_state = {
-  editMode: false,
+  editMode: true,
   left: -260,
   shadingDisplay: 'none',
 };

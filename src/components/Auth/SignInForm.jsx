@@ -12,11 +12,11 @@ import FetchingToggle from '../commons/FetchingToggle/FetchingToggle.jsx';
 const accounts = [
   {
     email: 'alina.lukianenko@gmail.com',
-    password: '111111',
+    password: 'Password96',
   }, 
   {
     email: 'viktoriya.dyachenko@gmail.com',
-    password: '111111',
+    password: 'Password96',
   },
 ];
 

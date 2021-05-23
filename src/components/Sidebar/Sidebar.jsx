@@ -49,7 +49,7 @@ class Sidebar extends React.Component {
   }
 
   render () {
-        const maxLeft = -260;
+    const maxLeft = -260;
 
     let animation = this.props.auth.is_auth ? 
       styles.after_auth_position:
@@ -57,7 +57,7 @@ class Sidebar extends React.Component {
 
     let content = React.createRef();
 
-      setTimeout( () => {
+    setTimeout( () => {
       let rubicon = -70;
       if(this.props.editMode && this.props.left !== 0) {
         this.props.setShadingDisplay('block');
@@ -66,12 +66,12 @@ class Sidebar extends React.Component {
         } else if (this.props.left > -5) {
           this.props.setLeft(0);
         } else {
-          this.props.setLeft(this.props.left + 15);
+          this.props.setLeft(this.props.left + 25);
         }
       } else if (!this.props.editMode && this.props.left !== -260 ){
         this.props.setShadingDisplay('none');
         if(this.props.left > -250) {
-          this.props.setLeft(this.props.left - 15);
+          this.props.setLeft(this.props.left - 25);
         } else {
           this.props.setLeft(-260);
         }
@@ -89,13 +89,13 @@ class Sidebar extends React.Component {
             <MenuItem {...this.props} link={`/profile/${this.props.auth.id}/posts`} text='Profile' 
               img={svg[0]}/>
             <MenuItem {...this.props} link={`/messages/${this.props.auth.id}/`} text='Messages' 
-            img={svg[1]}/>
+              img={svg[1]}/>
             <MenuItem {...this.props} link='/users' text='Users' 
-            img={svg[2]}/>
+              img={svg[2]}/>
           </nav>
           <button className={styles['toggle-edit-button']}
             onClick={ (e) => {
-            this.toggleEditMode(content);
+              this.toggleEditMode(content);
             } }>
             <img src={btnBlack} />
           </button>

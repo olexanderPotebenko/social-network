@@ -20,10 +20,12 @@ class SignUp extends React.Component {
             this.props.signUp(form_data)
         };
 
-        if(this.props.auth.success_sign_up){
-            this.props.setSignUpResult(false);
-            this.props.history.push(`/signin`);
-        };
+        debugger;
+      if(this.props.auth.is_auth && !!~this.props.location.pathname.indexOf('signup')) {
+        debugger;
+        this.props.history.push(`/profile/${this.props.auth.id}/posts/`);
+      };
+
         return <div className={cls.wrapper_container}>
             <h3>Registration</h3>
             <SignUpForm onSubmit={onSubmit} {...this.props}/>
@@ -44,5 +46,5 @@ const mapsDispatchToProps = {
 
 export default compose(
     connect(mapsStateToProps, mapsDispatchToProps),
-    WithAuthData
-)(SignUp);
+    WithAuthData,
+)(withRouter(SignUp));

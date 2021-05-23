@@ -5,12 +5,13 @@ import {NavLink} from 'react-router-dom';
 import FollowButton from '../FollowButton/FollowButton';
 import FetchingToggle from '../FetchingToggle/FetchingToggle.jsx';
 import avatar_default from '../../../assets/images/avatar_default.png';
+import {host} from '../../../api/api.js';
 
 class UserItem extends React.Component {
 
   state = {
     id: this.props.user.id,
-    photo: `http://localhost:8080/profile/${this.props.user.id}/avatar`,
+    photo: `http://${host}:8080/profile/${this.props.user.id}/avatar`,
     name: '',
     load: false,
   }

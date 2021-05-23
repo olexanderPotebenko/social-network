@@ -5,7 +5,7 @@ let WithSignInRedirect = (Component) => {
 
     class ComponentContainer extends React.Component {
         render() {
-            return this.props.auth.is_auth === true ? 
+            return this.props.auth && this.props.auth.is_auth === true ? 
                 <Component {...this.props} /> :
                 <Redirect to={'/signin'} />;
         };

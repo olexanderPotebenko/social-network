@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './AvatarByPath.module.css';
 import FetchingToggle from '../FetchingToggle/FetchingToggle.jsx';
 import avatar_default from '../../../assets/images/avatar_default.png';
+import {host} from '../../../api/api.js';
 
 class AvatarByPath extends React.Component {
 
   state = {
     id: this.props.id,
-    photo: `http://localhost:8080/profile/${this.props.id}/photos/small/${this.props.photo}`,
+    photo: `http://${host}:8080/profile/${this.props.id}/photos/small/${this.props.photo}`,
     load: false,
   }
 
@@ -17,7 +18,7 @@ class AvatarByPath extends React.Component {
     if(prevProps.id !== this.props.id || prevProps.photo !== this.props.photo){
       this.setState({
         id: this.props.id,
-        photo: `http://localhost:8080/profile/${this.props.id}/photos/small/${this.props.photo}`,
+        photo: `http://${host}:8080/profile/${this.props.id}/photos/small/${this.props.photo}`,
         load: false,
       });
     }

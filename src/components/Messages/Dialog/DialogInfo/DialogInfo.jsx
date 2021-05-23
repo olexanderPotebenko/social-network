@@ -12,7 +12,7 @@ import {selectDialog, deleteDialog} from '../../../../reducers/messagesReducer.j
 //components
 import BackButton from '../../../commons/BackButton/BackButton.jsx';
 import DropDownMenu from '../../../commons/DropDownMenu/DropDownMenu.jsx';
-import Avatar from '../../../commons/Avatar/Avatar.jsx';
+import AvatarByPath from '../../../commons/AvatarByPath/AvatarByPath.jsx';
 
 class DialogInfo extends React.Component {
 
@@ -31,6 +31,7 @@ class DialogInfo extends React.Component {
         this.props.deleteDialog(options);
       },
     });
+
     menu_items.push({
       value: 'nothin',
       onClick: () => {
@@ -41,6 +42,8 @@ class DialogInfo extends React.Component {
       onClick: () => {
       },
     });
+    debugger;
+
     return <div className={styles.wrp}>
       <div>
         <BackButton func={(() => {
@@ -52,7 +55,7 @@ class DialogInfo extends React.Component {
       <div>
       <NavLink  className={styles.center} to={`/profile/${this.props.user_id}/posts`}>
         <div className={styles.avatar}>
-        <Avatar id={ this.props.user_id } />
+        <AvatarByPath id={ this.props.user_id } photo={this.props.dialog.user_avatar}/>
       </div>
         <div className={styles.name} >
           <h3>
